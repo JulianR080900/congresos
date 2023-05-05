@@ -1,56 +1,25 @@
-# CodeIgniter 4 Framework
+# Plataforma VIVE REDESLA
 
-## What is CodeIgniter?
+## Que es?
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](http://codeigniter.com).
+Es una plataforma centrada especificamente en el acceso a los eventos virtuales de los cuales REDESLA es dueño. 
+Aqui se estara haciendo el proceso de desarrollo de la plataforma.
 
-This repository holds the distributable version of the framework,
-including the user guide. It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## QUE HAY QUE HACER?
 
-More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
+Para los desarrolladores nuevos, la estructura principal funciona correctamente, pero hay aspectos en donde se debe mejorar todos los aspectos. 
+Actualmente el codigo de la pagina es un CODIGO EPAGUETI, que significa esto, que en archivos hay tanto CSS como JS HTML y demas. Eso debemos removerlo de donde se encuentra y migrarlo a un archivo y mandarlo llamar. Los headers de las paginas se estan mandando llamar dentro de los archivos, y eso no esta correcto. Deben ser llamados desde el controlador. Cuestiones de inicio de sesion que se les estara explicando el Ing. Julian. Si tienen alguna duda no duden en preguntar.
 
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/).
+# PASOS PARA QUE SU PROYECTO FUNCIONE EN LOCAL
 
+## EN SU SERVIDOR
 
-## Important Change with index.php
+1.- Se tiene que clonar este repositorio utilizando la herramienta de GITHUB DESKTOP a su carpeta de repositorios de XAMPP
+2.- Importar las bases de datos a su base de datos local, estas bases de datos son 2. Se les estara compartiendo los archivos sql por el grupo de Whatsapp
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+## EN EL REPOSITORIO
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+1.- en APP/CONFIG/APP modificar el base_url a su ruta del proyecto local
+2.- en APP/CONFIG/DATABASE/ redireccionar a sus bases de datos locales
 
-**Please** read the user guide for a better explanation of how CI4 works!
-
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Contributing
-
-We welcome contributions from the community.
-
-Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/CONTRIBUTING.md) section in the development repository.
-
-## Server Requirements
-
-PHP version 7.3 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
-- xml (enabled by default - don't turn it off)
+Una vez haciendo todo eso podran visualizar el proyecto y podran trabajar en el. Para saber que se debe se hacer comentarle al Ing. Julian sobre que hacer, dudas o como lo solucionaria de manera mas sencilla. No duden en preguntar.
