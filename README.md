@@ -10,6 +10,8 @@ Aqui se estara haciendo el proceso de desarrollo de la plataforma.
 Para los desarrolladores nuevos, la estructura principal funciona correctamente, pero hay aspectos en donde se debe mejorar todos los aspectos. 
 Actualmente el codigo de la pagina es un CODIGO EPAGUETI, que significa esto, que en archivos hay tanto CSS como JS HTML y demas. Eso debemos removerlo de donde se encuentra y migrarlo a un archivo y mandarlo llamar. Los headers de las paginas se estan mandando llamar dentro de los archivos, y eso no esta correcto. Deben ser llamados desde el controlador. Cuestiones de inicio de sesion que se les estara explicando el Ing. Julian. Si tienen alguna duda no duden en preguntar.
 
+##IMPORTANTE TRABAJAR EN SU RAMA (BRANCH)
+
 # PASOS PARA QUE SU PROYECTO FUNCIONE EN LOCAL
 
 ## EN SU SERVIDOR
