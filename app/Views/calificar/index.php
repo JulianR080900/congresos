@@ -130,7 +130,7 @@ particlesJS.load('particles-js', '<?= base_url('public/js/landing/particlesjs-co
                     //$("#particles-js").append('<div class="wrapper astonish animated fadeInDown"><h1><strong>VIVE</strong>REDESLA</h1><h2>Sección de cursos y congresos</h2></div>')
               });
     function existeGafete(){
-        var clave = $("#clave").val();
+        var clave = $("#clave").val().trim();
         
         if(clave == ""){
             Swal.fire({
@@ -140,25 +140,23 @@ particlesJS.load('particles-js', '<?= base_url('public/js/landing/particlesjs-co
             });
         }else{
             $.ajax({
-            url:"MainController/validarGafete",
-            type: "POST",
-            data: $("#formGafete").serialize(),
-                success: function(resp){
-                    var resultado = JSON.parse(resp);
-                    // console.log(resultado);
-                    if(resultado == 'NoExisteGafete'){
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'EL gafete no existe. Favor de revisar si esta escrito correctamente',
-                        });
-                    }else{
-                        $("#formGafete").submit();
-                    }
+                url:"./validarGafete",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    clave: clave
                 },
-                statusCode: {
-                    400: function(xhr){
-                    }
+                success: function(resp){
+                    console.log(resp);
+                    window.location.assign(resp); 
+                },
+                error: function(err) {
+                    console.log(err);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Ooops... algo ocurrio',
+                        text: err.responseText
+                    })
                 }
             })
         }

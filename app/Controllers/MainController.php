@@ -22,10 +22,6 @@ class MainController extends BaseController
          $this->IquatroModel = new IquatroModel($db);
     }
 
-
-
-
-
     public function index()
     {
         return view('landing/index');
@@ -46,32 +42,23 @@ class MainController extends BaseController
         $condiciones = array("clave_gafete" => $gafete);
         $resultado = $this->MainModel->getAllOneRow('participantes_congresos', $condiciones);
 
+        //ERROR
         if (empty($resultado)) {
-            return json_encode("NoExisteGafete");
-        } else {
-            return json_encode($resultado);
-        }
-    }
+            http_response_code(501);
+            $response = "El gafete no existe. Favor de revisar si esta escrito correctamente"; 
+            return $response;
+            exit;
+        } 
 
-
-    public function verificarCodigo()
-    {
-        $codigo = $this->request->getPost('clave');
-
-        $condiciones = array("clave_gafete" => $codigo);
-
-        $resultado = $this->MainModel->getAllOneRow('participantes_congresos', $condiciones);
-
-        $condiciones = array("publication_id" => $resultado["publication_id"], "red" => $resultado["red"]);
-        $nombre_ponencia = $MainModel->getAllOneRow('ponencias', $condiciones);
+        $correo = "";
         if($resultado['usuario'] !== ""){
             $condicion = ["usuario" => $resultado['usuario']];
-            $correo_usuario = $MainModel->getAllOneRow('usuarios', $condicion);
+            $correo_usuario = $this->MainModel->getAllOneRow('usuarios', $condicion);
+            //Establecer correo si el usuario existe
             $correo = $correo_usuario['correo'];
-        }else{
-            $correo = "";
         }
-        if($resultado["oyente"] == 1){
+
+        if($resultado["oyente"] === 1) {
             $data = [
                 "logueado" => "Si",
                 "clave_gafete" => $resultado['clave_gafete'],
@@ -84,8 +71,21 @@ class MainController extends BaseController
                 "claveCuerpo" => $resultado["claveCuerpo"],
                 "correo" => $correo
             ];
-            
-        }else{
+        }
+        else{
+            $nombre_ponencia = $this->MainModel->getAllOneRow(
+                'ponencias', 
+                array("publication_id" => $resultado["publication_id"], "red" => $resultado["red"])
+            );
+
+            //ERROR
+            if(empty($nombre_ponencia)) {
+                http_response_code(501);
+                $response = "Algo sucedio, favor de contactar con el equipo de RedesLA"; 
+                echo $response;
+                exit;
+            }
+
             $data = [
                 "logueado" => "Si",
                 "clave_gafete" => $resultado['clave_gafete'],
@@ -97,16 +97,14 @@ class MainController extends BaseController
                 "anio" => $resultado["anio"],
                 "claveCuerpo" => $resultado["claveCuerpo"],
                 "correo" => $correo
-                ];
+            ];   
         }
 
-        echo '<pre>';
-        echo print_r($data);
-        echo '</pre>';
-
+        http_response_code(200);
         $session = session();
         $session->set($data);
-        return redirect()->to(base_url('/datos_generales'));
+        return json_encode(base_url('/datos_generales'));
+
     }
 
     public function logout(){

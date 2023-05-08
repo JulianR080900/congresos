@@ -37,7 +37,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'MainController::general');
 //$routes->get('/general', 'MainController::general');
 $routes->get('/datos_generales', 'MainController::home');
-$routes->post('/verificarCodigo', 'MainController::verificarCodigo');
+$routes->post('/validarGafete', 'MainController::validarGafete');
 $routes->get('/logout', 'MainController::logout');
 $routes->get('/imprimirPDF', 'MainController::imprimirPDF');
 $routes->get('/congreso/(:any)', 'MainController::congreso/$1');
