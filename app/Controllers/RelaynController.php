@@ -17,11 +17,11 @@ class RelaynController extends BaseController
         $date = date('Y-m-d H:i:s');
     }
     
-    public function recepcion_congreso_relayn(){
+    public function recepcion_congreso(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
             return redirect()->to(base_url("general"));
         }else{
-            return view('Relayn/'.session("anio")."/recepcion-congreso-relayn");
+            return view('Relayn/'."2022"."/recepcion-congreso-relayn");
         }
     }
     
@@ -33,19 +33,55 @@ class RelaynController extends BaseController
         }
     }
     
-    public function auditorio_congreso_relayn(){
+    public function auditorio_congreso(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
             return redirect()->to(base_url("general"));
         }else{
             return view('Relayn/2022/auditorio-congreso-relayn');
         }
     }
+
+
+    public function salon($n){
+
+        if(session('clave_gafete') == "" && session('red') !== "Relayn"){
+            return redirect()->to(base_url("general"));
+        }
+
+        #Anio #Red
+        /*
+        $red = session('red');
+        $anio = session('anio');
+        */
+
+        $red = session('red');
+        $anio = 2022;
+
+        $ruta = dirname(__DIR__)."\\Views\\".$red.'\\'.$anio.'\\salon_'.$n.'_'.strtolower($red).'.php';
+        #view/Relayn/2023/salon_2
+
+        #file_exist
+
+        if(!file_exists($ruta)){
+            #la ruta no existe mandamos un 404 y terminamos el codigo
+            http_response_code(404);
+            exit;
+        }
+
+        return view($red.'/'.$anio.'/salon_'.$n.'_'.strtolower($red));
+
+        #VERIFICAR SI EL ARCHIVO EXISTE
+        print_r(session('anio'));
+        exit;
+    }
+
     
     public function salon_1_relayn(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
             return redirect()->to(base_url("general"));
         }else{
             return view('Relayn/2022/salon_1_relayn');
+            $id=$request->uri->getSegment(3);
         }
     }
     
@@ -105,7 +141,7 @@ class RelaynController extends BaseController
         }
     }
     
-    public function entrada_congreso_relayn(){
+    public function entrada_congreso(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
             return redirect()->to(base_url("general"));
         }else{
@@ -113,7 +149,7 @@ class RelaynController extends BaseController
         }
     }
     
-    public function cabina_fotografica_relayn(){
+    public function cabina_fotografica(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
             return redirect()->to(base_url("general"));
         }else{
@@ -121,7 +157,7 @@ class RelaynController extends BaseController
         }
     }
     
-    public function lago_redesla_2022_relayn(){
+    public function lago_redesla(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
             return redirect()->to(base_url("general"));
         }else{
@@ -129,7 +165,7 @@ class RelaynController extends BaseController
         }
     }
     
-    public function mezzanine_congreso_relayn(){
+    public function mezzanine_congreso(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
             return redirect()->to(base_url("general"));
         }else{
@@ -161,7 +197,7 @@ class RelaynController extends BaseController
         }
     }
     
-    public function elevador_congreso_relayn(){
+    public function elevador_congreso(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
             return redirect()->to(base_url("general"));
         }else{

@@ -35,8 +35,7 @@ class MainController extends BaseController
         }
     }
 
-    public function validarGafete()
-    {
+    public function validarGafete(){
         $gafete = $this->request->getPost('clave');
 
         $condiciones = array("clave_gafete" => $gafete);
@@ -64,8 +63,7 @@ class MainController extends BaseController
                 "clave_gafete" => $resultado['clave_gafete'],
                 "red" => $resultado['red'],
                 "nombre" => $resultado["nombre"],
-                //"nombre_ponencia" => $nombre_ponencia["nombre"],
-                "congreso" => "Oyente ".$resultado["red"]." ".$resultado["anio"],
+                "congreso" => $nombre_ponencia["nombre_congreso"],
                 "oyente" => $resultado["oyente"],
                 "anio" => $resultado["anio"],
                 "claveCuerpo" => $resultado["claveCuerpo"],
@@ -105,7 +103,7 @@ class MainController extends BaseController
         $session->set($data);
         return json_encode(base_url('/datos_generales'));
 
-    }
+    }
 
     public function logout(){
         $session = session();
@@ -297,7 +295,12 @@ class MainController extends BaseController
             $MainModel = new MainModel();
             $condiciones = ['clave_gafete' => session('clave_gafete'), 'anio' => session('anio'), 'claveCuerpo' => session('claveCuerpo')];
             $MainModel->updateRow('participantes_congresos',$condiciones,$data);
-            return view("$red/" . date("Y") . "/entrada-congreso-".strtolower($red));
+            
+            //return redirect()->to(base_url("congreso/(any)"));
+            return view($red . "/2022" . "/entrada-congreso-".strtolower($red));
+            //return view($red . "/2022" . "/index");
+
+
         } else {
             return redirect()->to(base_url());
         }
@@ -307,7 +310,8 @@ class MainController extends BaseController
     {
         //MOSTRAMOS LA SALA GENERAL DEL CONGRESO DE CADA RED
         if (session('clave_gafete') !== null) {
-            return view(session('red') . "/" . date("Y") . "/sala_general");
+            //return view(session('red') . "/" . date("Y") . "/sala_general");
+            return view(session('red') . "/" . "2022" . "/sala_general");
         } else {
             return redirect()->to(base_url());
         }
@@ -316,7 +320,7 @@ class MainController extends BaseController
     public function vive_chiapas()
     {
         if (session('clave_gafete') !== null) {
-            return view(session('red') . "/" . date("Y") . "/vive_chiapas");
+            return view(session('red') . "/" . "2022" . "/vive_chiapas");
         } else {
             return redirect()->to(base_url());
         }
