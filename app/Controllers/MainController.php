@@ -58,20 +58,20 @@ class MainController extends BaseController
     {
         $codigo = $this->request->getPost('clave');
 
-        $condiciones = array("clave_gafete" => $codigo);
+        $resultado = $this->MainModel->getAllOneRow(
+            'participantes_congresos', 
+            array("clave_gafete" => $codigo)
+        );
 
-        $resultado = $this->MainModel->getAllOneRow('participantes_congresos', $condiciones);
-
-        $condiciones = array("publication_id" => $resultado["publication_id"], "red" => $resultado["red"]);
-        $nombre_ponencia = $MainModel->getAllOneRow('ponencias', $condiciones);
+        $correo = "";
         if($resultado['usuario'] !== ""){
             $condicion = ["usuario" => $resultado['usuario']];
-            $correo_usuario = $MainModel->getAllOneRow('usuarios', $condicion);
+            $correo_usuario = $this->MainModel->getAllOneRow('usuarios', $condicion);
+            //Establecer correo si el usuario existe
             $correo = $correo_usuario['correo'];
-        }else{
-            $correo = "";
         }
-        if($resultado["oyente"] == 1){
+
+        if($resultado["oyente"] === 1) {
             $data = [
                 "logueado" => "Si",
                 "clave_gafete" => $resultado['clave_gafete'],
@@ -84,26 +84,43 @@ class MainController extends BaseController
                 "claveCuerpo" => $resultado["claveCuerpo"],
                 "correo" => $correo
             ];
-            
-        }else{
-            $data = [
-                "logueado" => "Si",
-                "clave_gafete" => $resultado['clave_gafete'],
-                "red" => $resultado['red'],
-                "nombre" => $resultado["nombre"],
-                "nombre_ponencia" => $nombre_ponencia["nombre"],
-                "congreso" => $nombre_ponencia["nombre_congreso"],
-                "oyente" => $resultado["oyente"],
-                "anio" => $resultado["anio"],
-                "claveCuerpo" => $resultado["claveCuerpo"],
-                "correo" => $correo
-                ];
         }
-
-        echo '<pre>';
-        echo print_r($data);
-        echo '</pre>';
-
+        else{
+            $nombre_ponencia = $this->MainModel->getAllOneRow(
+                'ponencias', 
+                array("publication_id" => $resultado["publication_id"], "red" => $resultado["red"])
+            );
+            //Establecer el nombre de ponencia siempre y cuando exista el nombre de ponencia
+            if(!empty($nombre_ponencia)) {
+                $data = [
+                    "logueado" => "Si",
+                    "clave_gafete" => $resultado['clave_gafete'],
+                    "red" => $resultado['red'],
+                    "nombre" => $resultado["nombre"],
+                    "nombre_ponencia" => $nombre_ponencia["nombre"],
+                    "congreso" => $nombre_ponencia["nombre_congreso"],
+                    "oyente" => $resultado["oyente"],
+                    "anio" => $resultado["anio"],
+                    "claveCuerpo" => $resultado["claveCuerpo"],
+                    "correo" => $correo
+                ];
+            }
+            else {
+                $data = [
+                    "logueado" => "Si",
+                    "clave_gafete" => $resultado['clave_gafete'],
+                    "red" => $resultado['red'],
+                    "nombre" => $resultado["nombre"],
+                    "nombre_ponencia" => "Inexistente",
+                    "congreso" => $resultado["red"]." ".$resultado["anio"],
+                    "oyente" => $resultado["oyente"],
+                    "anio" => $resultado["anio"],
+                    "claveCuerpo" => $resultado["claveCuerpo"],
+                    "correo" => $correo
+                ];
+            }
+        }
+        
         $session = session();
         $session->set($data);
         return redirect()->to(base_url('/datos_generales'));
@@ -299,7 +316,12 @@ class MainController extends BaseController
             $MainModel = new MainModel();
             $condiciones = ['clave_gafete' => session('clave_gafete'), 'anio' => session('anio'), 'claveCuerpo' => session('claveCuerpo')];
             $MainModel->updateRow('participantes_congresos',$condiciones,$data);
-            return view("$red/" . date("Y") . "/entrada-congreso-".strtolower($red));
+            
+            //return redirect()->to(base_url("congreso/(any)"));
+            return view($red . "/2022" . "/entrada-congreso-".strtolower($red));
+            //return view($red . "/2022" . "/index");
+
+
         } else {
             return redirect()->to(base_url());
         }
@@ -309,7 +331,8 @@ class MainController extends BaseController
     {
         //MOSTRAMOS LA SALA GENERAL DEL CONGRESO DE CADA RED
         if (session('clave_gafete') !== null) {
-            return view(session('red') . "/" . date("Y") . "/sala_general");
+            //return view(session('red') . "/" . date("Y") . "/sala_general");
+            return view(session('red') . "/" . "2022" . "/sala_general");
         } else {
             return redirect()->to(base_url());
         }
@@ -318,7 +341,7 @@ class MainController extends BaseController
     public function vive_chiapas()
     {
         if (session('clave_gafete') !== null) {
-            return view(session('red') . "/" . date("Y") . "/vive_chiapas");
+            return view(session('red') . "/" . "2022" . "/vive_chiapas");
         } else {
             return redirect()->to(base_url());
         }
