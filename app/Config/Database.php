@@ -33,9 +33,9 @@ class Database extends Config
     public $default = [
         'DSN'      => '',
         'hostname' => 'localhost',
-        'username' => 'redesla_m4st3rD3lt4',
-        'password' => 'm4st3rD3lt4',
-        'database' => 'redesla_RedesLa',
+        'username' => 'root',
+        'password' => '',
+        'database' => 'u174297075_redesla',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,
@@ -47,15 +47,15 @@ class Database extends Config
         'compress' => false,
         'strictOn' => false,
         'failover' => [],
-        'port'     => 3306,
+        'port'     => 8111,
     ];
     
     public $iquatro = [
         'DSN'	=> '',
-        'hostname' => 'iquatroeditores.com',
-        'username' => 'iquatroeditores_revista',
-        'password' => 'M4st3r.D3lt4',
-        'database' => 'iquatroe_revistaojs',
+        'hostname' => 'localhost',
+        'username' => 'root',
+        'password' => '',
+        'database' => 'u174297075_revistaojs2023',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => FALSE,
@@ -67,7 +67,7 @@ class Database extends Config
         'compress' => false,
         'strictOn' => false,
         'failover' => [],
-        'port'     => 3306,
+        'port'     => 8111,
     ];
 
     /**
@@ -93,7 +93,7 @@ class Database extends Config
         'compress' => false,
         'strictOn' => false,
         'failover' => [],
-        'port'     => 3306,
+        'port'     => 8111,
     ];
 
     public function __construct()
