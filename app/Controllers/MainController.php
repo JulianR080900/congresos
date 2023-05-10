@@ -22,10 +22,6 @@ class MainController extends BaseController
          $this->IquatroModel = new IquatroModel($db);
     }
 
-
-
-
-
     public function index()
     {
         return view('landing/index');
@@ -39,29 +35,19 @@ class MainController extends BaseController
         }
     }
 
-    public function validarGafete()
-    {
+    public function validarGafete(){
         $gafete = $this->request->getPost('clave');
 
         $condiciones = array("clave_gafete" => $gafete);
         $resultado = $this->MainModel->getAllOneRow('participantes_congresos', $condiciones);
 
+        //ERROR
         if (empty($resultado)) {
-            return json_encode("NoExisteGafete");
-        } else {
-            return json_encode($resultado);
-        }
-    }
-
-
-    public function verificarCodigo()
-    {
-        $codigo = $this->request->getPost('clave');
-
-        $resultado = $this->MainModel->getAllOneRow(
-            'participantes_congresos', 
-            array("clave_gafete" => $codigo)
-        );
+            http_response_code(501);
+            $response = "El gafete no existe. Favor de revisar si esta escrito correctamente"; 
+            return $response;
+            exit;
+        } 
 
         $correo = "";
         if($resultado['usuario'] !== ""){
@@ -77,8 +63,7 @@ class MainController extends BaseController
                 "clave_gafete" => $resultado['clave_gafete'],
                 "red" => $resultado['red'],
                 "nombre" => $resultado["nombre"],
-                //"nombre_ponencia" => $nombre_ponencia["nombre"],
-                "congreso" => "Oyente ".$resultado["red"]." ".$resultado["anio"],
+                "congreso" => $nombre_ponencia["nombre_congreso"],
                 "oyente" => $resultado["oyente"],
                 "anio" => $resultado["anio"],
                 "claveCuerpo" => $resultado["claveCuerpo"],
@@ -90,41 +75,35 @@ class MainController extends BaseController
                 'ponencias', 
                 array("publication_id" => $resultado["publication_id"], "red" => $resultado["red"])
             );
-            //Establecer el nombre de ponencia siempre y cuando exista el nombre de ponencia
-            if(!empty($nombre_ponencia)) {
-                $data = [
-                    "logueado" => "Si",
-                    "clave_gafete" => $resultado['clave_gafete'],
-                    "red" => $resultado['red'],
-                    "nombre" => $resultado["nombre"],
-                    "nombre_ponencia" => $nombre_ponencia["nombre"],
-                    "congreso" => $nombre_ponencia["nombre_congreso"],
-                    "oyente" => $resultado["oyente"],
-                    "anio" => $resultado["anio"],
-                    "claveCuerpo" => $resultado["claveCuerpo"],
-                    "correo" => $correo
-                ];
+
+            //ERROR
+            if(empty($nombre_ponencia)) {
+                http_response_code(501);
+                $response = "Algo sucedio, favor de contactar con el equipo de RedesLA"; 
+                echo $response;
+                exit;
             }
-            else {
-                $data = [
-                    "logueado" => "Si",
-                    "clave_gafete" => $resultado['clave_gafete'],
-                    "red" => $resultado['red'],
-                    "nombre" => $resultado["nombre"],
-                    "nombre_ponencia" => "Inexistente",
-                    "congreso" => $resultado["red"]." ".$resultado["anio"],
-                    "oyente" => $resultado["oyente"],
-                    "anio" => $resultado["anio"],
-                    "claveCuerpo" => $resultado["claveCuerpo"],
-                    "correo" => $correo
-                ];
-            }
+
+            $data = [
+                "logueado" => "Si",
+                "clave_gafete" => $resultado['clave_gafete'],
+                "red" => $resultado['red'],
+                "nombre" => $resultado["nombre"],
+                "nombre_ponencia" => $nombre_ponencia["nombre"],
+                "congreso" => $nombre_ponencia["nombre_congreso"],
+                "oyente" => $resultado["oyente"],
+                "anio" => $resultado["anio"],
+                "claveCuerpo" => $resultado["claveCuerpo"],
+                "correo" => $correo
+            ];   
         }
-        
+
+        http_response_code(200);
         $session = session();
         $session->set($data);
-        return redirect()->to(base_url('/datos_generales'));
-    }
+        return json_encode(base_url('/datos_generales'));
+
+    }
 
     public function logout(){
         $session = session();

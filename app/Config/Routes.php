@@ -18,10 +18,6 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
  */
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('MainController');
-$routes->setDefaultController('ReleemController');
-$routes->setDefaultController('RelaynController');
-$routes->setDefaultController('RelepController');
-$routes->setDefaultController('PonenciaCalController');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -37,7 +33,6 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 /*PRUEBAS*/
 // $routes->get('gerson','MainController::buscar_participante');
-
 
 /* --   RUTAS MAIN  --  */
 $routes->group('/',static function($routes){
