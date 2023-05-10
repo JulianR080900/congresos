@@ -17,6 +17,7 @@ class PonenciaCalController extends BaseController
     
     public function index()
     {
+        echo 'nais';
         return view('Calificar-Ponencias/index');
     }
     
