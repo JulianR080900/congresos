@@ -22,7 +22,7 @@ class ReleemController extends BaseController
         if(session('clave_gafete') == "" && session('red') !== "Releem"){
             return redirect()->to(base_url("congreso/Releem"));
         }else{
-            return view('Releem/'.session("anio")."/recepcion-congreso-releem");   
+            return view('Releem/'."2022"."/recepcion-congreso-releem");   
         }
     }
     
@@ -30,7 +30,7 @@ class ReleemController extends BaseController
         if(session('clave_gafete') == "" && session('red') !== "Releem"){
             return redirect()->to(base_url("congreso/Releem"));
         }else{
-            return view('Releem/'.session("anio")."/elevador-congreso-releem");
+            return view('Releem/'."2022"."/elevador-congreso-releem");
         }
     }
     
@@ -38,7 +38,7 @@ class ReleemController extends BaseController
         if(session('clave_gafete') == "" && session('red') !== "Releem"){
             return redirect()->to(base_url("congreso/Releem"));
         }else{
-            return view('Releem/'.session("anio")."/salones-releem");
+            return view('Releem/'."2022"."/salones-releem");
         }
     }
     
@@ -46,7 +46,8 @@ class ReleemController extends BaseController
         if(session('clave_gafete') == "" && session('red') !== "Releem"){
             return redirect()->to(base_url("congreso/Releem"));
         }else{
-            return view('Releem/'.session("anio")."/salon-1-releem");
+            return view('Releem/'."2022"."/salon-1-releem");
+            $name = '/'.session('red').'/'.session('anio').'/salones_'.$id;
         }
     }
     
@@ -54,7 +55,7 @@ class ReleemController extends BaseController
         if(session('clave_gafete') == "" && session('red') !== "Releem"){
             return redirect()->to(base_url("congreso/Releem"));
         }else{
-            return view('Releem/'.session("anio")."/salon-2-releem");
+            return view('Releem/'."2022"."/salon-2-releem");
         }
     }
     
@@ -62,7 +63,7 @@ class ReleemController extends BaseController
         if(session('clave_gafete') == "" && session('red') !== "Releem"){
             return redirect()->to(base_url("congreso/Releem"));
         }else{
-            return view('Releem/'.session("anio")."/salon-3-releem");
+            return view('Releem/'."2022"."/salon-3-releem");
         }
     }
     
@@ -70,7 +71,7 @@ class ReleemController extends BaseController
         if(session('clave_gafete') == "" && session('red') !== "Releem"){
             return redirect()->to(base_url("congreso/Releem"));
         }else{
-            return view('Releem/'.session("anio")."/salon-4-releem");
+            return view('Releem/'."2022"."/salon-4-releem");
         }
     }
     
@@ -78,7 +79,7 @@ class ReleemController extends BaseController
         if(session('clave_gafete') == "" && session('red') !== "Releem"){
             return redirect()->to(base_url("congreso/Releem"));
         }else{
-            return view('Releem/'.session("anio")."/salon-5-releem");
+            return view('Releem/'."2022"."/salon-5-releem");
         }
     }
     
@@ -86,7 +87,7 @@ class ReleemController extends BaseController
         if(session('clave_gafete') == "" && session('red') !== "Releem"){
             return redirect()->to(base_url("congreso/Releem"));
         }else{
-            return view('Releem/'.session("anio")."/salon-6-releem");
+            return view('Releem/'."2022"."/salon-6-releem");
         }
     }
     
@@ -94,7 +95,7 @@ class ReleemController extends BaseController
         if(session('clave_gafete') == "" && session('red') !== "Releem"){
             return redirect()->to(base_url("congreso/Releem"));
         }else{
-            return view('Releem/'.session("anio")."/mezzanine-congreso-releem");
+            return view('Releem/'."2022"."/mezzanine-congreso-releem");
         }
     }
     
@@ -102,7 +103,7 @@ class ReleemController extends BaseController
         if(session('clave_gafete') == "" && session('red') !== "Releem"){
             return redirect()->to(base_url("congreso/Releem"));
         }else{
-            return view('Releem/'.session("anio")."/auditorio-congreso-releem");
+            return view('Releem/'."2022"."/auditorio-congreso-releem");
         }
     }
     
@@ -110,7 +111,7 @@ class ReleemController extends BaseController
         if(session('clave_gafete') == "" && session('red') !== "Releem"){
             return redirect()->to(base_url("congreso/Releem"));
         }else{
-            return view('Releem/'.session("anio")."/lago-redesla");
+            return view('Releem/'."2022"."/lago-redesla");
         }
     }
     
@@ -118,7 +119,7 @@ class ReleemController extends BaseController
         if(session('clave_gafete') == "" && session('red') !== "Releem"){
             return redirect()->to(base_url("congreso/Releem"));
         }else{
-            return view('Releem/'.session("anio")."/zona-iquatro-editores");
+            return view('Releem/'."2022"."/zona-iquatro-editores");
         }
     }
     
@@ -126,7 +127,7 @@ class ReleemController extends BaseController
         if(session('clave_gafete') == "" && session('red') !== "Releem"){
             return redirect()->to(base_url("congreso/Releem"));
         }else{
-            return view('Releem/'.session("anio")."/cabina-fotogafica-releem");
+            return view('Releem/'."2022"."/cabina-fotogafica-releem");
         }
     }
     
@@ -134,7 +135,7 @@ class ReleemController extends BaseController
      if(session('clave_gafete') == "" && session('red') !== "Releem"){
             return redirect()->to(base_url("congreso/Releem"));
         }else{
-            return view('Releem/'.session("anio")."/animacion-a-salones");
+            return view('Releem/'."2022"."/animacion-a-salones");
         }
     }
     
@@ -142,7 +143,7 @@ class ReleemController extends BaseController
      if(session('clave_gafete') == "" && session('red') !== "Releem"){
             return redirect()->to(base_url("congreso/Releem"));
         }else{
-            return view('Releem/'.session("anio")."/animacion-a-lobby-2");
+            return view('Releem/'."2022"."/animacion-a-lobby-2");
         }
     }
     
@@ -150,8 +151,41 @@ class ReleemController extends BaseController
      if(session('clave_gafete') == "" && session('red') !== "Releem"){
             return redirect()->to(base_url("congreso/Releem"));
         }else{
-            return view('Releem/'.session("anio")."/animacion-a-lobby");
+            return view('Releem/'."2022"."/animacion-a-lobby");
         }
+    }
+
+    public function salon($n){
+
+        if(session('clave_gafete') == "" && session('red') !== "Releem"){
+            return redirect()->to(base_url("general"));
+        }
+
+        #Anio #Red
+        /*
+        $red = session('red');
+        $anio = session('anio');
+        */
+
+        $red = session('red');
+        $anio = 2022;
+
+        $ruta = dirname(__DIR__)."\\Views\\".$red.'\\'.$anio.'\\salon-'.$n.'-'.strtolower($red).'.php';
+        #view/Releem/2023/salon_2
+
+        #file_exist
+
+        if(!file_exists($ruta)){
+            #la ruta no existe mandamos un 404 y terminamos el codigo
+            http_response_code(404);
+            exit;
+        }
+
+        return view($red.'/'.$anio.'/salon-'.$n.'-'.strtolower($red));
+
+        #VERIFICAR SI EL ARCHIVO EXISTE
+        print_r(session('anio'));
+        exit;
     }
     
 }
