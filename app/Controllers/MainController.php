@@ -421,9 +421,9 @@ class MainController extends BaseController
             'programa' => $this->programa_ponencias
         ];
 
-        $file = new File(APPPATH . "Views/{$red}/{$anio}/salones/{$n}.php");
+        $file = APPPATH . "Views/{$red}/{$anio}/salones/{$n}.php";
 
-        if (!$file->exists()) {
+        if (!file_exists($file)) {
             echo 'entra';
             #la ruta no existe mandamos un 404 y terminamos el codigo
             http_response_code(405);
