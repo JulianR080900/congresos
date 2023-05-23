@@ -104,6 +104,7 @@ $("#frmEvaluacion").on("submit", function (e) {
       tipo_metodologia
     },
     success: function(data){
+      console.log(data);
       Swal.fire({
         icon: 'success',
         title: data.title,
@@ -121,12 +122,6 @@ $("#frmEvaluacion").on("submit", function (e) {
       })
     }
   })
-
-
-
-  console.log(comentarios);
-  console.log(evaluaciones);
-  console.log(ordenamiento);
 });
 
 $("#sig").on("click", function () {

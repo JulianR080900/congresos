@@ -309,9 +309,7 @@ class PonenciaCalController extends BaseController
 
         #verificamos si tiene la constancia
 
-        $tabla = 'Constancia_'.ucfirst($this->current_red);
-        echo $tabla;
-        exit;
+        $tabla = 'constancia_'.ucfirst($this->current_red);
 
         $condiciones = [
             'usuario' => $infoGafete['usuario'],
