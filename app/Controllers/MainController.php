@@ -196,9 +196,6 @@ class MainController extends BaseController
         //Generación del código QR
         $image = $this->generarCodigoQr($resultado['clave_gafete'], $resultado['red']);
 
-        echo json_encode($image);
-        exit;
-
         //Poner el texto de la imagen dentro del arreglo de datos
         $newArray = array("qr_code" => $image);
         $data = array_merge($data, $newArray);
