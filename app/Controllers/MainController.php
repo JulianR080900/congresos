@@ -395,9 +395,13 @@ class MainController extends BaseController
             'red' => $red,
             'anio' => $anio
         ];
+        echo json_encode($condiciones);
         $columnas = ['zoom'];
 
         $horario = $this->MainModel->getColumnsOneRow($columnas,'congresos',$condiciones);
+
+        echo json_encode($horario);
+        exit;
 
         if(empty($horario)){
             http_response_code(404);
