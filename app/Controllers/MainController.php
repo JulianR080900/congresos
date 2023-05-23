@@ -3,83 +3,174 @@
 namespace App\Controllers;
 
 use App\Models\MainModel;
-// use App\ThirdParty\FPDF;
 use App\ThirdParty\FPDF\FPDF;
-use App\Models\IquatroModel;
+
+use TCPDF;
+
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Label\Label;
+use Endroid\QrCode\Logo\Logo;
+use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
+use Endroid\QrCode\Writer\PngWriter;
+use Endroid\QrCode\Writer\ValidationException;
+
+class GafetesCongresos extends TCPDF{
+    //Page header
+    public function Header()
+    {
+        // get the current page break margin
+        $bMargin = $this->getBreakMargin();
+        // get current auto-page-break mode
+        $auto_page_break = $this->AutoPageBreak;
+        // disable auto-page-break
+        $this->SetAutoPageBreak(false, 0);
+        // set background image 
+
+        $img_file = base_url('public/img/congresos/gafetes/'.session('anio').'/'.session('red').'.png');
+
+        $this->Image($img_file, 0, 0, 100, 140, '', '', '', false, 300, '', false, false, 0);
+        // restore auto-page-break status
+        $this->SetAutoPageBreak($auto_page_break, $bMargin);
+
+        $this->SetMargins(10, 40, 10);
+    }
+}
 
 class MainController extends BaseController
 {
     public $MainModel;
-    
-    public function __construct()
-    {
+    public $current_date;
+    private $current_red; #QUITAR VALORES
+    private $current_sede; #QUITAR VALORES
+    private $maxRevisiones = 5;
+    public $db_serv;
+    public $programa_ponencias;
+
+    public function __construct(){
         // parent::__construct();
         // $this->load->model('MainModel');
         $this->MainModel = new MainModel();
         date_default_timezone_set('America/Monterrey');
-        $date = date('Y-m-d H:i:s');
-         $db = db_connect('iquatro');
-         $this->IquatroModel = new IquatroModel($db);
-    }
+        $this->current_date = date('Ymd');
+        /*
+         if($this->current_date == '20230524' || $this->current_date == '20230526'){
+            $this->current_red = 'Releg';
+            $this->current_sede = 'UAQ';
+            $this->maxRevisiones = 5;
+        }else if($this->current_date == '20231115' || $this->current_date == '20231117'){
+            $this->current_red = 'Relayn';
+        }else if($this->current_date == '20231209' || $this->current_date == '20231209'){
+            $this->current_red = 'Relen_Relep';
+        }else{
+            http_response_code(404);
+            exit;
+        }
+        */
 
-    public function index()
-    {
-        return view('landing/index');
-    }
 
-    public function general(){        
-        if (session('clave_gafete') !== null) {
-            return redirect()->to(base_url('/datos_generales'));
-        } else {
-            return view('calificar/index');
+        if($this->current_date == '20230523' || $this->current_date == '20230526'){
+            $this->current_red = 'Releg';
+            $this->current_sede = 'UAQ';
+            $this->maxRevisiones = 5;
+            $this->programa_ponencias = '#';
+        }else if($this->current_date == '20231115' || $this->current_date == '20231117'){
+            $this->current_red = 'Relayn';
+        }else if($this->current_date == '20231209' || $this->current_date == '20231209'){
+            $this->current_red = 'Relen_Relep';
+        }else{
+            http_response_code(404);
+            exit;
         }
     }
 
-    public function validarGafete(){
+    public function index(){
+
+        if (session('clave_gafete') !== null) {
+            return redirect()->to(base_url('/datos_generales'));
+        } else {
+            $data = [
+                'red' => $this->current_red
+            ];
+            return view('inicio/index',$data);
+        }
+    }
+
+    public function validarGafete()
+    {
         $gafete = $this->request->getPost('clave');
 
         $condiciones = array("clave_gafete" => $gafete);
         $resultado = $this->MainModel->getAllOneRow('participantes_congresos', $condiciones);
 
-        //ERROR
         if (empty($resultado)) {
             http_response_code(501);
-            $response = "El gafete no existe. Favor de revisar si esta escrito correctamente"; 
-            return $response;
+            $response = "El gafete no existe. Favor de revisar si esta escrito correctamente";
+            echo $response;
             exit;
-        } 
+        }
 
         $correo = "";
-        if($resultado['usuario'] !== ""){
+        if ($resultado['usuario'] !== "") {
             $condicion = ["usuario" => $resultado['usuario']];
             $correo_usuario = $this->MainModel->getAllOneRow('usuarios', $condicion);
             //Establecer correo si el usuario existe
-            $correo = $correo_usuario['correo'];
+            if (!empty($correo_usuario['correo'])) {
+                $correo = $correo_usuario['correo'];
+            }
         }
 
-        if($resultado["oyente"] === 1) {
+        //Obtener foto de usuario por medio del usuario
+        $usuario = $this->MainModel->getAllOneRow("usuarios", array("usuario" => $resultado["usuario"]));
+        //Enviar link de la imagen
+        $foto_usuario = base_url('public/img/landing/icono_usuario.png');
+        if (!empty($usuario)) {
+            if (!empty($usuario["profile_pic"])) {
+                $foto_usuario = "https://redesla.la/redesla/resources/img/profiles/" . $usuario["profile_pic"];
+            }
+        }
+
+        //Obtener nombre universidad, por medio de la clave de cuerpo
+        $cuerpos_academicos = $this->MainModel->getAllOneRow(
+            "cuerpos_academicos",
+            array("claveCuerpo" => $resultado["claveCuerpo"])
+        );
+        $nombre_universidad = "";
+        if (!empty($cuerpos_academicos)) {
+            if (!empty($cuerpos_academicos["nombre"])) {
+                $nombre_universidad = $cuerpos_academicos["nombre"];
+            }
+        }
+
+        if ($resultado["oyente"] === "1") {
             $data = [
                 "logueado" => "Si",
                 "clave_gafete" => $resultado['clave_gafete'],
                 "red" => $resultado['red'],
                 "nombre" => $resultado["nombre"],
-                "congreso" => $nombre_ponencia["nombre_congreso"],
+                //"congreso" => $nombre_ponencia["nombre_congreso"],
                 "oyente" => $resultado["oyente"],
                 "anio" => $resultado["anio"],
                 "claveCuerpo" => $resultado["claveCuerpo"],
-                "correo" => $correo
+                "correo" => $correo,
+                "tipo_asistencia" => $resultado["tipo_asistencia"],
+                "foto_usuario" => $foto_usuario,
+                "nombre_universidad" => $nombre_universidad
             ];
-        }
-        else{
+        } else {
             $nombre_ponencia = $this->MainModel->getAllOneRow(
-                'ponencias', 
-                array("publication_id" => $resultado["publication_id"], "red" => $resultado["red"])
+                'ponencias',
+                array(
+                    "publication_id" => $resultado["publication_id"],
+                    "red" => $resultado["red"]
+                )
             );
 
-            //ERROR
-            if(empty($nombre_ponencia)) {
+            if (empty($nombre_ponencia)) {
                 http_response_code(501);
-                $response = "Algo sucedio, favor de contactar con el equipo de RedesLA"; 
+                $response = "Algo sucedio, no tiene nombre de ponencia";
                 echo $response;
                 exit;
             }
@@ -94,18 +185,289 @@ class MainController extends BaseController
                 "oyente" => $resultado["oyente"],
                 "anio" => $resultado["anio"],
                 "claveCuerpo" => $resultado["claveCuerpo"],
-                "correo" => $correo
-            ];   
+                "correo" => $correo,
+                "tipo_asistencia" => $resultado["tipo_asistencia"],
+                "id_ponencia" => $nombre_ponencia["clave_ponencia"],
+                "foto_usuario" => $foto_usuario,
+                "nombre_universidad" => $nombre_universidad
+            ];
         }
+
+        //Generación del código QR
+        $image = $this->generarCodigoQr($resultado['clave_gafete'], $resultado['red']);
+
+        //Poner el texto de la imagen dentro del arreglo de datos
+        $newArray = array("qr_code" => $image);
+        $data = array_merge($data, $newArray);
 
         http_response_code(200);
         $session = session();
         $session->set($data);
         return json_encode(base_url('/datos_generales'));
+    }
 
-    }
+    private function generarCodigoQr($claveGafete, $red)
+    {
 
-    public function logout(){
+        $writer = new PngWriter();
+
+        //Obtener color e imagen del código QR con respecto a la red
+        $colorImagen =  $this->escogerColorImagenCodigoQr($red);
+        $color = $colorImagen[0];
+        $imagen = $colorImagen[1];
+
+        //Crear el código QR
+        $qrCode = QrCode::create($claveGafete)
+            ->setEncoding(new Encoding('UTF-8'))
+            ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
+            ->setSize(250)
+            ->setMargin(10)
+            ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
+            ->setForegroundColor($color); // Set foreground color to red
+
+        // Crear el logo del código
+        $logo = Logo::create(base_url() . '/public/img/isotipos/' . $imagen)
+            ->setResizeToWidth(100);
+
+        $result = $writer->write($qrCode, $logo);
+
+        // Obtener la URL de la imagen para poder desplegar la imagen
+        header('Content-Type: ' . $result->getMimeType());
+        return $result->getDataUri();
+    }
+
+    private function escogerColorImagenCodigoQr($red)
+    {
+        $rgbImagen = [new Color(0, 0, 0), 'Mapa_Redesla.png'];
+
+        switch ($red) {
+            case "Relayn":
+                $rgbImagen[0] = new Color(47, 29, 0);
+                $rgbImagen[1] = 'Mapa_Relayn.png';
+                break;
+            case "Releem":
+                $rgbImagen[0] = new Color(36, 0, 47);
+                $rgbImagen[1] = 'Mapa_Releem.png';
+                break;
+            case "Releg":
+                $rgbImagen[0] = new Color(47, 0, 39);
+                $rgbImagen[1] = 'Mapa_Releg.png';
+                break;
+            case "Relen":
+                $rgbImagen[0] = new Color(47, 0, 0);
+                $rgbImagen[1] = 'Mapa_Relen.png';
+                break;
+            case "Relep":
+                $rgbImagen[0] = new Color(3, 47, 0);
+                $rgbImagen[1] = 'Mapa_Relep.png';
+                break;
+            case "Relmo":
+                $rgbImagen = new Color(23, 23, 23);
+                $rgbImagen[1] = 'Mapa_Relmo.png';
+                break;
+            default:
+                $rgbImagen[0] = new Color(0, 0, 0);
+                $rgbImagen[1] = 'Mapa_Redesla.png';
+                break;
+        }
+
+        return $rgbImagen;
+    }
+
+    public function datos_generales()
+    {
+        if (session('clave_gafete') !== null) {
+            return view('inicio/info');
+        } else {
+            return redirect()->to(base_url());
+        }
+    }
+
+    public function generarPDF(){
+
+        $codigoQr = session('qr_code');
+        $red = session('red');
+        $claveGafete = session('clave_gafete');
+        $nombre = session('nombre');
+
+        // Crear el documento PDF con la clase personalizada
+        $pdf = new GafetesCongresos();
+
+        // Establecer información del documento
+        $pdf->SetCreator('RedesLa');
+        $pdf->SetAuthor('RedesLA');
+        $pdf->SetTitle('RedesLA - Gafetes de acceso');
+        $pdf->SetSubject('Acceso');
+        $pdf->SetKeywords('Acceso, Gafete, RedesLA, Viveredesla');
+
+        //Establecer fuente y configuración de footers y headers
+        $pdf->SetPrintHeader(true);
+        $pdf->SetPrintFooter(false);
+        $pdf->SetAutoPageBreak(true, 35);
+        $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+        // Establecer la fuente predeterminada monospaces
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+        // Establecer el Page Break
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+        // Establecer la escala de la imagen
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFontSubsetting(true);
+
+        // set some language-dependent strings (optional)
+        if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
+            require_once(dirname(__FILE__) . '/lang/eng.php');
+            $pdf->setLanguageArray($l);
+        }
+
+        $width = 100;  // Ancho de la página en milímetros
+        $height = 140; // Alto de la página en milímetros
+        $pdf->AddPage('P', array($width, $height));
+
+        // Definir las coordenadas y dimensiones del área de texto
+        $x = 5;  // Posición X
+        $y = 43;  // Posición Y
+        $width = 90;  // Ancho del área
+        $height = 13;  // Alto del área
+
+        // Establecer el área de texto
+        $pdf->SetXY($x, $y);
+
+        // Configurar el estilo de fuente inicial
+        $fontFamily = 'times';
+        $fontSize = 16;
+
+        // Establecer el tamaño de fuente inicial
+        $pdf->SetFont($fontFamily, '', $fontSize);
+
+        //Posicionar el nombre
+        $pdf->MultiCell($width, $height, $nombre, 0, 'C');
+
+        $x = 5;  // Posición X
+        $y = 65;  // Posición Y
+        $width = 90;  // Ancho del área
+        $height = 8;  // Alto del área
+
+        // Establecer el área de texto
+        $pdf->SetXY($x, $y);
+        $pdf->MultiCell($width, $height, $claveGafete, 0, 'C');
+
+        //Establecer el código QR
+        $x = 14;  // Posición X
+        $y = 75;  // Posición Y
+        $width = 75;  // Ancho del área
+        $height = 0;  // Alto del área
+        // Establecer el área de texto
+        $pdf->SetXY($x, $y);
+
+        $img = '
+            <div style="text-align: center; margin-left: 15px;">
+                <img src="' . $codigoQr . '" width="83" height="83">
+            </div>
+        ';
+
+        $pdf->writeHTMLCell($width, $height, $x, $y, $img, 0, 1, 0, true, '', true);
+
+        $pdf->Output('gafete.pdf', 'I');
+        exit;
+    }
+
+    public function salon($n){
+
+        if(session('clave_gafete') == "" &&  session('red') == ''){
+            return redirect()->to(base_url("inicio"));
+        }
+
+        $red = session('red');
+        $anio = session('anio');
+
+        #VAMOS A TRAERNOS INFO DEL HORARIO DE PONENCIAS
+
+        $condiciones = [
+            'red' => $red,
+            'anio' => $anio
+        ];
+        $columnas = ['zoom'];
+
+        $horario = $this->MainModel->getColumnsOneRow($columnas,'congresos',$condiciones);
+
+        if(empty($horario)){
+            http_response_code(404);
+            exit;
+        }
+
+        $zoom = $horario['zoom'];
+
+        $explode_zoom = explode(',',$zoom);
+
+        if(!isset($explode_zoom[$n-1])){
+            http_response_code(404);
+            exit;
+        }
+
+        $data = [
+            'url' => $explode_zoom[$n-1],
+            'programa' => $this->programa_ponencias
+        ];
+
+        $ruta = dirname(__DIR__)."\\Views\\".$red.'\\'.$anio.'\\salones\\'.$n.'.php';
+        #view/Releg/2023/salon_2
+
+        #file_exist
+
+        if(!file_exists($ruta)){
+            #la ruta no existe mandamos un 404 y terminamos el codigo
+            http_response_code(404);
+            exit;
+        }
+
+        return view($red.'/'.$anio.'/salones/'.$n,$data);
+        exit;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function logout()
+    {
         $session = session();
         $session->destroy();
 
@@ -124,75 +486,6 @@ class MainController extends BaseController
 
 
 
-    public function imprimirPDF()
-    {
-        $red = session("red");
-        $anio = session("anio");
-
-        if (session('clave_gafete') !== null) {
-            $clave = session('clave_gafete');
-            $nombre = session('nombre');
-            $pdf = new FPDF();
-            
-            if ($red == "Releem" &&  $anio == "2022") {
-                $pdf->AddPage('P', array(800, 800), '0');
-                $pdf->Image(base_url('public/img/gafetes/' . $red . '/' . $anio . '/' . 'Gafete RELEEM 22.jpg'), 0, -1, 800, 800);
-                $pdf->SetTextColor(0, 0, 0);
-                $pdf->Ln(350);
-                $pdf->SetFont('Arial', 'B', 90);
-                $pdf->Cell(1);
-                $pdf->MultiCell(0, 9, utf8_decode($nombre), 0, 'C');
-                $pdf->Ln(160);
-                $pdf->SetFont('Arial', 'B', 90);
-                $pdf->Cell(1);
-                $pdf->MultiCell(0, 9, $clave, 0, 'C');
-            }else if($red == "Relep" && $anio == "2022"){
-                $pdf->AddPage('P', array(900, 1280), '0');
-                $pdf->Image(base_url('public/img/gafetes/' . $red . '/' . $anio . '/' . 'Gafete RELEP 22.jpg'), 0, -1, 900, 1280);
-                $pdf->SetTextColor(0, 0, 0);
-                $pdf->Ln(390);
-                $pdf->SetFont('Arial', 'B', 110);
-                $pdf->Cell(1);
-                $pdf->MultiCell(0, 9, utf8_decode($nombre), 0, 'C');
-                $pdf->Ln(200);
-                $pdf->SetFont('Arial', 'B', 90);
-                $pdf->Cell(1);
-                $pdf->MultiCell(0, 9, $clave, 0, 'C');
-                
-            }else if($red == "Relen" && $anio == "2022"){
-                $pdf->AddPage('P', array(900, 1280), '0');
-                $pdf->Image(base_url('public/img/gafetes/' . $red . '/' . $anio . '/' . 'Gafete.jpg'), 0, -1, 900, 1280);
-                $pdf->SetTextColor(0, 0, 0);
-                $pdf->Ln(390);
-                $pdf->SetFont('Arial', 'B', 110);
-                $pdf->Cell(1);
-                $pdf->MultiCell(0, 9, utf8_decode($nombre), 0, 'C');
-                $pdf->Ln(200);
-                $pdf->SetFont('Arial', 'B', 90);
-                $pdf->Cell(1);
-                $pdf->MultiCell(0, 9, $clave, 0, 'C');
-            }else if($red == "Relayn" && $anio == "2022"){
-                $pdf->AddPage('P', array(118, 165), '0');
-                $pdf->Image(base_url('public/img/gafetes/' . $red . '/' . $anio . '/' . 'Gafete.jpg'), 0, -1, 118, 165);
-                $pdf->SetTextColor(0, 0, 0);
-                $pdf->Ln(50);
-                $pdf->SetFont('Arial', 'B', 14);
-                $pdf->Cell(1);
-                $pdf->MultiCell(0, 9, utf8_decode($nombre), 0, 'C');
-                $pdf->Ln(25);
-                $pdf->SetFont('Arial', 'B', 14);
-                $pdf->Cell(1);
-                $pdf->MultiCell(0, 9, $clave, 0, 'C');
-            }
-            $this->response->setHeader('Content-Type', 'application/pdf');
-            $pdf->Output("gafete.pdf", 'I');
-        } else {
-            return redirect()->to(base_url());
-        }
-    }
-
-
-
 
 
 
@@ -201,10 +494,11 @@ class MainController extends BaseController
     {
         return view('calificar_ponencia/index');
     }
-    
-    public function index_calificar_ponencia($ponencia){
+
+    public function index_calificar_ponencia($ponencia)
+    {
         $array["ponencia"] = $ponencia;
-        return view('calificar_ponencia/index',$array);
+        return view('calificar_ponencia/index', $array);
     }
 
 
@@ -221,23 +515,23 @@ class MainController extends BaseController
         $condiciones_ponencia = array("clave_ponencia" => $ponencia);
         $res_ponencia = $MainModel->getAllOneRow('ponencias', $condiciones_ponencia);
 
-        if ($res_gafete == NULL || $res_gafete == ""|| $res_ponencia == NULL || $res_ponencia = "") {
+        if ($res_gafete == NULL || $res_gafete == "" || $res_ponencia == NULL || $res_ponencia = "") {
             echo json_encode('datosVacios'); // gafete o ponencia no se encuentra en la base de datos
         } else {
-            
-            
+
+
             $condicionCali = array("gafete" => $gafete);
-            $calificaciones = $this->MainModel->getAllOneRow('calificaciones',$condicionCali);
-            
+            $calificaciones = $this->MainModel->getAllOneRow('calificaciones', $condicionCali);
+
             $verificarPonencia = array("gafete" => $gafete, "ponencia" => $ponencia);
-            $verificar_ponencia = $this->MainModel->getAllOneRow('calificaciones',$verificarPonencia);
-            
+            $verificar_ponencia = $this->MainModel->getAllOneRow('calificaciones', $verificarPonencia);
+
             // echo json_encode($calificaciones);
-            if($res_gafete['usuario'] == ""){
-                echo json_encode('CalificacionVacia');  
-            }else if($calificaciones["ponencia"] == $ponencia || !empty($verificar_ponencia)){
-                echo json_encode('ponencia_calificada');   
-            }else{
+            if ($res_gafete['usuario'] == "") {
+                echo json_encode('CalificacionVacia');
+            } else if ($calificaciones["ponencia"] == $ponencia || !empty($verificar_ponencia)) {
+                echo json_encode('ponencia_calificada');
+            } else {
                 $usuario = $res_gafete['usuario'];
                 $condicionCorreo = array("usuario" => $usuario);
                 $res_correo = $MainModel->getAllOneRow('usuarios', $condicionCorreo);
@@ -262,8 +556,6 @@ class MainController extends BaseController
                 $correo = $res_correo['correo'];
                 echo json_encode($correo); // existen registros 
             }*/
-            
-            
         }
     }
 
@@ -282,7 +574,7 @@ class MainController extends BaseController
             //Se actualiza la tabla de participantes_congreso para poder guardarlo ahi
             $data = ['usuario' => $res_correo['usuario']];
             $condiciones = ['clave_gafete' => $clave_gafete];
-            $this->MainModel->updateRow('participantes_congresos',$condiciones,$data);
+            $this->MainModel->updateRow('participantes_congresos', $condiciones, $data);
             return json_encode('success');
         }
     }
@@ -291,13 +583,13 @@ class MainController extends BaseController
     {
         //AQUI MOSTRAREMOS LA VISTA DEL CONGRESO CORRESPONDIENTE
         if (session('clave_gafete') !== null) {
-            $data = ['asistencia_virtual' => 1, 'fecha' => date('Y-m-d H:i:s') ];
+            $data = ['asistencia_virtual' => 1, 'fecha' => date('Y-m-d H:i:s')];
             $MainModel = new MainModel();
             $condiciones = ['clave_gafete' => session('clave_gafete'), 'anio' => session('anio'), 'claveCuerpo' => session('claveCuerpo')];
-            $MainModel->updateRow('participantes_congresos',$condiciones,$data);
-            
+            $MainModel->updateRow('participantes_congresos', $condiciones, $data);
+
             //return redirect()->to(base_url("congreso/(any)"));
-            return view($red . "/2022" . "/entrada-congreso-".strtolower($red));
+            return view($red . "/2022" . "/entrada-congreso-" . strtolower($red));
             //return view($red . "/2022" . "/index");
 
 
@@ -393,7 +685,7 @@ class MainController extends BaseController
         if (empty($ponenciasCA)) {
             $arrayPonencias = [];
             $i = 0;
-            foreach($ponenciasCA as $p){
+            foreach ($ponenciasCA as $p) {
                 $condicionesPonencias = array('clave_ponencia' => $ponenciasCA[$i]['ponencia']);
                 $res_ponencias = $MainModel->getAllOneRow('ponencias', $condicionesPonencias);
 
@@ -401,7 +693,7 @@ class MainController extends BaseController
 
                 $i++;
             }
-            
+
             $data = [
                 'res' => $arrayPonencias,
             ];
@@ -429,10 +721,10 @@ class MainController extends BaseController
             return redirect()->to(base_url('agregar-registro'));
             */
         } else {
-            
+
             $arrayPonencias = [];
             $i = 0;
-            foreach($ponenciasCA as $p){
+            foreach ($ponenciasCA as $p) {
                 $condicionesPonencias = array('clave_ponencia' => $ponenciasCA[$i]['ponencia']);
                 $res_ponencias = $MainModel->getAllOneRow('ponencias', $condicionesPonencias);
 
@@ -440,23 +732,22 @@ class MainController extends BaseController
 
                 $i++;
             }
-            
+
             $data = [
                 'res' => $arrayPonencias,
             ];
 
             return view('calificar_ponencia/ordenamiento', $data);
-  
         }
     }
 
     public function posicionCalificacion()
-    {   
-        
+    {
+
         // echo '<pre>';
         // echo print_r($_POST);
         // echo '</pre>';
-                            
+
         $arrayPonencia = [];
         $i = 1;
         foreach ($_POST['posiciones'] as $r) {
@@ -464,12 +755,12 @@ class MainController extends BaseController
             $condiciones_ponencia = ['nombre' => $r];
             $res_ponencias = $MainModel->getAllOneRow('ponencias', $condiciones_ponencia); // TOMAMOS TODA LA INFORMACION DE LA PONENCIA
             // array_push($arrayPonencia, $res_ponencias["clave_ponencia"]);
-            $condiciones = ['ponencia' => $res_ponencias["clave_ponencia"], 'gafete' =>session('gafete')];
+            $condiciones = ['ponencia' => $res_ponencias["clave_ponencia"], 'gafete' => session('gafete')];
             $res_calificacion = $MainModel->getAllOneRow('calificaciones', $condiciones);
             echo '<pre>';
             echo print_r($res_calificacion);
             echo '</pre>';
-            
+
             if (empty($res_calificacion)) {
                 echo 'entro';
 
@@ -489,23 +780,23 @@ class MainController extends BaseController
                 ];
 
                 $res = $MainModel->insertarRegistro('calificaciones', $condiciones_calificaciones); // eSTO SE DESCOMENTA
-                
+
                 //SE TIENE QUE HACER UN COUNT PARA SABER CUANTOS REGISTROS HAY DE ESA CLAVE DE GAFETE PARA ASIGNARLES LA CONSTANCIA DE ASISTENTE
                 $condiciones = ['gafete' => session('gafete')];
                 $count = $MainModel->countRow('calificaciones', $condiciones);
                 switch (session('red')) {
                     case 'Releem':
-                        
-                        if($count == 5){
+
+                        if ($count == 5) {
                             //echo $count;
                             // $condiciones = ['usuario' => session('usuario'), 'tipo_constancia' => 'Asistente', 'anio' => date('Y')];
                             //Añadimos la constancia
                             $data = ["usuario" => session('usuario')];
-                            $usuario = $this->MainModel->getAllOneRow("usuarios",$data);
-                            
+                            $usuario = $this->MainModel->getAllOneRow("usuarios", $data);
+
                             $data = [
                                 'usuario' => session('usuario'),
-                                'nombre' => $usuario["nombre"]." ".$usuario["ap_paterno"]." ".$usuario["ap_materno"],
+                                'nombre' => $usuario["nombre"] . " " . $usuario["ap_paterno"] . " " . $usuario["ap_materno"],
                                 'tipo_constancia' => 'Asistencia',
                                 'redCueAca' => session('claveCuerpo'),
                                 'red' => session('red'),
@@ -513,17 +804,17 @@ class MainController extends BaseController
                                 'fecha_registro' => date('Y-m-d H:i:s')
                             ];
                             $constancia = $this->MainModel->insertarRegistro('constancia_Releem', $data); //DESCOMENTAR ESTO
-                            
+
                             $last_row = $this->MainModel->lastRow('constancia_Releem');
-                            
+
                             //ACTUALIZAMOS LA FILA CON EL ID DE FOLIO
                             $condiciones = ["id" => $last_row["id"]];
                             $data = [
                                 "folio" => $last_row["id"]
-                                ];
-                                
-                            $actulizar_fila = $this->MainModel->updateRow('constancia_Releem',$condiciones,$data); //DESCOMENTAR ESTO
-                            
+                            ];
+
+                            $actulizar_fila = $this->MainModel->updateRow('constancia_Releem', $condiciones, $data); //DESCOMENTAR ESTO
+
                         }
                         break;
 
@@ -539,8 +830,8 @@ class MainController extends BaseController
 
             $i++;
         }
-        
-        
+
+
 
         $condiciones_comentarios = [
             'claveGafete' => session('gafete'),
@@ -548,10 +839,10 @@ class MainController extends BaseController
             'clavePonencia' => session('ponencia'),
             'comentario' => $_POST["comentario"]
         ];
-        
-        
+
+
         $insertComentario = $MainModel->insertarRegistro('comentarios', $condiciones_comentarios); //DESCOMENTAR ESTO
-        
+
         return redirect()->to(base_url('agregar-registro'));  //DESCOMENTAR ESTO
     }
 
@@ -560,9 +851,9 @@ class MainController extends BaseController
     {
         $data = ["gafete" => session('gafete')];
         $total_calificaciones = $this->MainModel->countRow('calificaciones', $data);
-        
-        
-        
+
+
+
         $session = session();
         $session->destroy();
 
@@ -581,62 +872,61 @@ class MainController extends BaseController
         $condicion = [];
         // $nombre = "";
         $MainModel = new MainModel();
-        $participantes = $MainModel->getAllLike('participantes_congresos', 'nombre', $nombre,$condicion);
-        
+        $participantes = $MainModel->getAllLike('participantes_congresos', 'nombre', $nombre, $condicion);
+
         $html = '';
-        
-        if(empty($participantes)){
-            
-        }else{
+
+        if (empty($participantes)) {
+        } else {
             foreach ($participantes as $p) {
-                
-                if($p['publication_id'] == 0 || $p['publication_id'] == '' || $p['publication_id'] == null){
+
+                if ($p['publication_id'] == 0 || $p['publication_id'] == '' || $p['publication_id'] == null) {
                     $submission_id = 'No adjuntado';
                     $clave_ponencia = 'No adjuntado';
-                }else{
+                } else {
                     $condiciones = ['publication_id' => $p['publication_id']];
-                
+
                     $columnas = [];
-                    
-                    array_push($columnas,'submission_id');
-                    
-                    $submission_id = $this->IquatroModel->getColumnsOneRow($columnas,'publications',$condiciones);
-                    
+
+                    array_push($columnas, 'submission_id');
+
+                    $submission_id = $this->IquatroModel->getColumnsOneRow($columnas, 'publications', $condiciones);
+
                     $submission_id = $submission_id['submission_id'];
-                    
+
                     $condiciones = ['publication_id' => $p['publication_id']];
-                    
-                    $clave_ponencia = $MainModel->getAllOneRow('ponencias',$condiciones);
-                    
+
+                    $clave_ponencia = $MainModel->getAllOneRow('ponencias', $condiciones);
+
                     $clave_ponencia = $clave_ponencia['clave_ponencia'];
                 }
-                
-                
+
+
 
                 if ($p["asistencia_presencial"] == '0') {
                     $btn = '<button class="btn btn-danger btn-sm" onclick="asistencia(' . $p["id"] . ')" ><i class="fas fa-times-circle"></i></button>';
                 } else {
                     $btn = '<button class="btn btn-success btn-sm" onClick="eliminar_asistencia(' . $p["id"] . ')"><i class="fas fa-check-circle"></i></button>';
                 }
-                
-                if($p['kit'] == 0){
+
+                if ($p['kit'] == 0) {
                     $btnKit = '<button class="btn btn-danger btn-sm" onclick="kit(' . $p["id"] . ')" ><i class="fas fa-box"></i></button>';
-                }else{
+                } else {
                     $btnKit = '<button class="btn btn-success btn-sm" onclick="eliminar_kit(' . $p["id"] . ')" ><i class="fas fa-box-open"></i></button>';
                 }
-                
-                if($p['kit_virtual'] == 0){
+
+                if ($p['kit_virtual'] == 0) {
                     $btnKitVirtual = '<button class="btn btn-danger btn-sm" onclick="kit_virtual(' . $p["id"] . ')" ><i class="fas fa-box"></i></button>';
-                }else{
+                } else {
                     $btnKitVirtual = '<button class="btn btn-success btn-sm" onclick="eliminar_kit_virtual(' . $p["id"] . ')" ><i class="fas fa-box-open"></i></button>';
                 }
-                
+
                 if ($p["asistencia_virtual"] == 0) {
                     $btnVirtual = '<button disabled class="btn btn-danger btn-sm" onclick="asistencia_virtual(' . $p["id"] . ')" ><i class="fas fa-user-slash"></i></button>';
                 } else {
                     $btnVirtual = '<button disabled class="btn btn-success btn-sm" onClick="eliminar_asistencia_virtual(' . $p["id"] . ')"><i class="fas fa-user"></i></button>';
                 }
-                
+
                 $html .= '<tr>
                 <td>' . $p["id"] . '</td>
                 <td>' . $p["nombre"] . '</td>
@@ -657,42 +947,46 @@ class MainController extends BaseController
         return json_encode($html);
     }
 
-    
-    public function vista_general(){
+
+    public function vista_general()
+    {
         return view("congreso/vista_general");
     }
-    
-    public function lista_calificaciones($red,$anio){
+
+    public function lista_calificaciones($red, $anio)
+    {
 
         $array = [
-                "red" => $red,
-                "anio" => $anio ];
+            "red" => $red,
+            "anio" => $anio
+        ];
 
-        return view('calificar_ponencia/lista_ponencias_calificadas/lista_ponencias',$array);
-        
+        return view('calificar_ponencia/lista_ponencias_calificadas/lista_ponencias', $array);
     }
-    
-    public function actualizar_lista_ponencias(){
+
+    public function actualizar_lista_ponencias()
+    {
         $data = [];
-        
+
         //OBTENGO LAS CALIFICACIONES DE LA RED Y SU A���O DE LA TBLA DE CALIFICACIONES
-        
+
         $condiciones = [
-                "red" => $_POST["red"],
-                "anio" => $_POST["anio"]];
-        
-        
-        $calificaciones = $this->MainModel->getAll("calificaciones",$condiciones);
+            "red" => $_POST["red"],
+            "anio" => $_POST["anio"]
+        ];
+
+
+        $calificaciones = $this->MainModel->getAll("calificaciones", $condiciones);
         $a_promedios = [];
-        foreach($calificaciones as $c){
+        foreach ($calificaciones as $c) {
             $condiciones = ['clave_ponencia' => $c['ponencia']];
-            $red_coincide = $this->MainModel->getAllOneRow('ponencias',$condiciones);
-            if($red_coincide['red'] == $_POST['red']){
+            $red_coincide = $this->MainModel->getAllOneRow('ponencias', $condiciones);
+            if ($red_coincide['red'] == $_POST['red']) {
                 //Tomo el usuario del registro actual
                 $usuario = $c['usuario'];
                 //Tomo la cantidad de ponencias que califico en total
                 $condiciones = ['usuario' => $usuario, 'red' => $c['red'], 'anio' => $c['anio']];
-                $c_ponencias_usuario = $this->MainModel->selectCount('calificaciones',$condiciones); //8
+                $c_ponencias_usuario = $this->MainModel->selectCount('calificaciones', $condiciones); //8
                 $c_ponencias_usuario = $c_ponencias_usuario['cantidad'];
                 //Tomamos el promedio de orden de la ponencia/ponencias evaluadas
                 $promedio_usuario = $c['posicion'] / $c_ponencias_usuario;
@@ -701,19 +995,19 @@ class MainController extends BaseController
                 //Ahora debemos separar cada promedio a su ponencia y agregarlas al array correspondiente a su ponencia
                 $ponencia = strtoupper($c['ponencia']);
                 $ponencia = trim($ponencia);
-                if(isset($a_promedios[$ponencia])){
+                if (isset($a_promedios[$ponencia])) {
                     array_push($a_promedios[$ponencia], $promedio_usuario);
-                }else{
+                } else {
                     $a_promedios[$ponencia] = [];
                     array_push($a_promedios[$ponencia], $promedio_usuario);
                 }
             }
         }
-        
+
         $a_final = [];
         $e = 0;
         $html = '';
-        foreach($a_promedios as $a){
+        foreach ($a_promedios as $a) {
             $suma = 0;
             //sumamos todos los promedios de orden/ponencias evaluadas de cada ponencia
             foreach ($a as $i) {
@@ -725,47 +1019,47 @@ class MainController extends BaseController
             $promedio = $suma / $count;
             $key = array_keys($a_promedios);
             $key = $key[$e];
-            if(!isset($a_final[$key])){
+            if (!isset($a_final[$key])) {
                 //redondeamos el promedio a 2 digitos
-                    $promedio = round($promedio, 2);
-                    //establecemos variables
-                    $condicion = ['clave_ponencia' => $key];
-                    $datos_ponencia = $this->MainModel->getAllOneRow('ponencias',$condicion);
-                    $a_final[$e]['promedio'] = $promedio;
-                    $a_final[$e]['nombre_ponencia'] = $datos_ponencia['nombre'];
-                    $a_final[$e]['ponencia'] = $key;
-                    $a_final[$e]['publication_id'] = $datos_ponencia['publication_id'];
+                $promedio = round($promedio, 2);
+                //establecemos variables
+                $condicion = ['clave_ponencia' => $key];
+                $datos_ponencia = $this->MainModel->getAllOneRow('ponencias', $condicion);
+                $a_final[$e]['promedio'] = $promedio;
+                $a_final[$e]['nombre_ponencia'] = $datos_ponencia['nombre'];
+                $a_final[$e]['ponencia'] = $key;
+                $a_final[$e]['publication_id'] = $datos_ponencia['publication_id'];
             }
             $e++;
         }
 
-        usort($a_final, array($this,'sort_by_promedio'));
+        usort($a_final, array($this, 'sort_by_promedio'));
         $e = 1;
-        foreach($a_final as $f){
+        foreach ($a_final as $f) {
             //TOMAREMOS EL SUBMISSION_ID DEL PUBLICATION_ID
             $condiciones = ['publication_id' => $f['publication_id']];
             $columnas = [];
-            array_push($columnas,'submission_id');
-            $submission_id = $this->IquatroModel->getColumnsOneRow($columnas,'publications',$condiciones);
+            array_push($columnas, 'submission_id');
+            $submission_id = $this->IquatroModel->getColumnsOneRow($columnas, 'publications', $condiciones);
             $submission_id = $submission_id['submission_id'];
             $html .= '<tr>
             <th>' . $e . '</th>
             <td>' . $f['ponencia'] . '</td>
-            <td>' . $f['nombre_ponencia']. '</td>
-            <td>'. $f['promedio'] .'</td>
-            <td align="center"><a target="_blank" href="'.base_url()."/comentarios/".$f['ponencia'].'" class="btn btn-primary"><i class="fas fa-comment"></i></a></td>
-            <td align="center"><a target="_blank" href="https://iquatroeditores.com/revista/index.php/iquatro/workflow/index/'.$submission_id.'/1" class="btn btn-primary"><i class="fas fa-book"></i></a></td>
+            <td>' . $f['nombre_ponencia'] . '</td>
+            <td>' . $f['promedio'] . '</td>
+            <td align="center"><a target="_blank" href="' . base_url() . "/comentarios/" . $f['ponencia'] . '" class="btn btn-primary"><i class="fas fa-comment"></i></a></td>
+            <td align="center"><a target="_blank" href="https://iquatroeditores.com/revista/index.php/iquatro/workflow/index/' . $submission_id . '/1" class="btn btn-primary"><i class="fas fa-book"></i></a></td>
             </tr>';
             $e++;
         }
-        
-        
+
+
         /*
         echo '<pre>';
         print_r($a_final);
         echo '</pre>';
         */
-        
+
         $a_final["lista"] = $html;
         return json_encode($a_final);
 
@@ -782,7 +1076,7 @@ class MainController extends BaseController
 
 
 
-/*
+        /*
 
         //OBTENGO LOS DATOS DE LA TABLA DE CALIFICACIONES CON UNA CONSULTA ESPECIAL
         $calificaciones = $this->MainModel->promedio_calificaciones($condiciones);
@@ -807,8 +1101,9 @@ class MainController extends BaseController
         $array["lista"] = $html;
         return json_encode($array);*/
     }
-    
-    private function sort_by_promedio ($a, $b) {
+
+    private function sort_by_promedio($a, $b)
+    {
         //Aqui lo que hace es que del array toma la posicion 0 y la 1 y hacemos una comparacion de manera manual
         //asi consecutivamente. Ej: 0 y 1, 1 y 2, 2 y 3 etc
         if ($a == $b) {
@@ -817,153 +1112,156 @@ class MainController extends BaseController
         return ($a < $b) ? -1 : 1; //Usar los signos >< para modificar el orden
         //return $a['promedio'] - $b['promedio'];
     }
-    
+
     public function actualizacion_ponencias()
     {
         $data = [];
         //TRAEMOS LOS DATOS MEIANTE EL POST
         $fecha = $_POST["fecha"];
-        
-        $condiciones= [
+
+        $condiciones = [
             'red' => $_POST["red"],
-            'anio' => $_POST["anio"]];
-        
+            'anio' => $_POST["anio"]
+        ];
+
         // SI LA VARIABLE FECHA ESTA VACIA ES LA PRIMERA VES QUE CARGA LA PAGINA Y DEVUELVE LA ULTIMA FECHA DEL REGISTRO
-        if($fecha == ""){
-            $resultado = $this->MainModel->lastUpdateGeneral("calificaciones", "fecha",$condiciones);
+        if ($fecha == "") {
+            $resultado = $this->MainModel->lastUpdateGeneral("calificaciones", "fecha", $condiciones);
             $data["resultado"] = "actualizarFecha";
-            $data["ultima_fecha"] = $resultado[0]["fecha"]; 
-            
+            $data["ultima_fecha"] = $resultado[0]["fecha"];
+
             return json_encode($data);
-        }else{ //SI LA VARIABLE DE FECHA ES DIFERENTE A VACIA VERIFICARA SI HAY DATOS CON UNA FECHA MAYOR QUE LA RECIVIDA
-            
-            $resultado = $this->MainModel->fechaMayorQueGeneral("calificaciones",$fecha,$condiciones);
-            
+        } else { //SI LA VARIABLE DE FECHA ES DIFERENTE A VACIA VERIFICARA SI HAY DATOS CON UNA FECHA MAYOR QUE LA RECIVIDA
+
+            $resultado = $this->MainModel->fechaMayorQueGeneral("calificaciones", $fecha, $condiciones);
+
             if (empty($resultado)) { // SI EL ESULTADO ES IGUAL A VACIO QUIERE DECIR QUE NO HAY ACTUALIZACIONES
                 $data["resultado"] = "No_existe_actualizacion";
             } else { // SI EL RESULTADO NO ESTA VACIO RETORNAREMOS LA ULTIMA FECHA DE LAS CALIFICACIONES AGREGADAS
                 $data["resultado"] = "actualizacion";
                 $data["ultima_fecha"] = $resultado[0]["fecha"];
             }
-            
+
             return json_encode($data);
         }
-
     }
-    
-    public function comentarios_ponencias($ponencia){
-        
+
+    public function comentarios_ponencias($ponencia)
+    {
+
         $condicion = [
             'clavePonencia' => $ponencia
-            ];
-            
-        $comentarios = $this->MainModel->getAllTable("comentarios",$condicion);
-        
-        if(empty($comentarios)){
-            
+        ];
+
+        $comentarios = $this->MainModel->getAllTable("comentarios", $condicion);
+
+        if (empty($comentarios)) {
+
             return redirect()->to(base_url());
-            
-        }else{
-            
+        } else {
+
             $condicion = [
-            'clave_ponencia' => $ponencia];
-            
-            $ponencia = $this->MainModel->getAllOneRow('ponencias',$condicion);
-            
+                'clave_ponencia' => $ponencia
+            ];
+
+            $ponencia = $this->MainModel->getAllOneRow('ponencias', $condicion);
+
             $array["red"] = $ponencia["red"];
             $array["comentarios"] = $comentarios;
-            
-            return view('calificar_ponencia/lista_ponencias_calificadas/comentarios',$array);
+
+            return view('calificar_ponencia/lista_ponencias_calificadas/comentarios', $array);
         }
     }
-    
-    
+
+
     // ============================== funciones para la nueva ruta de listado de participantes ==============================
-    public function lista_asistencia(){
+    public function lista_asistencia()
+    {
         return view('lista_asistencia/index');
     }
-    
-    public function getParticipantes(){
-        
-        $participantes = $this->MainModel->getAllTable("participantes_congresos","ninguna");
+
+    public function getParticipantes()
+    {
+
+        $participantes = $this->MainModel->getAllTable("participantes_congresos", "ninguna");
         // echo '<pre>';
         // print_r($participantes);
         // echo '</pre>';
-        
+
         $array = [];
-        foreach($participantes as $p){
-            
+        foreach ($participantes as $p) {
+
             /*====================*/
-            $condicion = ["claveCuerpo"=>$p["claveCuerpo"]];
-            
-            $nombre_ponencia = $this->MainModel->getAllOneRow("ponencias",$condicion);
-            
+            $condicion = ["claveCuerpo" => $p["claveCuerpo"]];
+
+            $nombre_ponencia = $this->MainModel->getAllOneRow("ponencias", $condicion);
+
             /*======================*/
-            
-            if($p['publication_id'] == 0 || $p['publication_id'] == '' || $p['publication_id'] == null){
-                    $submission_id = 'No adjuntado';
-                }else{
-                    $condiciones = ['publication_id' => $p['publication_id']];
-                
-                    $columnas = [];
-                    
-                    array_push($columnas,'submission_id');
-                    
-                    $submission_id = $this->IquatroModel->getColumnsOneRow($columnas,'publications',$condiciones);
-                    
-                    $submission_id = $submission_id['submission_id']; 
-                }
-                
-                if ($p["asistencia_presencial"] == '0') { //BOTON DE ASISTENCIA PRESENCIAL
-                    $asistencia_presencial = '<button class="btn btn-danger btn-sm" onclick="asistencia(' . $p["id"] . ')" ><i class="fas fa-times-circle"></i></button>';
-                } else {
-                    $asistencia_presencial = '<button class="btn btn-success btn-sm" onClick="eliminar_asistencia(' . $p["id"] . ')"><i class="fas fa-check-circle"></i></button>';
-                }
-                
-                
-                if($p['kit'] == 0){
-                    $btnKit = '<button class="btn btn-danger btn-sm" onclick="kit(' . $p["id"] . ')" ><i class="fas fa-box"></i></button>';
-                }else{
-                    $btnKit = '<button class="btn btn-success btn-sm" onclick="eliminar_kit(' . $p["id"] . ')" ><i class="fas fa-box-open"></i></button>';
-                }
-                
-                
-                if ($p["asistencia_virtual"] == 0) {
-                    $btnVirtual = '<button disabled class="btn btn-danger btn-sm" onclick="asistencia_virtual(' . $p["id"] . ')" ><i class="fas fa-user-slash"></i></button>';
-                } else {
-                    $btnVirtual = '<button disabled class="btn btn-success btn-sm" onClick="eliminar_asistencia_virtual(' . $p["id"] . ')"><i class="fas fa-user"></i></button>';
-                }
-                
-                
-                if($p['kit_virtual'] == 0){
-                    $btnKitVirtual = '<button class="btn btn-danger btn-sm" onclick="kit_virtual(' . $p["id"] . ')" ><i class="fas fa-box"></i></button>';
-                }else{
-                    $btnKitVirtual = '<button class="btn btn-success btn-sm" onclick="eliminar_kit_virtual(' . $p["id"] . ')" ><i class="fas fa-box-open"></i></button>';
-                }
-                $condiciones = ['id_iquatro' => $submission_id];
-                $password_ponencia = $this->MainModel->getAllOneRow('password_ponencias',$condiciones);
-                
+
+            if ($p['publication_id'] == 0 || $p['publication_id'] == '' || $p['publication_id'] == null) {
+                $submission_id = 'No adjuntado';
+            } else {
+                $condiciones = ['publication_id' => $p['publication_id']];
+
+                $columnas = [];
+
+                array_push($columnas, 'submission_id');
+
+                $submission_id = $this->IquatroModel->getColumnsOneRow($columnas, 'publications', $condiciones);
+
+                $submission_id = $submission_id['submission_id'];
+            }
+
+            if ($p["asistencia_presencial"] == '0') { //BOTON DE ASISTENCIA PRESENCIAL
+                $asistencia_presencial = '<button class="btn btn-danger btn-sm" onclick="asistencia(' . $p["id"] . ')" ><i class="fas fa-times-circle"></i></button>';
+            } else {
+                $asistencia_presencial = '<button class="btn btn-success btn-sm" onClick="eliminar_asistencia(' . $p["id"] . ')"><i class="fas fa-check-circle"></i></button>';
+            }
+
+
+            if ($p['kit'] == 0) {
+                $btnKit = '<button class="btn btn-danger btn-sm" onclick="kit(' . $p["id"] . ')" ><i class="fas fa-box"></i></button>';
+            } else {
+                $btnKit = '<button class="btn btn-success btn-sm" onclick="eliminar_kit(' . $p["id"] . ')" ><i class="fas fa-box-open"></i></button>';
+            }
+
+
+            if ($p["asistencia_virtual"] == 0) {
+                $btnVirtual = '<button disabled class="btn btn-danger btn-sm" onclick="asistencia_virtual(' . $p["id"] . ')" ><i class="fas fa-user-slash"></i></button>';
+            } else {
+                $btnVirtual = '<button disabled class="btn btn-success btn-sm" onClick="eliminar_asistencia_virtual(' . $p["id"] . ')"><i class="fas fa-user"></i></button>';
+            }
+
+
+            if ($p['kit_virtual'] == 0) {
+                $btnKitVirtual = '<button class="btn btn-danger btn-sm" onclick="kit_virtual(' . $p["id"] . ')" ><i class="fas fa-box"></i></button>';
+            } else {
+                $btnKitVirtual = '<button class="btn btn-success btn-sm" onclick="eliminar_kit_virtual(' . $p["id"] . ')" ><i class="fas fa-box-open"></i></button>';
+            }
+            $condiciones = ['id_iquatro' => $submission_id];
+            $password_ponencia = $this->MainModel->getAllOneRow('password_ponencias', $condiciones);
+
             array_push($array, array(
-                "id"=>$p["id"],
-                "nombre"=>$p["nombre"],
-                "red"=>$p["red"],
-                "anio"=>$p["anio"],
-                "claveCuerpo"=>$p["claveCuerpo"],
-                "clave_gafete"=>$p["clave_gafete"],
-                "codigo_ponencia"=>$submission_id,
+                "id" => $p["id"],
+                "nombre" => $p["nombre"],
+                "red" => $p["red"],
+                "anio" => $p["anio"],
+                "claveCuerpo" => $p["claveCuerpo"],
+                "clave_gafete" => $p["clave_gafete"],
+                "codigo_ponencia" => $submission_id,
                 "password_ponencia" => $password_ponencia['password'],
                 "clave_ponencia" => $nombre_ponencia["clave_ponencia"],
-                "tipo_asistencia"=>$p["tipo_asistencia"],
-                "Asistencia_presencial"=>$asistencia_presencial,
-                "Kit_presencial"=>$btnKit,
-                "Asistencia_virtual"=>$btnVirtual,
-                "Kit_virtual"=>$btnKitVirtual
+                "tipo_asistencia" => $p["tipo_asistencia"],
+                "Asistencia_presencial" => $asistencia_presencial,
+                "Kit_presencial" => $btnKit,
+                "Asistencia_virtual" => $btnVirtual,
+                "Kit_virtual" => $btnKitVirtual
             ));
         }
         echo json_encode($array);
     }
-    
-    
+
+
     public function asistencia()
     {
         $id = $_POST["id"];
@@ -976,20 +1274,20 @@ class MainController extends BaseController
         ];
         $condiciones = ["id" => $id];
         $actualizar = $MainModel->updateRow('participantes_congresos', $condiciones, $data);
-        
-        $info_participante = $this->MainModel->getAllOneRow('participantes_congresos',$condiciones);
-        
+
+        $info_participante = $this->MainModel->getAllOneRow('participantes_congresos', $condiciones);
+
         $condiciones = ["CONCAT(nombre,' ',ap_paterno,' ',ap_materno)" => $info_participante['nombre']];
-        $usuario = $this->MainModel->getAllOneRowLike('usuarios',$condiciones);
-        if($usuario != null){
+        $usuario = $this->MainModel->getAllOneRowLike('usuarios', $condiciones);
+        if ($usuario != null) {
             $usuario = $usuario['usuario'];
             $red = $info_participante['red'];
             $anio = $info_participante['anio'];
             #VAMOS A VERIFICAR SI YA SE TIENE LA CONSTANCIA DE ASISTENCIA
             $condiciones = ['usuario' => $usuario, 'red' => $red, 'anio' => $anio, 'tipo_constancia' => 'Asistencia'];
-            $existe = $this->MainModel->countRow('constancia_'.$red,$condiciones);
-            
-            if($existe == 0 ){
+            $existe = $this->MainModel->countRow('constancia_' . $red, $condiciones);
+
+            if ($existe == 0) {
                 #no exste, hacemos la constancia
                 /*
                 $data = [
@@ -1008,15 +1306,15 @@ class MainController extends BaseController
                 $this->MainModel->updateRow('constancia_'.$red,$condiciones,$data);
                 */
             }
-        }else{
+        } else {
             #No se encontro el usuario por su nombre, vamos a registrarlo y el usuario queda pendiente de buscarlo
             $red = $info_participante['red'];
             $anio = $info_participante['anio'];
             #VAMOS A VERIFICAR SI YA SE TIENE LA CONSTANCIA DE ASISTENCIA
             $condiciones = ['red' => $red, 'anio' => $anio, 'tipo_constancia' => 'Asistencia', 'nombre' => $info_participante['nombre']];
-            $existe = $this->MainModel->countRow('constancia_'.$red,$condiciones);
-            
-            if($existe == 0 ){
+            $existe = $this->MainModel->countRow('constancia_' . $red, $condiciones);
+
+            if ($existe == 0) {
                 #no exste, hacemos la constancia
                 /*
                 $data = [
@@ -1039,8 +1337,8 @@ class MainController extends BaseController
         }
         return json_encode('exito');
     }
-    
-    
+
+
     public function eliminar_asistencia()
     {
         $id = $_POST["id"];
@@ -1051,21 +1349,21 @@ class MainController extends BaseController
             'fecha' => $date
         ];
         $condiciones = ["id" => $id];
-        $actualizar = $MainModel->updateRow('participantes_congresos', $condiciones, $data); 
-        
-        $info_participante = $this->MainModel->getAllOneRow('participantes_congresos',$condiciones);
-        
+        $actualizar = $MainModel->updateRow('participantes_congresos', $condiciones, $data);
+
+        $info_participante = $this->MainModel->getAllOneRow('participantes_congresos', $condiciones);
+
         $condiciones = ["CONCAT(nombre,' ',ap_paterno,' ',ap_materno)" => $info_participante['nombre']];
-        $usuario = $this->MainModel->getAllOneRowLike('usuarios',$condiciones);
-        if($usuario != null){
+        $usuario = $this->MainModel->getAllOneRowLike('usuarios', $condiciones);
+        if ($usuario != null) {
             $usuario = $usuario['usuario'];
             $red = $info_participante['red'];
             $anio = $info_participante['anio'];
             #VAMOS A VERIFICAR SI YA SE TIENE LA CONSTANCIA DE ASISTENCIA
             $condiciones = ['usuario' => $usuario, 'red' => $red, 'anio' => $anio, 'tipo_constancia' => 'Asistencia'];
-            $existe = $this->MainModel->countRow('constancia_'.$red,$condiciones);
-            
-            if($existe != 0 ){
+            $existe = $this->MainModel->countRow('constancia_' . $red, $condiciones);
+
+            if ($existe != 0) {
                 #existe, se la borramos
                 /*
                 
@@ -1077,15 +1375,15 @@ class MainController extends BaseController
                 
                 */
             }
-        }else{
+        } else {
             #No se encontro el usuario por su nombre, vamos a registrarlo y el usuario queda pendiente de buscarlo
             $red = $info_participante['red'];
             $anio = $info_participante['anio'];
             #VAMOS A VERIFICAR SI YA SE TIENE LA CONSTANCIA DE ASISTENCIA
             $condiciones = ['red' => $red, 'anio' => $anio, 'tipo_constancia' => 'Asistencia', 'nombre' => $info_participante['nombre']];
-            $existe = $this->MainModel->countRow('constancia_'.$red,$condiciones);
-            
-            if($existe != 0 ){
+            $existe = $this->MainModel->countRow('constancia_' . $red, $condiciones);
+
+            if ($existe != 0) {
                 #existe, la eliminamos
                 /*
                 $constancia = $this->MainModel->getAllOneRow('constancia_'.$red,$condiciones);
@@ -1096,20 +1394,20 @@ class MainController extends BaseController
                 */
             }
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
+
 
         return json_encode('exito');
     }
-    
-    
+
+
     public function kit()
     {
         $id = $_POST["id"];
@@ -1124,8 +1422,8 @@ class MainController extends BaseController
 
         return json_encode('exito');
     }
-    
-    
+
+
     public function eliminar_kit()
     {
         $id = $_POST["id"];
@@ -1140,8 +1438,8 @@ class MainController extends BaseController
 
         return json_encode('exito');
     }
-    
-    
+
+
     public function kit_virtual()
     {
         $id = $_POST["id"];
@@ -1156,7 +1454,7 @@ class MainController extends BaseController
 
         return json_encode('exito');
     }
-    
+
     public function eliminar_kit_virtual()
     {
         $id = $_POST["id"];
@@ -1171,8 +1469,8 @@ class MainController extends BaseController
 
         return json_encode('exito');
     }
-    
-    
+
+
     public function actualizarDatos()
     {
         $data = [];
@@ -1195,15 +1493,14 @@ class MainController extends BaseController
                 $data["ultima_fecha"] = $resultado[0]["fecha"];
             }
         }
-        
+
         // echo '<pre>';
         // echo print_r($data);
         // echo '</pre>';
         return json_encode($data);
     }
-    
-    public function asistenciaCongreso(){
-        
+
+    public function asistenciaCongreso()
+    {
     }
-    
 }

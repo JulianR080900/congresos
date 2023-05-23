@@ -23,7 +23,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $baseURL = 'http://localhost/viveredesla/';
+    public $baseURL = 'https://vive.redesla.la/congreso/';
 
     /**
      * --------------------------------------------------------------------------
@@ -36,7 +36,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $indexPage = 'landing/index.php';
+    public $indexPage = '';
 
     /**
      * --------------------------------------------------------------------------
@@ -69,7 +69,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $defaultLocale = 'en';
+    public $defaultLocale = 'es-MX';
 
     /**
      * --------------------------------------------------------------------------

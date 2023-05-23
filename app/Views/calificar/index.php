@@ -1,169 +1,86 @@
-<!-- header-->
-<?php echo view('templates/header')?>
-<!-- header -->
-<style>
-    body{
-        background-color: #363a36;
-        overflow-x: hidden;
-    }
+<!DOCTYPE HTML>
+<html>
 
-    .titulo{
-        margin-top: 10%;
-    }
-    
-    .formulario{
-        margin-top: 5%;
-        border: 1px solid;
-        box-shadow: 5px 10px;
-        border-radius: 5%;
-        padding: 3%;
-        background-color: #fff;
-    }
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Calificar ponencias REDESLA</title>
+  <link href="<?= base_url("public/css/calificar/index.css") ?>" rel="stylesheet" type="text/css">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/cd008eda05.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@popperjs/core@2" crossorigin="anonymous"></script>
 
+  <!--<script src="//code.tidio.co/leucsw6pce16vxspleocxkahvrhmtneq.js" async></script>-->
+  <!-- header-->
+  <?php //echo view('templates/header')
+  ?>
 
-    h1{
-        color: white;
-    }
-    
-    /*div#particles-js {*/
-    /*    position: absolute;*/
-    /*    z-index: -1;*/
-    /*    top: 10px;*/
-        
-    /*}*/
-    
-    #particles-js canvas {
-    display: block;
-    vertical-align: bottom;
-    -webkit-transform: scale(1);
-    -ms-transform: scale(1);
-    transform: scale(1);
-    opacity: 1;
-    -webkit-transition: opacity .8s ease, -webkit-transform 1.4s ease;
-    transition: opacity .8s ease, transform 1.4s ease
-}
+</head>
 
-#particles-js {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    z-index: -10;
-    top: 0;
-    left: 0
-}
-    
-    
-    /*============== RESPONSIVO ================*/
-      @media screen and (max-width: 640PX) {
-        #particles-js{
-            display:none;   
+<body class="body_<?= $red ?>">
+
+  <div class="outter">
+    <section id="section_logos">
+      <div class="row img">
+        <?php
+        if ($red != 'Relen_Relep') {
+        ?>
+          <div class="col-md-6 col-sm-12">
+            <img class="w-50" src="<?= base_url('public/img/logos_redes/' . $red . '.png') ?>" alt="Logo <?= $red ?>">
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <img class="w-50" src="<?= base_url('public/img/calificar/' . $sede . '.png') ?>" alt="Logo <?= $sede ?>">
+          </div>
+        <?php
+        } else {
+        ?>
+
+        <?php
         }
-        
-        div#formulario {
-        position: absolute;
-        width: 80%;
-        left: 50%;
-        transform: translateX(-50%);
-        }
-    }
-    
-    @media screen and (min-width: 640PX) and (max-width: 1080px){
-    
-        #particles-js{
-            display:none;   
-        }
-        
-        div#formulario {
-        position: absolute;
-        /*position: relative;*/
-        width: 60%;
-        left: 50%;
-        transform: translateX(-50%);
-        }
-    
-    }
-    
-    @media screen and (min-width: 1080px) {
-        #particles-js{
-            display:block;   
-        }
-        
-        div#formulario {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-}
-    
-</style>
+        ?>
+      </div>
+      <hr>
+      <div class="row img">
+        <h2 class="text-center">Calificar ponencias</h2>
+      </div>
+    </section>
+  </div>
 
-<!--m-0 vh-100-->
-<body class='row justify-content-center align-items-center text-center'> 
-
-    <div id="inicio">
-        <div class="titulo">
-        <h1>¡BIENVENIDOS A VIVE REDESLA!</h1>
-    </div>
-    <div class='col-auto text-center formulario' id="formulario">
-        <form action='<?= base_url() ?>/verificarCodigo' method='POST' id="formGafete">
-            <h3>Clave de gafete</h3>
-            <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Clave</span>
-              <input type="text" class="form-control" placeholder="Clave de gafete" aria-label="Codigo" aria-describedby="basic-addon1" id="clave" name='clave'>
+  <div class="outter">
+    <section>
+      <div class="row">
+        <div class="col-md-8">
+          <img src="<?= base_url('public/img/calificar/feedback.svg') ?>" alt="" class="w-75">
+        </div>
+        <div class="col-md-4">
+          <form id="accesos" action="./formulario/evaluacion" method="post">
+            <div class="form-group">
+              <h3>Calificar ponencias</h3>
             </div>
-            <div class="d-grid gap-2">
-              <!--<button class='btn btn-dark btn-block' type='submit'>Comprobar</button>-->
-              <button class='btn btn-block text-white' style="background-color:#232423" type='button' onclick="existeGafete()">Comprobar</button>
+            <div class="form-group">
+              <label for="">Clave de su gafete <span class="text-danger">*</span></label>
+              <input type="text" id="clave_gafete" class="form-control" name="clave_gafete" placeholder="Clave de su gafete" required>
             </div>
-        </form>
-    </div>
-    </div>
-    <div id="particles-js"></div>
-    <!-- footer-->
-    <?php echo view('templates/footer')?>
-    <!-- footer -->
-
-<script src="<?= base_url("public/js/landing/particles.js") ?>" charset="utf-8"></script>
-<script>
-
-particlesJS.load('particles-js', '<?= base_url('public/js/landing/particlesjs-config.json') ?>', function() {
-                    //$("#particles-js").append('<div class="wrapper astonish animated fadeInDown"><h1><strong>VIVE</strong>REDESLA</h1><h2>Sección de cursos y congresos</h2></div>')
-              });
-    function existeGafete(){
-        var clave = $("#clave").val().trim();
-        
-        if(clave == ""){
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Ingrese los datos',
-            });
-        }else{
-            $.ajax({
-                url:"./validarGafete",
-                type: "POST",
-                dataType: "json",
-                data: {
-                    clave: clave
-                },
-                success: function(resp){
-                    console.log(resp);
-                    window.location.assign(resp); 
-                },
-                error: function(err) {
-                    console.log(err);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Ooops... algo ocurrio',
-                        text: err.responseText
-                    })
-                }
-            })
-        }
-    }
-</script>
+            <div class="form-group">
+              <label for="">Ponencia a evaluar <a type="button" data-toggle="popover" title="El moderador de su salón, se las proporciona cada que finaliza la presentación un ponente" data-content=""><i class="fa-solid fa-circle-info text-warning"></i></a> <span class="text-danger">*</span></label>
 
 
-
+              <input type="text" id="codigo_ponencia" class="form-control" name="codigo_ponencia" placeholder="Código de la ponencia" required>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-block btn-dark" id="btnAccesos">Verificar</button>
+            </div>
+            <div class="form-group">
+              <p style="font-size: 10px;">¿No identifica dónde está su clave de gafete o el código de ponencia? <a target="_blank" href="https://drive.google.com/file/d/1a0fw6EXscawm4nt_U5ZcJ1qEQ4QCW5zG/view">Dé clic aquí para ver el manual.</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script src="<?= base_url('public/js/calificar/index.js') ?>"></script>
 </body>
+
 </html>

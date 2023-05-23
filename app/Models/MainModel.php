@@ -192,17 +192,62 @@ class MainModel extends Model{
     
     public function exist($tabla, $condiciones){
 
-        $builder = $this->db->table($tabla)
-                        ->select('id')
-                        ->where($condiciones);
-        $builder->countAllResults();
+        $qry=$this->db->table($tabla);
+        $qry->select("*");
+        $qry->where($condiciones);
 
-        if ($builder->countAllResults() > 0) {
+        if ($qry->countAllResults() > 0) {
             return true;
         } else {
             return false;
         }
     }
+
+    public function getAllColums($columnas,$tabla,$condiciones){
+
+        $db = \Config\Database::connect('default');
+
+        $builder = $db->table($tabla)
+                        ->select($columnas)
+                        ->where($condiciones);
+
+        return $builder->get()->getResultArray();
+
+    }
+
+    public function getColumnsOneRow($columnas,$tabla,$condiciones){
+
+        $db = \Config\Database::connect('default');
+
+        $builder = $db->table($tabla)
+                        ->select($columnas)
+                        ->where($condiciones);
+
+        return $builder->get()->getRowArray();
+
+    }
+
+    public function generalUpdate($tabla,$data,$condiciones){
+        
+        $db = \Config\Database::connect('default');
+
+        $builder = $db->table($tabla)
+                      ->set($data)
+                      ->where($condiciones);
+        if($builder->update()){
+            return true;
+        }
+        return false;
+
+    }
+
+    public function count($tabla,$condiciones){
+        $db = \Config\Database::connect('default');
+        $builder = $db->table($tabla)
+                   ->where($condiciones);
+        return $builder->countAllResults();
+    }
+
 
     
 }
