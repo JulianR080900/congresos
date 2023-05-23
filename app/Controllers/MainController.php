@@ -424,7 +424,6 @@ class MainController extends BaseController
         $file = APPPATH . "Views/{$red}/{$anio}/salones/{$n}.php";
 
         if (!file_exists($file)) {
-            echo 'entra';
             #la ruta no existe mandamos un 404 y terminamos el codigo
             http_response_code(405);
             exit;
