@@ -104,7 +104,6 @@ $("#frmEvaluacion").on("submit", function (e) {
       tipo_metodologia
     },
     success: function(data){
-      console.log(data);
       Swal.fire({
         icon: 'success',
         title: data.title,
