@@ -196,7 +196,7 @@ class MainController extends BaseController
         //Generación del código QR
         $image = $this->generarCodigoQr($resultado['clave_gafete'], $resultado['red']);
 
-        echo $image;
+        echo json_encode($image);
         exit;
 
         //Poner el texto de la imagen dentro del arreglo de datos
