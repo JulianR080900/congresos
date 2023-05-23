@@ -16,6 +16,8 @@ use Endroid\QrCode\Logo\Logo;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
 use Endroid\QrCode\Writer\PngWriter;
 use Endroid\QrCode\Writer\ValidationException;
+use CodeIgniter\Files\File;
+
 
 class GafetesCongresos extends TCPDF{
     //Page header
@@ -419,15 +421,12 @@ class MainController extends BaseController
             'programa' => $this->programa_ponencias
         ];
 
-        $ruta = dirname(__DIR__)."\\Views\\".$red.'\\'.$anio.'\\salones\\'.$n.'.php';;
-        #view/Releg/2023/salon_2
+        $file = new File(APPPATH . "Views/{$red}/{$anio}/salones/{$n}.php");
 
-        #file_exist
-
-        if(!file_exists($ruta)){
+        if (!$file->exists()) {
             echo 'entra';
             #la ruta no existe mandamos un 404 y terminamos el codigo
-            http_response_code(404);
+            http_response_code(405);
             exit;
         }
 
