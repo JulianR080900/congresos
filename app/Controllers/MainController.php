@@ -419,9 +419,7 @@ class MainController extends BaseController
             'programa' => $this->programa_ponencias
         ];
 
-        $ruta = dirname(__DIR__)."\\Views\\".$red.'\\'.$anio.'\\salones\\'.$n.'.php';
-        echo $ruta;
-        exit;
+        $ruta = dirname(__DIR__)."\\Views\\".$red.'\\'.$anio.'\\salones\\'.$n.'.php';;
         #view/Releg/2023/salon_2
 
         #file_exist
