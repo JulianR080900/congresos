@@ -23,7 +23,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $baseURL = 'https://vive.redesla.la/congreso/';
+    public $baseURL = 'https://vive.redesla.la/congresos/';
 
     /**
      * --------------------------------------------------------------------------
