@@ -201,18 +201,14 @@ class MainController extends BaseController
         $newArray = array("qr_code" => $image);
         $data = array_merge($data, $newArray);
 
-        http_response_code(800);
-        echo json_encode($data);
-        exit;
-
         http_response_code(200);
         $session = session();
         $session->set($data);
         return json_encode(base_url('/datos_generales'));
     }
 
-    private function generarCodigoQr($claveGafete, $red)
-    {
+
+    private function generarCodigoQr($clave_gafete,$red){
 
         $writer = new PngWriter();
 
@@ -222,62 +218,66 @@ class MainController extends BaseController
         $imagen = $colorImagen[1];
 
         //Crear el código QR
-        $qrCode = QrCode::create($claveGafete)
+        $qrCode = QrCode::create($clave_gafete)
             ->setEncoding(new Encoding('UTF-8'))
             ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
-            ->setSize(250)
+            ->setSize(300)
             ->setMargin(10)
             ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
             ->setForegroundColor($color); // Set foreground color to red
 
         // Crear el logo del código
-        $logo = Logo::create(base_url() . '/public/img/isotipos/' . $imagen)
+        $logo = Logo::create(ROOTPATH.'/public/img/isotipos/'.$imagen)
             ->setResizeToWidth(100);
 
         $result = $writer->write($qrCode, $logo);
 
         // Obtener la URL de la imagen para poder desplegar la imagen
-        header('Content-Type: ' . $result->getMimeType());
+        //header('Content-Type: '.$result->getMimeType());
         return $result->getDataUri();
     }
 
-    private function escogerColorImagenCodigoQr($red)
-    {
-        $rgbImagen = [new Color(0, 0, 0), 'Mapa_Redesla.png'];
+    private function escogerColorImagenCodigoQr($red) {
+        $rgbImagen = [new Color(0,0,0), 'Mapa_Redesla.png'];
 
-        switch ($red) {
-            case "Relayn":
+        switch($red) {
+            case "Relayn": 
                 $rgbImagen[0] = new Color(47, 29, 0);
                 $rgbImagen[1] = 'Mapa_Relayn.png';
                 break;
-            case "Releem":
+            case "Releem": 
                 $rgbImagen[0] = new Color(36, 0, 47);
                 $rgbImagen[1] = 'Mapa_Releem.png';
                 break;
             case "Releg":
-                $rgbImagen[0] = new Color(47, 0, 39);
+                $rgbImagen[0] = new Color(47, 0, 39); 
                 $rgbImagen[1] = 'Mapa_Releg.png';
                 break;
-            case "Relen":
+            case "Relen": 
                 $rgbImagen[0] = new Color(47, 0, 0);
                 $rgbImagen[1] = 'Mapa_Relen.png';
                 break;
-            case "Relep":
+            case "Relep": 
                 $rgbImagen[0] = new Color(3, 47, 0);
                 $rgbImagen[1] = 'Mapa_Relep.png';
                 break;
-            case "Relmo":
-                $rgbImagen = new Color(23, 23, 23);
-                $rgbImagen[1] = 'Mapa_Relmo.png';
-                break;
-            default:
-                $rgbImagen[0] = new Color(0, 0, 0);
+            default: 
+                $rgbImagen[0] = new Color(0,0,0);
                 $rgbImagen[1] = 'Mapa_Redesla.png';
                 break;
         }
 
         return $rgbImagen;
     }
+
+
+
+
+
+
+
+
+
 
     public function datos_generales()
     {
