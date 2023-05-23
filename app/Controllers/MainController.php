@@ -105,10 +105,6 @@ class MainController extends BaseController
         $condiciones = array("clave_gafete" => $gafete);
         $resultado = $this->MainModel->getAllOneRow('participantes_congresos', $condiciones);
 
-        http_response_code(800);
-        echo json_encode($resultado);
-        exit;
-
         if (empty($resultado)) {
             http_response_code(501);
             $response = "El gafete no existe. Favor de revisar si esta escrito correctamente";
@@ -197,6 +193,9 @@ class MainController extends BaseController
             ];
         }
 
+        http_response_code(800);
+        echo json_encode($data);
+        exit;
         //Generación del código QR
         $image = $this->generarCodigoQr($resultado['clave_gafete'], $resultado['red']);
 
