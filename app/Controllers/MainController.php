@@ -100,6 +100,9 @@ class MainController extends BaseController
 
     public function validarGafete()
     {
+        http_response_code(800);
+        echo 'hi';
+        exit;
         $gafete = $this->request->getPost('clave');
 
         $condiciones = array("clave_gafete" => $gafete);
