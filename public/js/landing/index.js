@@ -16,8 +16,8 @@ function existeGafete(){
                 clave: clave
             },
             success: function(resp){
-                console.log(resp);
-                //window.location.assign(resp); 
+                //console.log(resp);
+                window.location.assign(resp); 
             },
             error: function(err) {
                 console.log(err);
@@ -30,10 +30,3 @@ function existeGafete(){
         })
     }
 }
-
-particlesJS.load(
-    'particles-js', 'http://localhost/viveredesla/public/js/landing/particlesjs-config.json', 
-    function() {
-        //$("#particles-js").append('<div class="wrapper astonish animated fadeInDown"><h1><strong>VIVE</strong>REDESLA</h1><h2>Sección de cursos y congresos</h2></div>')
-    }
-);
