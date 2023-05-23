@@ -193,12 +193,11 @@ class MainController extends BaseController
             ];
         }
 
-        http_response_code(800);
-        echo 'hi';
-        exit;
-
         //Generación del código QR
         $image = $this->generarCodigoQr($resultado['clave_gafete'], $resultado['red']);
+
+        echo $image;
+        exit;
 
         //Poner el texto de la imagen dentro del arreglo de datos
         $newArray = array("qr_code" => $image);
@@ -212,6 +211,8 @@ class MainController extends BaseController
 
 
     private function generarCodigoQr($clave_gafete,$red){
+
+        return 'Hi';
 
         $writer = new PngWriter();
 
