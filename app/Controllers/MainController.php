@@ -193,15 +193,17 @@ class MainController extends BaseController
             ];
         }
 
-        http_response_code(800);
-        echo json_encode($data);
-        exit;
+
         //Generación del código QR
         $image = $this->generarCodigoQr($resultado['clave_gafete'], $resultado['red']);
 
         //Poner el texto de la imagen dentro del arreglo de datos
         $newArray = array("qr_code" => $image);
         $data = array_merge($data, $newArray);
+
+        http_response_code(800);
+        echo json_encode($data);
+        exit;
 
         http_response_code(200);
         $session = session();
