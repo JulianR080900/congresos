@@ -57,22 +57,7 @@ class MainController extends BaseController
         $this->MainModel = new MainModel();
         date_default_timezone_set('America/Monterrey');
         $this->current_date = date('Ymd');
-        /*
-         if($this->current_date == '20230524' || $this->current_date == '20230526'){
-            $this->current_red = 'Releg';
-            $this->current_sede = 'UAQ';
-            $this->maxRevisiones = 5;
-        }else if($this->current_date == '20231115' || $this->current_date == '20231117'){
-            $this->current_red = 'Relayn';
-        }else if($this->current_date == '20231209' || $this->current_date == '20231209'){
-            $this->current_red = 'Relen_Relep';
-        }else{
-            http_response_code(404);
-            exit;
-        }
-        */
-
-
+    
         if($this->current_date == '20230523' || $this->current_date == '20230524' || $this->current_date == '20230525' || $this->current_date == '20230526'){
             $this->current_red = 'Releg';
             $this->current_sede = 'UAQ';
