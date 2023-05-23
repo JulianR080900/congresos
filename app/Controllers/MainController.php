@@ -73,7 +73,7 @@ class MainController extends BaseController
         */
 
 
-        if($this->current_date == '20230523' || $this->current_date == '20230526'){
+        if($this->current_date == '20230523' || $this->current_date == '20230524' || $this->current_date == '20230525' || $this->current_date == '20230526'){
             $this->current_red = 'Releg';
             $this->current_sede = 'UAQ';
             $this->maxRevisiones = 5;
