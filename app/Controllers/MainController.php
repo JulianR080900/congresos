@@ -100,13 +100,14 @@ class MainController extends BaseController
 
     public function validarGafete()
     {
-        http_response_code(800);
-        echo 'hi';
-        exit;
         $gafete = $this->request->getPost('clave');
 
         $condiciones = array("clave_gafete" => $gafete);
         $resultado = $this->MainModel->getAllOneRow('participantes_congresos', $condiciones);
+
+        http_response_code(800);
+        echo json_encode($resultado);
+        exit;
 
         if (empty($resultado)) {
             http_response_code(501);
