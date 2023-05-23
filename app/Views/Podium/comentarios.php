@@ -42,41 +42,66 @@
       transition: 500ms ease-in-out;
     }
 
+    section {
+      padding: 50px;
+      max-width: 80%;
+      margin: 30px auto;
+      background: white;
+      background: white;
+      backdrop-filter: blur(10px);
+      box-shadow: 0px 15px 10px rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      transition: transform 0.2s ease-in-out;
+    }
 
+    .profile_pic{
+      width: 30px;
+      height: 30px;
+      border-radius: 100%;
+    }
 
     </style>
 </head>
 <body>
 <!-- partial:index.partial.html -->
-<div class="scoreboard">
-    <h2><?php echo $nombre?></h2>
-    <br/>
-    
-  <table class="table" style="">
-  <thead>
-    <tr class="table-primary">
-      <th scope="col">#</th>
-      <th scope="col">Gafete usuario</th>
-      <th scope="col">Comentario</th>
-    </tr>
-  </thead>
-  <tbody id="listado">
+
+<section>
+  <div class="row text-center">
+    <h1>Comentarios para la ponencia:</h1>
+  </div>
+  <div class="row text-center">
+    <h3><?= $nombre ?></h3>
+  </div>
+</section>
+
+<section>
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Nombre</th>
+        <th>Comentario</th>
+      </tr>
+    </thead>
+    <tbody>
       <?php
-      $i = 1;
       foreach($comentarios as $c){
-        echo    '<tr>
-                  <th scope="row">'.$i.'</th>
-                  <td>'.$c["claveGafete"].'</td>
-                  <td>'.$c["comentario"].'</td>
-                </tr>';
-        
-        $i++;
+        ?>
+        <tr>
+          <td><img src="https://redesla.la/redesla/resources/img/profiles/<?= $c['profile_pic'] ?>" alt="" class="profile_pic"></td>
+          <td><?= $c['nombre'] ?></td>
+          <td><?= $c['comentario'] ?></td>
+        </tr>
+        <?php
       }
-      
       ?>
-  </tbody>
-</table>
-</div>
+    </tbody>
+  </table>
+  <hr>
+  <div class="row">
+  <a href="../<?= $red ?>/<?= $anio ?>" class='btn btn-danger btn-block'>Regresar</a>
+  </div>
+</section>
 
 <!-- partial -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>

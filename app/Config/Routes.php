@@ -31,111 +31,124 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-/*PRUEBAS*/
-// $routes->get('gerson','MainController::buscar_participante');
+
 
 /* --   RUTAS MAIN  --  */
-$routes->group('/',static function($routes){
-    $routes->get('', 'MainController::general');
-    $routes->get('/datos_generales', 'MainController::home');
-    $routes->post('/verificarCodigo', 'MainController::verificarCodigo');
-    $routes->get('/logout', 'MainController::logout');
-    $routes->get('/imprimirPDF', 'MainController::imprimirPDF');
-    $routes->POST('/calificarPonencia', 'MainController::calificacion');
-    $routes->get('/agregar-registro', 'MainController::agregar_registro'); //NO FUNCIONA
-    $routes->POST('/calificacion', 'MainController::posicionCalificacion');
-    $routes->post('/validarCorreo', 'MainController::validarCorreo');
-    //Pruebas
-    $routes->get('/vista-general', 'MainController::vista_general');
-    $routes->get('/lista_calificaciones/(:any)/(:any)','MainController::lista_calificaciones/$1/$2'); // ANTIGUA VERSION DE PODIUM
-    $routes->get('/comentarios/(:any)','MainController::comentarios_ponencias/$1');
-    //NUEVA RUTA PARA LISTADO DE ASISTENCIA
-    $routes->get('/lista','MainController::lista_asistencia');
-    $routes->get('/asistenciaCongreso','MainController::asistenciaCongreso'); //Controlador vacio
-    //NUEVA RUTAS PARA CALIFICACIONES DE PONENCIAS
-    $routes->get('calificar_ponencia','PonenciaCalController::index');
-    $routes->POST('calificacion_ponencia','PonenciaCalController::calificaciones');
-    $routes->POST('ordenamiento','PonenciaCalController::ordenamiento');
-    $routes->POST('ponencia_calificada','PonenciaCalController::calificar_ponencia');
-    $routes->get('verificar_constancias','PonenciaCalController::verificar_constancias');
-    //NUEVA RUTAS PARA EL PODIUM DE LAS CALIFICACIONES Y SUS COMENTARIOS
-    $routes->get('calificaciones/(:any)/(:any)','PonenciaCalController::podium/$1/$2');
-    $routes->get('comentarios_ponencias/(:any)','PonenciaCalController::comentarios/$1');
 
-    $routes->group('congreso', static function($routes){
-        $routes->group('Relayn', static function($routes){
-            $routes->group('2022', static function($routes){
-                $routes->get('inicio','RelaynController::inicio');
-                $routes->get('recepcion-congreso','RelaynController::recepcion_congreso');
-                $routes->get('zona-iquatro-editores','RelaynController::zona_iquatro_editores');
-                $routes->get('auditorio-congreso','RelaynController::auditorio_congreso');
-                $routes->get('salones','RelaynController::salones_relayn');
-                $routes->get('salon/(:num)','RelaynController::salon/$1');
-                $routes->get('entrada-congreso','RelaynController::entrada_congreso');
-                $routes->get('cabina-fotografica','RelaynController::cabina_fotografica');
-                $routes->get('lago-redesla','RelaynController::lago_redesla');
-                $routes->get('mezzanine-congreso','RelaynController::mezzanine_congreso');
-                $routes->get('animacion-a-salones','RelaynController::animacion_a_salones');
-                $routes->get('animacion-a-lobby-2','RelaynController::animacion_a_lobby_2');
-                $routes->get('animacion-a-lobby','RelaynController::animacion_a_lobby');
-                $routes->get('elevador-congreso','RelaynController::elevador_congreso');
-            });
-            $routes->group('2023', static function($routes){
-                $routes->get('inicio','RelaynController::inicio');
-                $routes->get('salon/(:num)','RelaynController::salon/$1');
-            });
+$routes->get('inicio', 'MainController::general');
+$routes->post('validarGafete', 'MainController::validarGafete');
+$routes->get('datos_generales', 'MainController::datos_generales');
+$routes->get('imprimirPDF', 'MainController::generarPDF');
+$routes->get('logout', 'MainController::logout');
+$routes->get('404', 'MainController::mostrarError404');
+
+$routes->group('plataforma', static function($routes){
+    $routes->group('Relayn', static function($routes){
+        $routes->group('2022', static function($routes){
+            $routes->get('inicio','RelaynController::inicio');
+            $routes->get('recepcion-congreso','RelaynController::recepcion_congreso');
+            $routes->get('zona-iquatro-editores','RelaynController::zona_iquatro_editores');
+            $routes->get('auditorio-congreso','RelaynController::auditorio_congreso');
+            $routes->get('salones','RelaynController::salones_relayn');
+            $routes->get('salon/(:num)','RelaynController::salon/$1');
+            $routes->get('entrada-congreso','RelaynController::entrada_congreso');
+            $routes->get('cabina-fotografica','RelaynController::cabina_fotografica');
+            $routes->get('lago-redesla','RelaynController::lago_redesla');
+            $routes->get('mezzanine-congreso','RelaynController::mezzanine_congreso');
+            $routes->get('animacion-a-salones','RelaynController::animacion_a_salones');
+            $routes->get('animacion-a-lobby-2','RelaynController::animacion_a_lobby_2');
+            $routes->get('animacion-a-lobby','RelaynController::animacion_a_lobby');
+            $routes->get('elevador-congreso','RelaynController::elevador_congreso');
         });
-
-        $routes->group('Releem', static function($routes){
-            $routes->group('2022', static function($routes){
-                $routes->get('recepcion-congreso','ReleemController::recepcion_congreso_releem');
-                $routes->get('elevador-congreso','ReleemController::elevador_congreso_releem');
-                $routes->get('salones-releem','ReleemController::salones_releem');
-                $routes->get('salon/(:num)','ReleemController::salon/$1');
-                $routes->get('auditorio-congreso','ReleemController::auditorio_congreso_releem');
-                $routes->get('mezzanine-congreso','ReleemController::mezzanine_congreso_releem');
-                $routes->get('lago-redesla','ReleemController::lago_redesla');
-                $routes->get('zona-iquatro-editores','ReleemController::zona_iquatro_editores');
-                $routes->get('cabina-fotografica','ReleemController::cabina_fotogafica_releem');
-                $routes->get('animacion-a-salones','ReleemController::animacion_a_salones');
-                $routes->get('animacion-a-lobby-2','ReleemController::animacion_a_lobby_2');
-                $routes->get('animacion-a-lobby','ReleemController::animacion_a_lobby');
-            });
-            $routes->group('2023', static function($routes){
-                $routes->get('inicio','ReleemController::inicio');
-                $routes->get('salon/(:num)','ReleemController::salon/$1');
-            });
-        });
-
-        $routes->group('Relep-Relen', static function($routes){
-            $routes->get('recepcion-congreso','RelepController::recepcion_congreso_relep_relen');
-            $routes->get('mezzanine-congreso','RelepController::mezzanine_congreso_relep_relen');
-            $routes->get('zona-iquatro-editores','RelepController::zona_iquatro_editores');
-            $routes->get('auditorio-congreso','RelepController::auditorio_congreso_relep_relen');
-            $routes->get('cabina-fotografica','RelepController::cabina_fotografica_relep_relen');
-            $routes->get('elevador-congreso','RelepController::elevador_congreso_relep_relen');
-            $routes->get('animacion-a-lobby','RelepController::animacion_a_lobby');
-            $routes->get('animacion-a-auditorio','RelepController::animacion_a_auditorio_relep_relen');
-            $routes->get('animacion-a-salones-relep','RelepController::animacion_a_salones_relep');
-            $routes->get('salones-relep','RelepController::salones_relep');
-            $routes->get('animacion-a-salones-relen','RelepController::animacion_a_salones_relen');
-            $routes->get('salones-relen','RelepController::salones_relen');
-            $routes->get('lago-redesla','RelepController::lago_redesla_relep_relen');
-            $routes->get('/sala-general', 'MainController::sala_general'); //NO EXISTE EN RELAYN, RELEEM
-            $routes->get('/vive-chiapas', 'MainController::vive_chiapas'); //NO EXISTE EN RELAYN, RELEEM
-
-            $routes->get('salon-relep/(:num)','RelepController::escoger_salon_relep/$1');
-            $routes->get('salon-relen/(:num)','RelepController::escoger_salon_relen/$1');
-
-        });
-
-        $routes->group('Releg', static function($routes){
-            $routes->group('2023', static function($routes){
-                $routes->get('inicio','RelegController::inicio');
-                $routes->get('salon/(:num)','RelegController::salon/$1');
-            });
+        $routes->group('2023', static function($routes){
+            $routes->get('inicio','RelaynController::inicio');
+            $routes->get('salon/(:num)','MainController::salon/$1');
         });
     });
+
+    $routes->group('Releem', static function($routes){
+        $routes->group('2022', static function($routes){
+            $routes->get('recepcion-congreso','ReleemController::recepcion_congreso_releem');
+            $routes->get('elevador-congreso','ReleemController::elevador_congreso_releem');
+            $routes->get('salones-releem','ReleemController::salones_releem');
+            $routes->get('salon/(:num)','ReleemController::salon/$1');
+            $routes->get('auditorio-congreso','ReleemController::auditorio_congreso_releem');
+            $routes->get('mezzanine-congreso','ReleemController::mezzanine_congreso_releem');
+            $routes->get('lago-redesla','ReleemController::lago_redesla');
+            $routes->get('zona-iquatro-editores','ReleemController::zona_iquatro_editores');
+            $routes->get('cabina-fotografica','ReleemController::cabina_fotogafica_releem');
+            $routes->get('animacion-a-salones','ReleemController::animacion_a_salones');
+            $routes->get('animacion-a-lobby-2','ReleemController::animacion_a_lobby_2');
+            $routes->get('animacion-a-lobby','ReleemController::animacion_a_lobby');
+        });
+        $routes->group('2023', static function($routes){
+            $routes->get('inicio','ReleemController::inicio');
+            $routes->get('salon/(:num)','MainController::salon/$1');
+        });
+    });
+
+    $routes->group('Relep-Relen', static function($routes){
+        $routes->get('recepcion-congreso','RelepController::recepcion_congreso_relep_relen');
+        $routes->get('mezzanine-congreso','RelepController::mezzanine_congreso_relep_relen');
+        $routes->get('zona-iquatro-editores','RelepController::zona_iquatro_editores');
+        $routes->get('auditorio-congreso','RelepController::auditorio_congreso_relep_relen');
+        $routes->get('cabina-fotografica','RelepController::cabina_fotografica_relep_relen');
+        $routes->get('elevador-congreso','RelepController::elevador_congreso_relep_relen');
+        $routes->get('animacion-a-lobby','RelepController::animacion_a_lobby');
+        $routes->get('animacion-a-auditorio','RelepController::animacion_a_auditorio_relep_relen');
+        $routes->get('animacion-a-salones-relep','RelepController::animacion_a_salones_relep');
+        $routes->get('salones-relep','RelepController::salones_relep');
+        $routes->get('animacion-a-salones-relen','RelepController::animacion_a_salones_relen');
+        $routes->get('salones-relen','RelepController::salones_relen');
+        $routes->get('lago-redesla','RelepController::lago_redesla_relep_relen');
+        $routes->get('/sala-general', 'MainController::sala_general'); //NO EXISTE EN RELAYN, RELEEM
+        $routes->get('/vive-chiapas', 'MainController::vive_chiapas'); //NO EXISTE EN RELAYN, RELEEM
+
+        $routes->get('salon-relep/(:num)','RelepController::escoger_salon_relep/$1');
+        $routes->get('salon-relen/(:num)','RelepController::escoger_salon_relen/$1');
+
+        $routes->group('2023', static function($routes){
+            $routes->get('inicio','Relep_RelenController::inicio');
+            $routes->get('salon/(:num)','MainController::salon/$1');
+        });
+
+    });
+
+    $routes->group('Releg', static function($routes){
+        $routes->group('2023', static function($routes){
+            $routes->get('inicio','RelegController::inicio');
+            $routes->get('recepcion','RelegController::recepcion');
+            $routes->get('zona-iquatro','RelegController::zona_iquatro');
+            $routes->get('mezzanine','RelegController::mezzanine');
+            $routes->get('lago-redesla','RelegController::lago_redesla');
+            $routes->get('elevador', 'RelegController::elevador');
+            $routes->get('auditorio', 'RelegController::auditorio');
+            $routes->get('pasillo-salones', 'RelegController::pasillo_salones');
+
+            $routes->group('animaciones', static function($routes){
+                $routes->get('recepcion', 'RelegController::animacion_recepcion');
+                $routes->get('auditorio', 'RelegController::animacion_auditorio');
+                $routes->get('salones', 'RelegController::animacion_salones');
+            });
+            
+            $routes->get('salon/(:num)','MainController::salon/$1');
+        });
+    });
+});
+
+$routes->group('calificar',static function($routes){
+    $routes->get('inicio', 'PonenciaCalController::index');
+    $routes->post('verificar', 'PonenciaCalController::verificar');
+    $routes->group('formulario',static function($routes){
+        $routes->post('evaluacion', 'PonenciaCalController::evaluacion');
+        $routes->post('insert', 'PonenciaCalController::insertEvaluacion');
+    });
+});
+
+$routes->group('podium', static function($routes){
+    $routes->get('ver/(:num)', 'PonenciaCalController::verPonencia/$1');
+    $routes->get('getListado/(:any)/(:num)', 'PonenciaCalController::getListadoPodium/$1/$2');
+    $routes->get('(:any)/(:any)', 'PonenciaCalController::podium/$1/$2');
 });
 
 /*

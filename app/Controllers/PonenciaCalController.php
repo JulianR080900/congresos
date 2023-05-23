@@ -6,19 +6,583 @@ use App\Models\MainModel;
 
 class PonenciaCalController extends BaseController
 {
+
+    public $MainModel;
+    public $current_date;
+    private $current_red; #QUITAR VALORES
+    private $current_sede; #QUITAR VALORES
+    private $maxRevisiones;
+    public $db_serv;
+    public $currentAnio;
     
-    public function __construct()
-    {
+    public function __construct(){
         $this->MainModel = new MainModel();
         date_default_timezone_set('America/Monterrey');
-        $date = date('Y-m-d H:i:s');
+        $this->current_date = date('Ymd');
+        $this->currentAnio = date('Y');
+        $this->db_serv = \Config\Database::connect();
+
+        /*
+         if($this->current_date == '20230524' || $this->current_date == '20230526'){
+            $this->current_red = 'Releg';
+            $this->current_sede = 'UAQ';
+            $this->maxRevisiones = 5;
+        }else if($this->current_date == '20231115' || $this->current_date == '20231117'){
+            $this->current_red = 'Relayn';
+        }else if($this->current_date == '20231209' || $this->current_date == '20231209'){
+            $this->current_red = 'Relen_Relep';
+        }else{
+            http_response_code(404);
+            exit;
+        }
+        */
+
+        if($this->current_date == '20230523' || $this->current_date == '20230526'){
+            $this->current_red = 'Releg';
+            $this->current_sede = 'UAQ';
+            $this->maxRevisiones = 5;
+        }else if($this->current_date == '20231115' || $this->current_date == '20231117'){
+            $this->current_red = 'Relayn';
+        }else if($this->current_date == '20231209' || $this->current_date == '20231209'){
+            $this->current_red = 'Relen_Relep';
+        }else{
+            http_response_code(404);
+            exit;
+        }
+
+        
     }
     
     
-    public function index()
-    {
-        return view('Calificar-Ponencias/index');
+    public function index(){
+
+        if(empty($this->current_red)){
+            http_response_code(404);
+            exit;
+        }
+        
+        $data = [
+            'red' => $this->current_red,
+            'sede' => $this->current_sede
+        ];
+
+        return view('calificar/index',$data)
+        .view('templates/footer');
+
     }
+
+    public function verificar(){
+        #vamos a verificar los datos
+        $gafete = $_POST['gafete'];
+        $ponencia = $_POST['ponencia'];
+
+        $condicion = ['clave_gafete' => $gafete];
+        $info_gafete = $this->MainModel->getAllOneRow('participantes_congresos', $condicion);// CAMBIAR DE participantes_congresos_prueba A participantes_congresos
+        
+        $condicion = ['clave_ponencia' => $ponencia];
+        $info_ponencia = $this->MainModel->getAllOneRow('ponencias', $condicion); // CAMBIAR DE ponencias_prueba A ponencias
+
+        if(empty($info_gafete) || empty($info_ponencia)){
+            http_response_code(404);
+            $mensaje = 'Información no encontrada. Favor de revisar los datos ingresados';
+            echo $mensaje;
+            exit;
+        }
+
+        if($info_gafete['submission_id'] == $info_ponencia['submission_id']){
+            http_response_code(501);
+            $mensaje = 'No puede calificar su ponencia';
+            echo $mensaje;
+            exit;
+        }
+
+        
+        if($info_gafete['anio'] != date('Y')){
+            http_response_code(502);
+            $mensaje = 'El gafete no corresponde con el año del congreso';
+            echo $mensaje;
+            exit;
+        }
+
+        #comprobamos si la ponencia ya la califico wtf pq no entra
+
+        $condiciones = [
+            'gafete' => $gafete, 
+            'ponencia'=> $ponencia
+        ];
+
+        if($this->MainModel->exist('calificaciones', $condiciones)){
+            http_response_code(503);
+            $mensaje = 'Esta ponencia ya ha sido calificada.';
+            echo $mensaje;
+            exit;
+        }
+
+        #COMPROBAMOS SI LA CLAVE DE LA PONENCIA PERTENECE A LA RED
+
+        if($this->current_red != $info_ponencia['red']){
+            http_response_code(504);
+            $mensaje = 'Esta ponencia no pertenece a la red del congreso actual.';
+            echo $mensaje;
+            exit;
+        }
+
+        #PASO TODAS LAS PRUEBAS, AHORA VAMOS A TRAERNOS TODOS LAS PONENCIAS QUE YA HAYA CALIFICADO
+
+        echo json_encode(true);
+        exit;
+        
+    }
+
+    public function evaluacion(){
+
+         #vamos a verificar los datos
+         $gafete = $_POST['clave_gafete'];
+         $ponencia = $_POST['codigo_ponencia'];
+ 
+         $condicion = ['clave_gafete' => $gafete];
+         $info_gafete = $this->MainModel->getAllOneRow('participantes_congresos', $condicion);// CAMBIAR DE participantes_congresos_prueba A participantes_congresos
+         
+         $condicion = ['clave_ponencia' => $ponencia];
+         $columnas = ['ponente','nombre','id','submission_id','claveCuerpo'];
+         $info_ponencia = $this->MainModel->getColumnsOneRow($columnas,'ponencias', $condicion); // CAMBIAR DE ponencias_prueba A ponencias
+
+         #OBTENEMOS LAS ENCUESTAS QUE YA SE CALIFICARON
+
+         $condiciones = [
+            'gafete' => $gafete,
+            #'anio' => date('Y'),
+            #'red' => $this->current_red
+         ];
+
+         $columnas = ['ponencia', 'posicion'];
+
+         $ponencias_evaluadas = $this->MainModel->getAllColums($columnas,'calificaciones',$condiciones);
+
+         foreach($ponencias_evaluadas as $key=>$p){
+            #vamos a obtener la informacion de la ponencia
+            $columnas = ['nombre'];
+            $condiciones = ['clave_ponencia' => $p['ponencia']];
+
+            $ponencia_c = $this->MainModel->getColumnsOneRow($columnas,'ponencias',$condiciones);
+
+            if(empty($ponencia_c)){
+                http_response_code(500);
+                exit;
+            }
+
+            $ponencias_evaluadas[$key]['nombre_ponencia'] = $ponencia_c['nombre'];
+         }
+
+        array_multisort(array_column($ponencias_evaluadas, 'posicion'), SORT_ASC, $ponencias_evaluadas);
+
+        $data = [
+            'ponencias' => $ponencias_evaluadas,
+            'gafete' => $gafete,
+            'nombre_gafete' => $info_gafete['nombre'],
+            'ponencia_actual' => $info_ponencia,
+            'sede' => $this->current_sede,
+            'red' => $this->current_red,
+            'clavePonencia' => $ponencia
+        ];
+
+        return view('calificar/evaluacion',$data)
+        .view('templates/footer');
+    }
+
+    public function insertEvaluacion(){
+
+        #$gafete = 'O36SML';
+        #$ponencia = '45GTJ';
+
+        $ponencia = $_POST['clavePonencia'];
+        $gafete = $_POST['gafete'];
+
+        $condiciones = ['clave_gafete' => $gafete];
+        $columnas = ['usuario', 'claveCuerpo','nombre'];
+        $infoGafete = $this->MainModel->getColumnsOneRow($columnas,'participantes_congresos',$condiciones);
+
+        if(empty($infoGafete)){
+            http_response_code(501);
+            echo 'Ha ocurrido un eror. Intente mas tarde. La clave de la ponencia es: <b>'.$ponencia.'</b>';
+            exit;
+        }
+
+        if(empty($infoGafete['usuario'])){
+            http_response_code(404);
+            echo 'No se ha encontrado su usuario. Contacte al equipo REDESLA. La clave de la ponencia es: <b>'.$ponencia.'</b>';
+            exit;
+        }
+
+        $condiciones = ['ponencia' => $ponencia, 'gafete' => $gafete];
+        if($this->MainModel->exist('calificaciones', $condiciones)){
+            http_response_code(504);
+            echo 'Esta ponencia ya ha sido calificada.';
+            exit;
+        }
+
+
+        foreach($_POST['ordenamiento'] as $key=>$o){
+            $condiciones = [
+                'nombre' => $o
+            ];
+
+            $infoPonencia = $this->MainModel->getAllOneRow('ponencias',$condiciones);
+
+            if(empty($infoPonencia)){
+                http_response_code(500);
+                echo 'Ha ocurrido un eror. Intente mas tarde. La clave de la ponencia es: <b>'.$ponencia.'</b>';
+                exit;
+            }
+
+            #VAMOS A COMPROBAR SI YA LA CALIFICO
+
+            $condiciones = ['ponencia' => $infoPonencia['clave_ponencia'], 'gafete' => $gafete];
+
+            if(!$this->MainModel->exist('calificaciones', $condiciones)){
+                //SI NO EXISTE LA CALIFICACION SE INSERTARA
+
+                $dataCalificacion = [
+                    'usuario' => $infoGafete['usuario'],
+                    'gafete' => $gafete,
+                    'posicion' => intval($key+1),
+                    'calificacion1' => $_POST['tipo_metodologia'],
+                    'calificacion2' => $_POST['evaluaciones'][1],
+                    'calificacion3' => $_POST['evaluaciones'][2],
+                    'calificacion4' => $_POST['evaluaciones'][3],
+                    'ponencia' => $infoPonencia['clave_ponencia'],
+                    'red' => $this->current_red,
+                    'claveCuerpo' => $infoGafete['claveCuerpo'],
+                    'anio' => date('Y'),
+                    'fecha' => date('Y-m-d H:i:s'),
+                ];
+
+                
+                if(!$this->MainModel->insertarRegistro('calificaciones', $dataCalificacion)){
+                    http_response_code(502);
+                    echo 'Ha ocurrido un eror. Intente mas tarde. La clave de la ponencia es: <b>'.$ponencia.'</b>';
+                    exit;
+                }
+
+                $dataComentario = [
+                    'claveGafete' => $gafete,
+                    'usuario' => $infoGafete['usuario'],
+                    'clavePonencia' => $ponencia,
+                    'comentario' => $_POST['comentarios']
+                ];
+
+                if(!$this->MainModel->insertarRegistro('comentarios', $dataComentario)){
+                    http_response_code(505);
+                    echo 'Ha ocurrido un eror. Intente mas tarde. La clave de la ponencia es: <b>'.$ponencia.'</b>';
+                    exit;
+                }
+                
+                
+            }else{
+                #ya existe la ponencia en calificaciones, solo actualizamos la posicion
+
+                $condicionesUpdate = ['ponencia' => $infoPonencia["clave_ponencia"]];
+                $dataUpdate = ['posicion' => intval($key+1)];
+                
+                
+                if(!$this->MainModel->generalUpdate('calificaciones', $dataUpdate, $condicionesUpdate)){
+                    http_response_code(503);
+                    echo 'Ha ocurrido un eror. Intente mas tarde. La clave de la ponencia es: <b>'.$ponencia.'</b>';
+                    exit;
+                }
+                
+            }
+
+        }
+
+        #Ahora vamos a ver cuantas ponencias ha calificado
+
+        $condiciones = ['gafete' => $gafete, 'anio' => date('Y')];
+
+        $c_revisiones = $this->MainModel->count('calificaciones',$condiciones); #1
+
+        $porcentaje_asistencia = ($c_revisiones*100) / $this->maxRevisiones; # 5 es el 100%, cuanto es $c_revisiones
+
+        $porcentaje_asistencia = round($porcentaje_asistencia);
+
+        $porcentaje = $porcentaje_asistencia >= 100 ? 100 : $porcentaje_asistencia;
+
+        #verificamos si tiene la constancia
+
+        $tabla = 'Constancia_'.ucfirst($this->current_red);
+
+        $condiciones = [
+            'usuario' => $infoGafete['usuario'],
+            'tipo_constancia' => 'Asistencia',
+            'redCueAca' => $infoGafete['claveCuerpo'],
+            'red' => ucfirst($this->current_red),
+            'anio' => date('Y')
+        ];
+
+        if(!$this->MainModel->exist($tabla,$condiciones)){
+            #NO EXISTE LA CONSTANCIA, LA VAMOS A INSERTAR
+            $dataConstancia = $condiciones;
+            $dataConstancia['nombre'] = $infoGafete['nombre'];
+            $dataConstancia['porcentaje'] = $porcentaje;
+            $dataConstancia['fecha_registro'] = date('Y-m-d H:i:s');
+            if(!$this->MainModel->insertarRegistro($tabla, $dataConstancia)){
+                http_response_code(506);
+                echo 'Ha ocurrido un eror. Intente mas tarde. La clave de la ponencia es: <b>'.$ponencia.'</b>';
+                exit;
+            }
+
+            $columnas = ['id'];
+            $id = $this->MainModel->getColumnsOneRow($columnas,$tabla,$dataConstancia);
+
+            #ACTUALIZAMOS EL FOLIO
+            $folio_completo = $id['id'].'PA-'.$this->current_red.'-'.$this->currentAnio;
+
+            $dataUpdate = [
+                'folio' => $id['id'],
+                'folio_completo' => $folio_completo
+            ];
+
+            $condiciones = [
+                'id' => $id['id']
+            ];
+
+            if(!$this->MainModel->generalUpdate($tabla,$dataUpdate,$condiciones)){
+                http_response_code(508);
+                echo 'Ha ocurrido un eror. Intente mas tarde. La clave de la ponencia es: <b>'.$ponencia.'</b>';
+                exit;
+            }
+
+        }else{
+            #EXISTE LA CONSTANCIA, SO... VAMOS A ACTUALIZAR LA INFO
+            $dataUpdate = [
+                'porcentaje' => $porcentaje
+            ];
+            
+            $condiciones = [
+                'usuario' => $infoGafete['usuario'],
+                'tipo_constancia' => 'Asistencia',
+                'redCueAca' => $infoGafete['claveCuerpo'],
+                'red' => ucfirst($this->current_red),
+                'anio' => date('Y')
+            ];
+            
+            if(!$this->MainModel->generalUpdate($tabla,$dataUpdate,$condiciones)){
+                http_response_code(507);
+                echo 'Ha ocurrido un eror. Intente mas tarde. La clave de la ponencia es: <b>'.$ponencia.'</b>';
+                exit;
+            }
+        }
+
+        $return = [
+            'title' => 'Éxito',
+            'mensaje' => 'Ponencia calificada correctamente'
+        ];
+
+        echo json_encode($return);
+        exit;
+    }
+
+    public function podium($red,$anio){ 
+        $data = [
+            'red' => $red,
+            'anio' => $anio
+        ];
+            
+        return view('Podium/index',$data);
+    }
+
+    public function getListadoPodium($red,$anio){
+
+        $valor_buscado = $this->request->getGet('search')['value']; #VALOR DEL INPUT DE BUSCAR
+
+        $columnas = [
+            'id', 'nombre', 'submission_id', 'publication_id','clave_ponencia', 'nombre_congreso'
+        ];
+
+        //sin grado ni usuario
+
+        $sql_count = "SELECT count(id) as total FROM ponencias";
+        $sql_data = "SELECT * FROM ponencias";
+
+        $condicion = "";
+
+        if (!empty($valor_buscado)) {
+            foreach ($columnas as $key => $val) {
+                if ($columnas[$key] == 'id') {
+                    #$condicion .= " WHERE ".$val." LIKE '%".$valor_buscado."%'";
+                    $condicion .= ' WHERE (red = "' . $red . '" AND anio="'.$anio.'") AND ( ' . $val . " LIKE '%" . $valor_buscado . "%'";
+                } else {
+                    $condicion .= " OR " . $val . " LIKE '%" . $valor_buscado . "%'";
+                }
+            }
+        }
+
+        $sql_count = empty($condicion) ? $sql_count . ' WHERE red = "' . $red . '" AND anio = "'.$anio.'"' : $sql_count . $condicion . ')';
+
+        $sql_data =  !empty($condicion) ? $sql_data . $condicion . ')' : $sql_data . ' WHERE red = "' . $red . '" AND anio = "'.$anio.'"';
+
+        $total_count = $this->db_serv->query($sql_count)->getRow();
+
+        /*
+        $sql_count = $sql_count . $condicion;
+        $sql_data = $sql_data . $condicion;
+
+        $total_count = $this->db_serv->query($sql_count)->getRow();
+        */
+
+        $sql_data .= " ORDER BY " . $columnas[$this->request->getGet('order')[0]['column']] . " " . $this->request->getGet('order')[0]['dir'] . " LIMIT " . $this->request->getGet('start') . ", " . $this->request->getGet('length') . "";
+
+        $data = $this->db_serv->query($sql_data)->getResult(); //es un objeto
+
+        $array = json_decode(json_encode($data), true); //lo convertimos a un array
+
+        foreach ($array as $key => $a) {
+
+            $condiciones = ['ponencia' => $a['clave_ponencia']];
+            $prom_2 = $this->MainModel->promedio('calificaciones','calificacion2',$condiciones); $prom_2 = round($prom_2['calificacion2'],2); //PROMEDIO DE LA CALIFICACION 2
+            $prom_3 = $this->MainModel->promedio('calificaciones','calificacion3',$condiciones); $prom_3 = round($prom_3['calificacion3'],2); //PROMEDIO DE LA CALIFICACION 3
+            $prom_4 = $this->MainModel->promedio('calificaciones','calificacion4',$condiciones); $prom_4 = round($prom_4['calificacion4'],2); //PROMEDIO DE LA CALIFICACION 4
+            $c_cal = $this->MainModel->count('calificaciones',$condiciones);
+
+            $prom_general = $prom_2+$prom_3+$prom_4;
+            $prom_general = $prom_general / 3;
+            $prom_general = round($prom_general,2);
+
+            if($c_cal < 5){
+                $multiplo = 0.10;
+            }else if($c_cal < 10){
+                $multiplo = 0.20;
+            }else{
+                $multiplo = 0.22;
+            }
+
+
+            $relevancia = $c_cal == 0 ? 0 : $prom_general*$multiplo;
+
+
+            $array[$key] = [
+                'submission_id' => $a['submission_id'],
+                'nombre' => $a['nombre'],
+                'publication_id' => $a['publication_id'],
+                'promedio_general' => $prom_general,
+                'prom_2' => $prom_2,
+                'prom_3' => $prom_3,
+                'prom_4' => $prom_4,
+                'c_calificaciones' => $c_cal,
+                'nombre_congreso' => $a['nombre_congreso'],
+                'relevancia' => $relevancia
+            ];
+
+        }
+
+
+        array_multisort(array_column($array, 'relevancia'), SORT_DESC, $array);
+
+        $data = json_decode(json_encode($array), FALSE);
+
+        $json_data = [
+            'draw' => intval($this->request->getGet('draw')),
+            'recordsTotal' => $total_count->total,
+            'recordsFiltered' => $total_count->total,
+            'data' => $data
+        ];
+
+        echo json_encode($json_data);
+    }
+
+    public function verPonencia($submission_id){
+        $condiciones = ['submission_id' => $submission_id];
+        $columnas = ['clave_ponencia','red','anio','nombre'];
+        $clave_ponencia = $this->MainModel->getColumnsOneRow($columnas,'ponencias',$condiciones);
+
+        if(empty($clave_ponencia)){
+            return redirect()->back();
+        }
+
+        $condiciones = ['clavePonencia' => $clave_ponencia['clave_ponencia']];
+        $comentarios = $this->MainModel->getAll('comentarios',$condiciones);
+
+        foreach($comentarios as $key=>$c){
+
+            $condiciones = ['usuario' => $c['usuario']];
+            $columnas = ['profile_pic','nombre', 'ap_paterno', 'ap_materno'];
+            $user_info = $this->MainModel->getColumnsOneRow($columnas,'usuarios',$condiciones);
+
+            if(empty($user_info)){
+                continue;
+            }
+
+            if($user_info['profile_pic'] == '' || $user_info['profile_pic'] === null || empty($user_info['profile_pic'])){
+                $profile_pic = 'avatar.png';
+            }else{
+                $profile_pic = $user_info['profile_pic'];
+            }
+
+            $data['comentarios'][$key] = [
+                'comentario' => $c['comentario'],
+                'profile_pic' => $profile_pic,
+                'nombre' => $user_info['nombre'].' '.$user_info['ap_paterno'].' '.$user_info['ap_materno']
+            ];
+        }
+
+        $data['red'] = $clave_ponencia['red'];
+        $data['anio'] = $clave_ponencia['anio'];
+        $data['nombre'] = $clave_ponencia['nombre'];
+
+        return view('Podium/comentarios',$data);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     public function validar_Datos_Calificacion(){ //AQUI SE VALIDA SI EXISTE EL GAFETE Y LA PONENCIA
         $gafete = $this->request->getPost('clave_gafete');
@@ -354,16 +918,6 @@ class PonenciaCalController extends BaseController
         
         return view('Calificar-Ponencias/ponencia_calificada');
 
-    }
-    
-    public function podium($red,$anio){ 
-        
-        $array = [
-            'red' =>$red,
-            'anio' =>$anio
-            ];
-            
-        return view('Podium/index',$array);
     }
     
     public function getcalificacionesPonencias(){

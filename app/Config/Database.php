@@ -33,34 +33,14 @@ class Database extends Config
     public $default = [
         'DSN'      => '',
         'hostname' => 'localhost',
-        'username' => 'root',
-        'password' => '',
+        'username' => 'u174297075_master',
+        'password' => '&aFkPj~B2z',
         'database' => 'u174297075_redesla',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,
         'DBDebug'  => (ENVIRONMENT !== 'production'),
-        'charset'  => 'utf8',
-        'DBCollat' => 'utf8_general_ci',
-        'swapPre'  => '',
-        'encrypt'  => false,
-        'compress' => false,
-        'strictOn' => false,
-        'failover' => [],
-        'port'     => 8111,
-    ];
-    
-    public $iquatro = [
-        'DSN'	=> '',
-        'hostname' => 'localhost',
-        'username' => 'root',
-        'password' => '',
-        'database' => 'u174297075_revistaojs2023',
-        'DBDriver' => 'MySQLi',
-        'DBPrefix' => '',
-        'pConnect' => FALSE,
-        'DBDebug' => (ENVIRONMENT !== 'production'),
-        'charset'  => 'utf8',
+        'charset'  => 'utf8mb4',
         'DBCollat' => 'utf8_general_ci',
         'swapPre'  => '',
         'encrypt'  => false,
@@ -76,25 +56,6 @@ class Database extends Config
      *
      * @var array
      */
-    public $tests = [
-        'DSN'      => '',
-        'hostname' => '127.0.0.1',
-        'username' => '',
-        'password' => '',
-        'database' => ':memory:',
-        'DBDriver' => 'SQLite3',
-        'DBPrefix' => 'db_',  // Needed to ensure we're working correctly with prefixes live. DO NOT REMOVE FOR CI DEVS
-        'pConnect' => false,
-        'DBDebug'  => (ENVIRONMENT !== 'production'),
-        'charset'  => 'utf8',
-        'DBCollat' => 'utf8_general_ci',
-        'swapPre'  => '',
-        'encrypt'  => false,
-        'compress' => false,
-        'strictOn' => false,
-        'failover' => [],
-        'port'     => 8111,
-    ];
 
     public function __construct()
     {

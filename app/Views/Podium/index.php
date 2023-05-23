@@ -1,498 +1,375 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+
 <head>
   <meta charset="utf-8">
   <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
   <title>Podium de ganadores - <?= $red . ' ' . $anio ?></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+  <script src="https://kit.fontawesome.com/cd008eda05.js" crossorigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
   <!--<script src="//code.tidio.co/leucsw6pce16vxspleocxkahvrhmtneq.js" async></script>-->
-  <!--<link rel="stylesheet" href="<?php echo base_url();?>/public/css/font_awesome/all.min.css"></link>-->
+  <!--<link rel="stylesheet" href="<?php echo base_url(); ?>/public/css/font_awesome/all.min.css"></link>-->
   <style type="text/css">
-        @import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
+    @import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
+
     body {
       font-size: 16px;
       /*background: #fafafa;*/
-      font-family: "Roboto";
-      background-image:url("<?php echo base_url()."/public/backgrounds/".$red.".png"?>");
+      background-image: url("<?php echo base_url() . "/public/backgrounds/" . $red . ".png" ?>");
       padding: 20px;
     }
-    
-    .number-holder {
-      transition: all 500ms ease-in-out;
-    }
-    
-    .scoreboard {
-      border-radius: 5px;
-      display: flex;
-      max-width: 1170px;
-      margin: 0 auto;
-      padding: 3rem 50px;
-      flex-direction: column;
-      background: #fff;
-    }
-    .scoreboard__item {
-      display: flex;
-      padding: 1rem 0;
-      width: 100%;
-      margin-top: 2rem;
-      flex-wrap: wrap;
-      opacity: 0;
-      top: 20px;
-      transition: 500ms ease-in-out;
-    }
-    .scoreboard__item.is-visible {
-      opacity: 1;
-      top: 0;
-      transition: 500ms ease-in-out;
-    }
-    .scoreboard__title {
-      width: 300px;
-      font-weight: 600;
-    }
-    .scoreboard__title small {
-      color: #333;
-    }
-    small{
-        position: absolute
-    }
-    .scoreboard__status {
-      font-weight: 300;
-    }
-    .scoreboard__numbers {
-      font-weight: 600;
-      text-align: right;
-      align-self: flex-end;
-      margin-left: 20px;
-      flex: 1;
-    }
-    .scoreboard__bar {
-      width: 100%;
-      margin-top: 1rem;
-      background: #ececec;
-      height: 10px;
+
+    .stars-outer-2022 {
+      display: inline-block;
       position: relative;
-      border-radius: 5px;
-      transition: all 500ms ease-in-out;
-      display: flex;
-      flex-basis: 100%;
+      font-family: FontAwesome;
     }
-    .scoreboard__bar:before {
-      content: "";
-      width: 100%;
-      flex-basis: 100%;
-      clear: both;
-      display: block;
+
+    .stars-outer-2022::before {
+      content: "\f006 \f006 \f006 \f006 \f006 \f006 \f006";
     }
-    .scoreboard__bar-bar {
+
+    .stars-inner-2022 {
       position: absolute;
-      height: 10px;
-      left: 0;
       top: 0;
+      left: 0;
+      white-space: nowrap;
+      overflow: hidden;
       width: 0;
-      border-radius: 5px;
-      background: linear-gradient(to right, #F0CF65 0%, #ebc137 100%);
-      transition: all 250ms ease-in-out;
     }
-    
-    .scoreboard__podiums {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      margin: 20px auto 100px auto;
-      min-height: 350px;
+
+    .stars-inner-2022::before {
+      content: "\f005 \f005 \f005 \f005 \f005 \f005 \f005";
+      color: #f8ce0b;
     }
-    .scoreboard__podiums .scoreboard__podium {
-      margin: 0 20px;
-      display: flex;
-      flex-direction: column;
-      align-self: flex-end;
-      flex-wrap: wrap;
-      flex: 1;
-      opacity: 0;
-      top: -10px;
-    }
-    .scoreboard__podiums .scoreboard__podium.is-visible {
-      top: 0;
-      opacity: 1;
-      transition: all 500ms ease-in-out;
-      /**/
-      position: relative; 
-      width: 400px;
-    }
-    .scoreboard__podiums .scoreboard__podium-rank {
-      font-size: 4rem;
-      font-weight: 700;
-      position: absolute;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      bottom: 0px;
-    }
-    .scoreboard__podiums .scoreboard__podium-base {
-      height: 0;
-      background: #ececec;
-      color: #fff;
-      min-width: 150px;
-      border-radius: 5px;
-      transition: all 1000ms ease-in-out;
-      opacity: 0;
+
+    .stars-outer {
+      display: inline-block;
       position: relative;
+      font-family: FontAwesome;
     }
-    .scoreboard__podiums .scoreboard__podium-base.is-expanding {
-      opacity: 1;
+
+    .stars-outer::before {
+      content: "\f006 \f006 \f006 \f006 \f006 \f006 \f006 \f006 \f006 \f006";
     }
-    .scoreboard__podiums .scoreboard__podium-base--first {
-      /*background: linear-gradient(to bottom, #BD4F6C 0%, #9e3b55 100%);*/
-          background: linear-gradient(to right, rgba(241,231,103,1) 0%, rgba(254,182,69,1) 100%);
-    }
-    .scoreboard__podiums .scoreboard__podium-base--second {
-      /*background-color: #F0CF65;*/
-      /*background: linear-gradient(to bottom, #F0CF65 0%, #ebc137 100%);*/
-      background: linear-gradient(to right, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 50%, rgba(209,209,209,1) 72%, rgba(226,226,226,1) 97%, rgba(254,254,254,1) 100%);
-    }
-    .scoreboard__podiums .scoreboard__podium-base--third {
-      /*background-color: #5E9EAD;*/
-      /*background: linear-gradient(to bottom, #5E9EAD 0%, #49828f 100%);*/
-            background: linear-gradient(to right, rgba(252,205,186,1) 0%, rgba(252,131,79,1) 32%, rgba(250,75,0,1) 99%, rgba(181,74,108,1) 100%);
-    }
-    .scoreboard__podiums .scoreboard__podium-number {
-      text-align: center;
-      font-size: 1.5rem;
-      margin-top: 10px;
-    }
-    .scoreboard__podiums .scoreboard__podium-number small {
-      display: block;
-      font-size: 60%;
-      color: #333;
-      line-height: 1.5;
-      text-transform: uppercase;
-    }
-    
-    .credits {
-      font-size: 14px;
-      text-align: center;
-      margin: 20px 0;
-    }
-    
-    #scoreboard__items {
-      position: relative;
-      margin: 0;
-      padding: 0;
-      list-style-type: decimal;
-    }
-    
-    .oneup-audio {
-      display: none;
-    }
-    
-    .style-switch {
+
+    .stars-inner {
       position: absolute;
       top: 0;
       left: 0;
-      background: #000;
-      color: #fff;
-      padding: 5px 10px;
-      border: none;
-      font-size: 15px;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
     }
-    
-    body.dark-mode {
-      background: #111;
-      color: #fff;
+
+    .stars-inner::before {
+      content: "\f005 \f005 \f005 \f005 \f005 \f005 \f005 \f005 \f005 \f005";
+      color: #f8ce0b;
     }
-    body.dark-mode .scoreboard {
-      background: #111;
-      color: #fff;
+
+
+    section {
+      padding: 50px;
+      max-width: 80%;
+      margin: 30px auto;
+      background: white;
+      background: white;
+      backdrop-filter: blur(10px);
+      box-shadow: 0px 15px 10px rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      transition: transform 0.2s ease-in-out;
     }
-    body.dark-mode .scoreboard small {
-      color: #eee !important;
-    }
-    body.dark-mode .scoreboard__bar {
-      background: #333;
-    }
-    
-    .bump {
-      -webkit-animation: bump 500ms ease-in-out;
-              animation: bump 500ms ease-in-out;
-    }
-    
-    @-webkit-keyframes bump {
-      50% {
-        transform: scale(1.1);
-      }
-      60% {
-        transform: scale(1);
-      }
-    }
-    
-    @keyframes bump {
-      50% {
-        transform: scale(1.1);
-      }
-      60% {
-        transform: scale(1);
-      }
-    }
-    </style>
+
+    .container {
+  display: flex;
+  align-items: flex-end;
+}
+
+.podium__item {
+  width: 100%;
+}
+
+.podium__rank {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  color: #fff;
+}
+
+.podium__city {
+  text-align: center;
+  padding: 0 .5rem;
+}
+
+.podium__number {
+  width: 27px;
+  height: 75px;
+}
+
+.podium .first {
+  min-height: 300px;
+  background: #ffd700;
+}
+
+.podium .second {
+  min-height: 200px;
+  background: #393b3c;
+}
+
+.podium .third {
+  min-height: 100px;
+  background: #CD7F32;
+}
+  </style>
 </head>
+
 <body>
-<div class="scoreboard">
-    <h1 class='text-center'>Podium del Congreso <?= $red . ' ' . $anio ?></h1>
-    <hr>
-  <div class="scoreboard__podiums" style="margin-bottom: 200px;">
-      
-      <div class="row">
-            <div class="scoreboard__podium js-podium col-md-4" data-height="200px">
-                <div class="scoreboard__podium-base scoreboard__podium-base--second">
-                    <div class="scoreboard__podium-rank">2</div>
-                </div>
-                <div class="scoreboard__podium-number">
-                    <!--<small><span class="js-podium-data"></span></small>-->
-                    <small id="2do_lugar"></small>
-                </div>
-            </div>
-        
-            <!--Primer Lugar-->
-            <div class="scoreboard__podium js-podium col-md-4" data-height="250px">
-                <div class="scoreboard__podium-base scoreboard__podium-base--first">
-                    <div class="scoreboard__podium-rank">1</div>
-                </div>
-                <div class="scoreboard__podium-number">
-                    <!--<small><span class="js-podium-data"></span></small>-->
-                    <small id="1er_lugar"></small>
-                </div>
-            </div>
-        
-        
-            <div class="scoreboard__podium js-podium col-md-4" data-height="150px">
-                <div class="scoreboard__podium-base scoreboard__podium-base--third">
-                    <div class="scoreboard__podium-rank">3</div>
-                </div>
-                <div class="scoreboard__podium-number">
-                    <!--<small><span class="js-podium-data"></span></small>-->
-                    <small id="3er_lugar"></small>
-                </div>
-            </div>
+
+  <section>
+  <h1 class='text-center'>Podium del Congreso <?= $red . ' ' . $anio ?></h1>
+    <div class="row text-center">
+      <div class="container podium">
+        <div class="podium__item">
+          <p class="podium__city segundo"></p>
+          <div class="podium__rank second"><i class="fa-solid fa-trophy"></i></div>
+        </div>
+        <div class="podium__item">
+          <p class="podium__city primero"></p>
+          <div class="podium__rank first">
+          <i class="fa-solid fa-trophy"></i>
+          </div>
+        </div>
+        <div class="podium__item">
+          <p class="podium__city tercero"></p>
+          <div class="podium__rank third"><i class="fa-solid fa-trophy"></i></div>
+        </div>
+        </>
       </div>
+      <div class="row">
+        <hr>
+        <h2 class="text-center">Mejores ponencias</h2>
+      </div>
+  </section>
 
-    
-</div>
+  <section>
+    <div class="row">
+      <h3>Calificaciones de todas las ponencias</h3>
+    </div>
+      <div class="table-responsive">
+        <table class="table" id="dt_podium">
+          <thead>
+            <tr>
+              <th class="centered">ID</th>
+              <th class="centered">Nombre</th>
+              <th class="centered">Tipo de registro</th>
+              <th class="centered">Calificación</th>
+              <th class="centered">IQuatro</th>
+              <th class="centered">Ver mas</th>
+            </tr>
+          </thead>
+          <tbody id="tbody_podium">
 
-  
-  
-  
-  <ol class="scoreboard__items" id="scoreboard__items" start="4">
-
-  </ol>
-  
-  <table class="table" style="">
-  <thead>
-    <tr class="table-primary" align="center">
-      <th scope="col">#</th>
-      <th scope="col">Ponencia</th>
-      <th scope="col">Nombre de ponencia</th>
-      <th scope="col">Promedio de posicion</th>
-      <th scope="col">Comentarios</th>
-    </tr>
-  </thead>
-  <tbody id="listado" style="padding-top:50px">
-  </tbody>
-</table>
-</div>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-<script>
-    var sum = 1000; // rank 1.
-    var time = 250;
-    
-    $(document).ready(function() {
-      
-    $('body').addClass('light-mode');
-      
-    $('.js-style-switch').on('click', function(e) {
-      e.preventDefault();
-      $('body').toggleClass('dark-mode');
-    });
-      
-    $('.js-podium').each(function(){
-      var t = $(this);
-      setTimeout( function(){ 
-      t.addClass('is-visible');
-      var h = t.data('height');
-    //   console.log(h);
-      t.find('.scoreboard__podium-base').css('height', h).addClass('is-expanding');
-        }, time);
-      time += 250;
-    });
-      
-      
-    }); 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-</script>
+  <script>
+    let red = '<?= $red ?>';
+    let anio = '<?= $anio ?>';
+  </script>
 
-<!--FUNCIONES DE PODIUM-->
-<script>
-    var base_url = "<?php echo base_url();?>/"; 
-    var fecha = "";
-    updateList();
-    setInterval(updateList,3000);
+  <script>
+    let dataTable;
+    let dataTableIsInitialized = false;
+    // Variable para almacenar las filas seleccionadas
+    var filasSeleccionadas = [];
+    let enviar = $("#enviar");
 
-    function getPonencias(){
-        $.ajax({
-            url: base_url + 'PonenciaCalController/getcalificacionesPonencias',
-            type: "POST",
-            data:{
-                "red":'<?php echo $red?>',
-                "anio":'<?php echo $anio?>'
-            },success: function(resp){
-                var resultado = JSON.parse(resp);
-                console.log(resultado);
-                
-                if(resultado["calificaciones"][0]){
-                    var lugar1 = document.getElementById('1er_lugar');
-                    lugar1.innerHTML = resultado["calificaciones"][0]["nombre"];
-                }
-                if(resultado["calificaciones"][1]){
-                    var lugar2 = document.getElementById('2do_lugar');
-                    lugar2.innerHTML = resultado["calificaciones"][1]["nombre"];
-                }
-                if(resultado["calificaciones"][2]){
-                    var lugar3 = document.getElementById('3er_lugar');
-                    lugar3.innerHTML = resultado["calificaciones"][2]["nombre"];
-                }
-                
-                let filas = [];
-                var tabla = document.getElementById('listado');
-                tabla.innerHTML=""
-                resultado["calificaciones"].forEach(function(elemento) {
-    
-                    tabla.insertAdjacentHTML('beforeend', '<tr><th>'+elemento["posicion"]+'</th><td>'+elemento["ponencia"]+'</td><td>'+elemento["nombre"]+'</td><td align="center">'+elemento["promedio"]+'</td><td align="center"><a href="'+base_url+"comentarios_ponencias/"+elemento["ponencia"]+'" class="btn btn-primary"><i class="fas fa-comment"></i></a></td></tr>');
-                });
-    
-            
-            },statusCode:{
-                400:function(xhr){
-                    
-                }
+    const dataTableOptions = {
+      scrollC: '2000px',
+      lengthMenu: [5, 10, 20, 100, 200, 500, 1000, 5000],
+      columnDefs: [{
+          className: 'text-center',
+          targets: [0,1,2,3,4]
+        },
+        {
+          orderable: false,
+          targets: [3,4]
+        },
+        //{ width: '50%', targets: [0]},
+        //{ sercheable: false, targets: [2]} //Quita el buscar en esas columnas
+
+      ],
+      rowReorder: {
+        selector: 'td:nth-child(2)'
+      },
+      responsive: true,
+      pageLength: 500, //Numero de registros por pagina
+      destroy: true, //Decimos que la tabla es destruible
+      language: {
+        lengthMenu: 'Mostrar _MENU_ registros por página',
+        zeroRecords: 'Ningun registro encontrado',
+        info: 'Mostrando en _START_ a _END_ de un total de _TOTAL_ registros',
+        infoEmpty: 'Ningun registro encontrado',
+        infoFiltered: '(filtrados desde _MAX_ registros totales)',
+        search: 'Buscar 🔎',
+        loadingRecords: 'Cargando...',
+        paginate: {
+          first: 'Primero',
+          last: 'Último',
+          next: 'Siguiente',
+          previous: 'Anterior'
+        }
+      },
+      serverSide: true,
+      processing: true,
+      ajax: {
+        url: `../getListado/${red}/${anio}`,
+        type: 'get',
+      },
+      columns: [{
+          data: 'submission_id'
+        },
+        {
+          data: 'nombre'
+        },
+        {
+          data: 'nombre_congreso'
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            if (anio == 2022) {
+              //70 es el 100 porciento
+              let cienPorciento = 70;
+              let prom_star = data.promedio_general * 10;
+              let simple_3 = (prom_star * 100) / cienPorciento;
+              return `
+              <div class="stars-outer-2022" title='Promedio general: ${data.promedio_general} / 7'>
+                <div class="stars-inner-2022" title='Promedio general: ${data.promedio_general} / 7' style='width: ${simple_3}%'></div>
+              </div>
+              / ${data.c_calificaciones}
+              `
+            } else if(anio == 2023) {
+              //70 es el 100 porciento
+              let cienPorciento = 100;
+              let prom_star = data.promedio_general * 10;
+              let simple_3 = (prom_star * 100) / cienPorciento;
+              console.log(data.prom_2_antes);
+              return `
+              <div class="stars-outer" title='Promedio general: ${data.promedio_general} / 10'>
+                <div class="stars-inner" title='Promedio general: ${data.promedio_general} / 10' style='width: ${simple_3}%'></div>
+              </div>
+              / ${data.c_calificaciones}
+              `
             }
-        })
-    }
-    
-    function updateList(){
-        $.ajax({
-            url: base_url + 'PonenciaCalController/verificarFecha',
-            type: "POST",
-            data:{
-                "fecha":fecha,
-                "red":'<?php echo $red?>',
-                "anio":'<?php echo $anio?>'
-            },success: function(resp){
-                var resultado = JSON.parse(resp);
-                console.log(resultado);
-                if(resultado["resultado"] == "actualizacion"){
-                    fecha = resultado["fecha"];
-                    getPonencias();
-                }
+            //return `<b>${data.promedio_general}</b><small> en base a ${data.c_calificaciones}</small>`
+          }
+        },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return `<a href='https://iquatroeditores.org/revista/index.php/iquatro/workflow/index/${data.submission_id}/1' target='_BLANK' class='btn btn-dark'>Ir a <span class="text-danger">iQ</span>u<span class="text-danger">4</span>tro Editores</a>`
+          }
+        },
+        {
+          data: null,
+          render: function(data,type, row){
+            return `<a href='../ver/${data.submission_id}' class='btn btn-info text-white'>Ver mas <i class="fa-solid fa-plus"></i></a>`
+          }
+        },
+      ],
+      initComplete: function(settings, json) {
+        if(json.data.length > 0){
+          if(typeof json.data[0] !== 'undefined'){
+            $(".primero").html(json.data[0]['nombre'])
+          }
 
-            },statusCode:{
-                400:function(xhr){
-                    
-                }
-            }
-        })
-    }
-    
-    
-</script>
-<script>
-/*
-// setTimeout(getListado,2000)
-$(document).ready(function() {
-    getListado();
-});
-setInterval(verificarActualizacion,3000);
-
-    var base_url = "<?php echo base_url()?>";
-    var red = "<?php echo $red ?>";
-    var anio = "<?php echo $anio ?>";
-    var fecha = "";
-
-    function getListado(){
-        $.ajax({
-            url: base_url +"/MainController/actualizar_lista_ponencias",
-            type: "POST",
-            data:{
-                "red": red,
-                "anio": anio
-            }, 
-            success: function(resp){
-                var resultado = JSON.parse(resp);
-                console.log(resultado);
-                // const r = resultado["calificaciones"]
-                // console.log(resultado["calificaciones"]);
-                
-                var tabla = document.getElementById('listado');
-                tabla.innerHTML = resultado["lista"];
-                
-                if(resultado[0]['promedio'] != undefined){
-                    var lugar1 = document.getElementById('1er_lugar');
-                    lugar1.innerHTML = resultado[0]["nombre_ponencia"] + '<br><b>En relaci贸n a: '+resultado[0]["promedio"]+'</b>';
-                }
-                if(resultado[1] != undefined){
-                    var lugar2 = document.getElementById('2do_lugar');
-                    lugar2.innerHTML = resultado[1]["nombre_ponencia"] + '<br><b>En relaci贸n a: '+resultado[1]["promedio"]+'</b>';
-                }
-                
-                if(resultado[2] != undefined){
-                    var lugar3 = document.getElementById('3er_lugar');
-                    lugar3.innerHTML = resultado[2]["nombre_ponencia"] + '<br><b>En relaci贸n a: '+resultado[2]["promedio"]+'</b>';
-                }
-                
-            },
-                statusCode: {
-                    400: function(xhr){
-                }
-            }
-        })
-    }
-    
-    function verificarActualizacion(){
-           $.ajax({
-            url: base_url +"/MainController/actualizacion_ponencias",
-            type: "POST",
-            data:{
-                "fecha" :fecha,
-                "red": red,
-                "anio": anio
-            }, 
-            success: function(resp){
-                var resp = JSON.parse(resp);
-                
-                if(resp["resultado"] == "actualizarFecha"){
-                    
-                    fecha = resp["ultima_fecha"];
-                    
-                }else if(resp["resultado"] == "actualizacion"){
-                    fecha = resp["ultima_fecha"];
-                    getListado();
-                }
-                
-                console.log(resp);
-
-            },
-                statusCode: {
-                    400: function(xhr){
-                }
-            }
-        })
+          if(typeof json.data[1] !== 'undefined'){
+            $(".segundo").html(json.data[1]['nombre'])
+          }
+          
+          if(typeof json.data[2] !== 'undefined'){
+            $(".tercero").html(json.data[2]['nombre'])
+          }
+        }
+        
+      },
     }
 
-*/
-</script>
+    const initDataTable = async () => {
+      if (dataTableIsInitialized) {
+        dataTable.destroy();
+      }
+
+      dataTable = $('#dt_podium').DataTable(dataTableOptions);
+
+      dataTableIsInitialized = true;
+
+      $('#dt_podium tbody').on('click', '.texto-truncado', function() {
+        // Obtener el objeto de celda correspondiente al texto truncado
+        const cell = dataTable.cell($(this).parent());
+
+        // Obtener el valor completo de la celda
+        const fullText = cell.data();
+
+        // Ocultar el tooltip
+        $(this).attr('title', '');
+
+        // Mostrar el texto completo
+        $(this).text(fullText);
+
+        // Agregar una clase CSS al elemento para indicar que se ha mostrado el texto completo
+        $(this).addClass('texto-completo');
+      });
+
+      $('#dt_podium tbody').on('click', '.texto-completo', function() {
+        // Obtener el objeto de celda correspondiente al texto completo
+        const cell = dataTable.cell($(this).parent());
+
+        // Obtener el valor truncado de la celda
+        const truncatedText = cell.render('display')
+
+        // Restablecer el texto truncado
+        $(this).html(truncatedText);
+
+        // Eliminar la clase CSS del elemento para indicar que se ha restablecido el texto truncado
+        $(this).removeClass('texto-completo');
+      });
+
+
+    }
+
+    window.addEventListener('load', async () => {
+      await initDataTable();
+    })
+
+    function loaderScreen(screen) {
+      $(document)
+        .ajaxStart(function() {
+          screen.fadeIn();
+        })
+        .ajaxStop(function() {
+          screen.fadeOut()
+        })
+    }
+
+    setInterval(() => {
+      //initDataTable()
+    }, 5000);
+  </script>
 
 </body>
+
 </html>
