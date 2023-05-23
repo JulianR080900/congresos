@@ -425,6 +425,7 @@ class MainController extends BaseController
         #file_exist
 
         if(!file_exists($ruta)){
+            echo 'entra';
             #la ruta no existe mandamos un 404 y terminamos el codigo
             http_response_code(404);
             exit;
