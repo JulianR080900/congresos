@@ -212,12 +212,14 @@ class MainController extends BaseController
 
     private function generarCodigoQr($clave_gafete,$red){
 
-        return 'Hi';
-
         $writer = new PngWriter();
 
         //Obtener color e imagen del código QR con respecto a la red
         $colorImagen =  $this->escogerColorImagenCodigoQr($red);
+
+        echo $colorImagen;
+        exit;
+        
         $color = $colorImagen[0];
         $imagen = $colorImagen[1];
 
