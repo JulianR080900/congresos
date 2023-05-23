@@ -409,7 +409,7 @@ class MainController extends BaseController
         $explode_zoom = explode(',',$zoom);
 
         if(!isset($explode_zoom[$n-1])){
-            http_response_code(404);
+            http_response_code(403);
             exit;
         }
 
