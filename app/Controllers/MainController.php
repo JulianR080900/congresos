@@ -217,8 +217,7 @@ class MainController extends BaseController
         //Obtener color e imagen del código QR con respecto a la red
         $colorImagen =  $this->escogerColorImagenCodigoQr($red);
 
-        echo $colorImagen;
-        exit;
+        return $colorImagen;
         
         $color = $colorImagen[0];
         $imagen = $colorImagen[1];
