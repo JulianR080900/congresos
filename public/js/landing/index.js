@@ -17,7 +17,7 @@ function existeGafete(){
             },
             success: function(resp){
                 console.log(resp);
-                window.location.assign(resp); 
+                //window.location.assign(resp); 
             },
             error: function(err) {
                 console.log(err);
