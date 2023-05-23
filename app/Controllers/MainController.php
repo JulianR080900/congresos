@@ -395,13 +395,10 @@ class MainController extends BaseController
             'red' => $red,
             'anio' => $anio
         ];
-        echo json_encode($condiciones);
+
         $columnas = ['zoom'];
 
         $horario = $this->MainModel->getColumnsOneRow($columnas,'congresos',$condiciones);
-
-        echo json_encode($horario);
-        exit;
 
         if(empty($horario)){
             http_response_code(404);
@@ -423,6 +420,8 @@ class MainController extends BaseController
         ];
 
         $ruta = dirname(__DIR__)."\\Views\\".$red.'\\'.$anio.'\\salones\\'.$n.'.php';
+        echo $ruta;
+        exit;
         #view/Releg/2023/salon_2
 
         #file_exist
