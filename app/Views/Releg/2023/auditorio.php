@@ -1114,7 +1114,7 @@
                         <div class="elementor-element elementor-element-f883d99 elementor-absolute elementor-widget elementor-widget-button" data-id="f883d99" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
                             <div class="elementor-widget-container">
                                 <div class="elementor-button-wrapper">
-                                    <a href="#" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+                                    <a href="<?= $programa_general ?>" target="_blank" class="elementor-button-link elementor-button elementor-size-sm" role="button">
                                         <span class="elementor-button-content-wrapper">
                                             <span class="elementor-button-text">PROGRAMA GENERAL</span>
                                         </span>

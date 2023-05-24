@@ -27,11 +27,14 @@
         <?php
         if ($red != 'Relen_Relep') {
         ?>
-          <div class="col-md-6 col-sm-12">
-            <img class="w-50" src="<?= base_url('public/img/logos_redes/' . $red . '.png') ?>" alt="Logo <?= $red ?>">
+          <div class="col-md-4 col-sm-12">
+            <img class="w-75" src="<?= base_url('public/img/logos_redes/' . $red . '.png') ?>" alt="Logo <?= $red ?>">
           </div>
-          <div class="col-md-6 col-sm-12">
-            <img class="w-50" src="<?= base_url('public/img/calificar/' . $sede . '.png') ?>" alt="Logo <?= $sede ?>">
+          <div class="col-md-4 col-sm-12">
+            <img class="w-75" src="<?= base_url('public/img/calificar/Congreso_' . $red . '.png') ?>" alt="Logo <?= $red ?>">
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <img class="w-75" src="<?= base_url('public/img/calificar/' . $sede . '.png') ?>" alt="Logo <?= $sede ?>">
           </div>
         <?php
         } else {

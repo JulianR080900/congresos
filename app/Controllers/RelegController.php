@@ -9,6 +9,7 @@ class RelegController extends BaseController
 {
     public $RelegModel;
     public $programa_ponencias;
+    public $programa_general;
     
     public function __construct()
     {
@@ -18,7 +19,7 @@ class RelegController extends BaseController
         $date = date('Y-m-d H:i:s');
 
         $this->programa_ponencias = '#';
-
+        $this->programa_general = 'https://drive.google.com/drive/folders/1Ur1wmZrJzTguLzO_f-0RAjbwBc403Fo_?usp=share_link';
     }
 
     public function inicio(){
@@ -40,9 +41,13 @@ class RelegController extends BaseController
 
         $anio = session('anio');
         $red = session('red');
+        
+        $data = [
+            'programa_general' => $this->programa_general
+        ];
 
         $view = $red.'/'.$anio.'/recepcion';
-        return view($view);
+        return view($view,$data);
     }
 
     public function zona_iquatro(){
@@ -119,7 +124,7 @@ class RelegController extends BaseController
         $red = session('red');
 
         $view = $red.'/'.$anio.'/animaciones/auditorio';
-        return view($view);
+        return view($view,$data);
     }
 
     public function auditorio(){
@@ -130,8 +135,12 @@ class RelegController extends BaseController
         $anio = session('anio');
         $red = session('red');
 
+        $data = [
+            'programa_general' => $this->programa_general
+        ];
+
         $view = $red.'/'.$anio.'/auditorio';
-        return view($view);
+        return view($view,$data);
     }
 
     public function animacion_salones(){
