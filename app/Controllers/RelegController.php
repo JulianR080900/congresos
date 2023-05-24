@@ -18,7 +18,7 @@ class RelegController extends BaseController
         date_default_timezone_set('America/Monterrey');
         $date = date('Y-m-d H:i:s');
 
-        $this->programa_ponencias = '#';
+        $this->programa_ponencias = 'https://redesla.la/redesla/resources/pdf/congresos/1er.%20Congreso%20Latinoamericano%20de%20Investigaci%C3%B3n%20en%20Estudios%20de%20G%C3%A9nero.pdf';
         $this->programa_general = 'https://drive.google.com/drive/folders/1Ur1wmZrJzTguLzO_f-0RAjbwBc403Fo_?usp=share_link';
     }
 
@@ -164,7 +164,7 @@ class RelegController extends BaseController
         $red = session('red');
 
         $data = [
-            'programa' => $this->programa_ponencias
+            'programa_general' => $this->programa_general
         ];
 
         $view = $red.'/'.$anio.'/pasillo_salones';
