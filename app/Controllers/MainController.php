@@ -89,15 +89,20 @@ class MainController extends BaseController
     {
         $gafete = $this->request->getPost('clave');
 
-        $condiciones = array("clave_gafete" => $gafete);
+        $condiciones = array(
+            "clave_gafete" => $gafete,
+            'red' => $this->current_red,
+            'anio' => date('Y')
+        );
         $resultado = $this->MainModel->getAllOneRow('participantes_congresos', $condiciones);
 
         if (empty($resultado)) {
             http_response_code(501);
-            $response = "El gafete no existe. Favor de revisar si esta escrito correctamente";
+            $response = "El gafete no existe o no pertenece al congreso actual. Favor de revisar si esta escrito correctamente.";
             echo $response;
             exit;
         }
+
 
         $correo = "";
         if ($resultado['usuario'] !== "") {
@@ -179,6 +184,17 @@ class MainController extends BaseController
                 "nombre_universidad" => $nombre_universidad
             ];
         }
+
+        $dataUpdate = [
+            'asistencia_virtual' => 1
+        ];
+        $condicionesUpdate = [
+            "claveCuerpo" => $resultado["claveCuerpo"],
+            "red" => $resultado['red'],
+            "clave_gafete" => $resultado['clave_gafete'],
+        ];
+
+        $this->MainModel->generalUpdate('participantes_congresos',$dataUpdate,$condicionesUpdate);
 
         //Generación del código QR
         $image = $this->generarCodigoQr($resultado['clave_gafete'], $resultado['red']);
