@@ -182,7 +182,7 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <textarea name="comentarios" id="comentarios" cols="30" rows="10" class="form-control" required minlength="100" placeholder='Escriba un comentario sobre la ponencia: "<?= $ponencia_actual['nombre'] ?>" '></textarea>
+                    <textarea name="comentarios" id="comentarios" cols="30" rows="10" class="form-control" required minlength="250" placeholder='Escriba un comentario sobre la ponencia: "<?= $ponencia_actual['nombre'] ?>" '></textarea>
                 </div>
                 <input type="text" hidden id="clavePonencia" value="<?= $clavePonencia ?>">
                 <input type="text" hidden id="gafete" value="<?= $gafete ?>">
