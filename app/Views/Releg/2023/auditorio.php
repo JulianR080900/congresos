@@ -1177,6 +1177,18 @@
         </section>
     </div>
 
+    <footer style="text-align: center;">
+        <p>
+            Enlace: <b><a href="https://us05web.zoom.us/j/87975604350?pwd=dHlmUUZKZGFtRHBkaDVzR2x0a21Bdz09" target="_blank">Haga clic aquí</a></b>
+        </p>
+        <p>
+            ID de reunión: <b>879 7560 4350</b>
+        </p>
+        <p>
+            Clave de acceso: <b>RELEG23</b>
+        </p>
+    </footer>
+
     <style id="skip-link-styles">
         .skip-link.screen-reader-text {
             border: 0;

@@ -64,6 +64,7 @@
 
 
     <!-- IMPORTANTE -->
+    <script src="//code.tidio.co/leucsw6pce16vxspleocxkahvrhmtneq.js" async></script>
     <script src="public/js/landing/index.js"></script>
     <!-- IMPORTANTE -->
 

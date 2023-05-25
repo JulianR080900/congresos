@@ -1146,9 +1146,9 @@
                         <div class="elementor-element elementor-element-8243929 elementor-absolute elementor-widget elementor-widget-button" data-id="8243929" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
                             <div class="elementor-widget-container">
                                 <div class="elementor-button-wrapper">
-                                    <a href="#" class="elementor-button-link elementor-button elementor-size-lg" role="button">
+                                    <a href="https://us05web.zoom.us/j/87975604350?pwd=dHlmUUZKZGFtRHBkaDVzR2x0a21Bdz09" class="elementor-button-link elementor-button elementor-size-lg" role="button">
                                         <span class="elementor-button-content-wrapper">
-                                            <span class="elementor-button-text">HHHHHHHHH</span>
+                                            <span class="elementor-button-text">HHHHHHHHHHHHHHHHHHHHHH</span>
                                         </span>
                                     </a>
                                 </div>
@@ -1167,6 +1167,18 @@
             </div>
         </section>
     </div>
+
+    <footer style="text-align: center;">
+        <p>
+            Enlace: <b><a href="https://us05web.zoom.us/j/87975604350?pwd=dHlmUUZKZGFtRHBkaDVzR2x0a21Bdz09" target="_blank">Haga clic aquí</a></b>
+        </p>
+        <p>
+            ID de reunión: <b>879 7560 4350</b>
+        </p>
+        <p>
+            Clave de acceso: <b>RELEG23</b>
+        </p>
+    </footer>
 
     <style id="skip-link-styles">
         .skip-link.screen-reader-text {

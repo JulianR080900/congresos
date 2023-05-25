@@ -31,7 +31,9 @@ class RelegController extends BaseController
         $red = session('red');
 
         $view = $red.'/'.$anio.'/inicio';
-        return view($view);
+        
+        return view($view)
+        .view($red.'/'.$anio.'/tidio');
     }
 
     public function recepcion(){
@@ -47,7 +49,8 @@ class RelegController extends BaseController
         ];
 
         $view = $red.'/'.$anio.'/recepcion';
-        return view($view,$data);
+        return view($view,$data)
+        .view($red.'/'.$anio.'/tidio');
     }
 
     public function zona_iquatro(){
@@ -59,7 +62,8 @@ class RelegController extends BaseController
         $red = session('red');
 
         $view = $red.'/'.$anio.'/zona_iquatro';
-        return view($view);
+        return view($view)
+        .view($red.'/'.$anio.'/tidio');
     }
 
     public function mezzanine(){
@@ -71,7 +75,8 @@ class RelegController extends BaseController
         $red = session('red');
 
         $view = $red.'/'.$anio.'/mezzanine';
-        return view($view);
+        return view($view)
+        .view($red.'/'.$anio.'/tidio');
     }
 
     public function lago_redesla(){
@@ -88,7 +93,8 @@ class RelegController extends BaseController
         ];
 
         $view = $red.'/'.$anio.'/lago';
-        return view($view,$data);
+        return view($view,$data)
+        .view($red.'/'.$anio.'/tidio');
     }
 
     public function elevador(){
@@ -100,7 +106,8 @@ class RelegController extends BaseController
         $red = session('red');
 
         $view = $red.'/'.$anio.'/elevador';
-        return view($view);
+        return view($view)
+        .view($red.'/'.$anio.'/tidio');
     }
    
     public function animacion_recepcion(){
@@ -112,7 +119,8 @@ class RelegController extends BaseController
         $red = session('red');
 
         $view = $red.'/'.$anio.'/animaciones/recepcion';
-        return view($view);
+        return view($view)
+        .view($red.'/'.$anio.'/tidio');
     }
 
     public function animacion_auditorio(){
@@ -124,7 +132,8 @@ class RelegController extends BaseController
         $red = session('red');
 
         $view = $red.'/'.$anio.'/animaciones/auditorio';
-        return view($view,$data);
+        return view($view)
+        .view($red.'/'.$anio.'/tidio');
     }
 
     public function auditorio(){
@@ -140,7 +149,8 @@ class RelegController extends BaseController
         ];
 
         $view = $red.'/'.$anio.'/auditorio';
-        return view($view,$data);
+        return view($view,$data)
+        .view($red.'/'.$anio.'/tidio');
     }
 
     public function animacion_salones(){
@@ -152,7 +162,8 @@ class RelegController extends BaseController
         $red = session('red');
 
         $view = $red.'/'.$anio.'/animaciones/salones';
-        return view($view);
+        return view($view)
+        .view($red.'/'.$anio.'/tidio');
     }
 
     public function pasillo_salones(){
@@ -168,7 +179,8 @@ class RelegController extends BaseController
         ];
 
         $view = $red.'/'.$anio.'/pasillo_salones';
-        return view($view,$data);
+        return view($view,$data)
+        .view($red.'/'.$anio.'/tidio');
     }
 
 }

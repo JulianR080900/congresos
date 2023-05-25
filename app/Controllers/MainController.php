@@ -430,7 +430,8 @@ class MainController extends BaseController
             exit;
         }
 
-        return view($red.'/'.$anio.'/salones/'.$n,$data);
+        return view($red.'/'.$anio.'/salones/'.$n,$data)
+        .view($red.'/'.$anio.'/tidio');
         exit;
     }
 

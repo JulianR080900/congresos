@@ -193,6 +193,7 @@
     let anio = '<?= session('anio') ?>'
   </script>
   <script src="public/js/landing/info.js"></script>
+  <script src="//code.tidio.co/leucsw6pce16vxspleocxkahvrhmtneq.js" async></script>
 
   <!-- footer-->
   <?php echo view('templates/footer') ?>

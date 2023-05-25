@@ -69,6 +69,10 @@
             padding: 0 !important;
         }
     </style>
+    <link rel="stylesheet" id="dashicons-css" href="https://vive.redesla.la/wp-includes/css/dashicons.min.css?ver=6.1.3" media="all">
+    <link rel="stylesheet" id="admin-bar-css" href="https://vive.redesla.la/wp-includes/css/admin-bar.min.css?ver=6.1.3" media="all">
+    <link rel="stylesheet" id="elementor-icons-css" href="https://vive.redesla.la/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=5.17.0" media="all">
+    <link rel="stylesheet" id="elementor-common-css" href="https://vive.redesla.la/wp-content/plugins/elementor/assets/css/common.min.css?ver=3.10.0" media="all">
     <style id="wp-block-library-inline-css">
         :root {
             --wp-admin-theme-color: #007cba;
@@ -978,15 +982,25 @@
             font-stretch: normal;
         }
     </style>
-    <link rel="stylesheet" id="elementor-icons-css" href="https://vive.redesla.la/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=5.17.0" media="all">
+    <link rel="stylesheet" id="litespeed-cache-css" href="https://vive.redesla.la/wp-content/plugins/litespeed-cache/assets/css/litespeed.css?ver=5.3.2" media="all">
+    <link rel="stylesheet" id="wpforms-admin-bar-css" href="https://vive.redesla.la/wp-content/plugins/wpforms-lite/assets/css/admin-bar.min.css?ver=1.7.9.1" media="all">
+    <style id="wpforms-admin-bar-inline-css">
+        #wpadminbar .wpforms-menu-notification-counter,
+        #wpadminbar .wpforms-menu-notification-indicator {
+            background-color: #d63638 !important;
+            color: #ffffff !important;
+        }
+    </style>
     <link rel="stylesheet" id="elementor-frontend-css" href="https://vive.redesla.la/wp-content/plugins/elementor/assets/css/frontend-lite.min.css?ver=3.10.0" media="all">
     <link rel="stylesheet" id="elementor-post-6-css" href="https://vive.redesla.la/wp-content/uploads/elementor/css/post-6.css?ver=1673456749" media="all">
     <link rel="stylesheet" id="plyr-css" href="https://vive.redesla.la/wp-content/plugins/az-video-and-audio-player-addon-for-elementor/assets/css/plyr.css?ver=6.1.3" media="all">
     <link rel="stylesheet" id="vapfem-main-css" href="https://vive.redesla.la/wp-content/plugins/az-video-and-audio-player-addon-for-elementor/assets/css/main.css?ver=6.1.3" media="all">
     <link rel="stylesheet" id="elementor-global-css" href="https://vive.redesla.la/wp-content/uploads/elementor/css/global.css?ver=1673457678" media="all">
-    <link rel="stylesheet" id="elementor-post-2611-css" href="https://vive.redesla.la/wp-content/uploads/elementor/css/post-2611.css?ver=1684809506" media="all">
+    <link rel="stylesheet" id="elementor-post-2611-css" href="https://vive.redesla.la/wp-content/uploads/elementor/css/post-2611.css?ver=1684980394" media="all">
     <link rel="stylesheet" id="google-fonts-1-css" href="https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto+Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&amp;display=swap&amp;ver=6.1.3" media="all">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <script src="https://vive.redesla.la/wp-includes/js/jquery/jquery.min.js?ver=3.6.1" id="jquery-core-js"></script>
+    <script src="https://vive.redesla.la/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2" id="jquery-migrate-js"></script>
     <link rel="https://api.w.org/" href="https://vive.redesla.la/wp-json/">
     <link rel="alternate" type="application/json" href="https://vive.redesla.la/wp-json/wp/v2/pages/2611">
     <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://vive.redesla.la/xmlrpc.php?rsd">
@@ -996,10 +1010,134 @@
     <link rel="shortlink" href="https://vive.redesla.la/?p=2611">
     <link rel="alternate" type="application/json+oembed" href="https://vive.redesla.la/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fvive.redesla.la%2Fsalon-2%2F">
     <link rel="alternate" type="text/xml+oembed" href="https://vive.redesla.la/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fvive.redesla.la%2Fsalon-2%2F&amp;format=xml">
+    <style media="print">
+        #wpadminbar {
+            display: none;
+        }
+    </style>
+    <style media="screen">
+        html {
+            margin-top: 32px !important;
+        }
+
+        @media screen and (max-width: 782px) {
+            html {
+                margin-top: 46px !important;
+            }
+        }
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 </head>
+<script src="chrome-extension://imhhfjfjfhjjjgaedcanngoffjmcblgi/js/canvasFpDefender/index.js"></script>
 
-<body class="page-template page-template-elementor_canvas page page-id-2611 wp-embed-responsive elementor-default elementor-template-canvas elementor-kit-6 elementor-page elementor-page-2611 e--ua-blink e--ua-chrome e--ua-webkit" data-elementor-device-mode="widescreen">
+<body class="page-template page-template-elementor_canvas page page-id-2611 logged-in admin-bar no-customize-support wp-embed-responsive elementor-default elementor-template-canvas elementor-kit-6 elementor-page elementor-page-2611 e--ua-blink e--ua-chrome e--ua-webkit" data-elementor-device-mode="widescreen">
+    <div id="wpadminbar" class="nojq">
+        <div class="quicklinks" id="wp-toolbar" role="navigation" aria-label="Barra de herramientas">
+            <ul id="wp-admin-bar-root-default" class="ab-top-menu">
+                <li id="wp-admin-bar-wp-logo" class="menupop"><a class="ab-item" aria-haspopup="true" href="https://vive.redesla.la/wp-admin/about.php"><span class="ab-icon" aria-hidden="true"></span><span class="screen-reader-text">Acerca de WordPress</span></a>
+                    <div class="ab-sub-wrapper">
+                        <ul id="wp-admin-bar-wp-logo-default" class="ab-submenu">
+                            <li id="wp-admin-bar-about"><a class="ab-item" href="https://vive.redesla.la/wp-admin/about.php">Acerca de WordPress</a></li>
+                        </ul>
+                        <ul id="wp-admin-bar-wp-logo-external" class="ab-sub-secondary ab-submenu">
+                            <li id="wp-admin-bar-wporg"><a class="ab-item" href="https://es-mx.wordpress.org/">WordPress.org</a></li>
+                            <li id="wp-admin-bar-documentation"><a class="ab-item" href="https://es-mx.wordpress.org/support/">Documentación</a></li>
+                            <li id="wp-admin-bar-support-forums"><a class="ab-item" href="https://es-mx.wordpress.org/support/forums/">Soporte</a></li>
+                            <li id="wp-admin-bar-feedback"><a class="ab-item" href="https://es-mx.wordpress.org/support/forum/comunidad/peticiones-y-feedback/">Sugerencias</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li id="wp-admin-bar-site-name" class="menupop"><a class="ab-item" aria-haspopup="true" href="https://vive.redesla.la/wp-admin/">VIVE REDESLA</a>
+                    <div class="ab-sub-wrapper">
+                        <ul id="wp-admin-bar-site-name-default" class="ab-submenu">
+                            <li id="wp-admin-bar-dashboard"><a class="ab-item" href="https://vive.redesla.la/wp-admin/">Escritorio</a></li>
+                        </ul>
+                        <ul id="wp-admin-bar-appearance" class="ab-submenu">
+                            <li id="wp-admin-bar-themes"><a class="ab-item" href="https://vive.redesla.la/wp-admin/themes.php">Temas</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li id="wp-admin-bar-site-editor"><a class="ab-item" href="https://vive.redesla.la/wp-admin/site-editor.php">Editar el sitio</a></li>
+                <li id="wp-admin-bar-updates"><a class="ab-item" href="https://vive.redesla.la/wp-admin/update-core.php"><span class="ab-icon" aria-hidden="true"></span><span class="ab-label" aria-hidden="true">8</span><span class="screen-reader-text updates-available-text">8 actualizaciones disponibles</span></a></li>
+                <li id="wp-admin-bar-comments"><a class="ab-item" href="https://vive.redesla.la/wp-admin/edit-comments.php"><span class="ab-icon" aria-hidden="true"></span><span class="ab-label awaiting-mod pending-count count-0" aria-hidden="true">0</span><span class="screen-reader-text comments-in-moderation-text">0 Comentarios en moderación</span></a></li>
+                <li id="wp-admin-bar-new-content" class="menupop"><a class="ab-item" aria-haspopup="true" href="https://vive.redesla.la/wp-admin/post-new.php"><span class="ab-icon" aria-hidden="true"></span><span class="ab-label">Añadir</span></a>
+                    <div class="ab-sub-wrapper">
+                        <ul id="wp-admin-bar-new-content-default" class="ab-submenu">
+                            <li id="wp-admin-bar-new-post"><a class="ab-item" href="https://vive.redesla.la/wp-admin/post-new.php">Entrada</a></li>
+                            <li id="wp-admin-bar-new-media"><a class="ab-item" href="https://vive.redesla.la/wp-admin/media-new.php">Medio</a></li>
+                            <li id="wp-admin-bar-new-page"><a class="ab-item" href="https://vive.redesla.la/wp-admin/post-new.php?post_type=page">Página</a></li>
+                            <li id="wp-admin-bar-new-e-landing-page"><a class="ab-item" href="https://vive.redesla.la/wp-admin/edit.php?action=elementor_new_post&amp;post_type=e-landing-page&amp;template_type=landing-page&amp;_wpnonce=ae65f1a259#library">Landing page</a></li>
+                            <li id="wp-admin-bar-new-elementor_library"><a class="ab-item" href="https://vive.redesla.la/wp-admin/post-new.php?post_type=elementor_library">Plantilla</a></li>
+                            <li id="wp-admin-bar-new-user"><a class="ab-item" href="https://vive.redesla.la/wp-admin/user-new.php">Usuario</a></li>
+                            <li id="wp-admin-bar-wpforms"><a class="ab-item" href="https://vive.redesla.la/wp-admin/admin.php?page=wpforms-builder">WPForms</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li id="wp-admin-bar-edit"><a class="ab-item" href="https://vive.redesla.la/wp-admin/post.php?post=2611&amp;action=edit">Editar página</a></li>
+                <li id="wp-admin-bar-elementor_edit_page" class="menupop"><a aria-haspopup="true" class="ab-item  " href="https://vive.redesla.la/wp-admin/post.php?post=2611&amp;action=elementor"><span class="elementor-edit-link-title">Editar con Elementor</span></a>
+                    <div class="ab-sub-wrapper">
+                        <ul class="ab-submenu" id="wp-admin-bar-elementor_edit_page-default">
+                            <li id="wp-admin-bar-elementor_site_settings" class="elementor-second-section"><a class="ab-item  elementor-site-settings" href="https://vive.redesla.la/wp-admin/post.php?post=2611&amp;action=elementor#e:run:panel/global/open"><span class="elementor-edit-link-title">Ajustes del sitio</span><span class="elementor-edit-link-type">Sitio</span></a></li>
+                            <li id="wp-admin-bar-elementor_app_site_editor" class="elementor-second-section"><a class="ab-item  elementor-app-link" href="https://vive.redesla.la/wp-admin/admin.php?page=elementor-app&amp;ver=3.10.0#site-editor/promotion"><span class="elementor-edit-link-title">Theme Builder</span><span class="elementor-edit-link-type">Sitio</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li id="wp-admin-bar-litespeed-menu" class="menupop litespeed-top-toolbar"><a class="ab-item" tabindex="0" aria-haspopup="true" href="https://vive.redesla.la/wp-admin/admin.php?page=litespeed"><span class="ab-icon"></span></a>
+                    <div class="ab-sub-wrapper">
+                        <ul id="wp-admin-bar-litespeed-menu-default" class="ab-submenu">
+                            <li id="wp-admin-bar-litespeed-purge-single"><a class="ab-item" tabindex="0" href="https://vive.redesla.la/wp-admin/admin.php?LSCWP_CTRL=purge&amp;LSCWP_NONCE=9912e191c6&amp;litespeed_type=purge_front">Vaciar esta página - LSCache</a></li>
+                            <li id="wp-admin-bar-litespeed-single-action" class="menupop">
+                                <div class="ab-item ab-empty-item" tabindex="0" aria-haspopup="true"><span class="wp-admin-bar-arrow" aria-hidden="true"></span>Marcar esta página como</div>
+                                <div class="ab-sub-wrapper">
+                                    <ul id="wp-admin-bar-litespeed-single-action-default" class="ab-submenu">
+                                        <li id="wp-admin-bar-litespeed-single-forced_cache"><a class="ab-item" href="https://vive.redesla.la/wp-admin/admin.php?LSCWP_CTRL=conf&amp;LSCWP_NONCE=b9ed3c7e31&amp;litespeed_type=set&amp;set%5Bcache-force_uri%5D%5B%5D=%2Fsalon-2%2F%24&amp;redirect=%2Fsalon-2%2F">Forzar cacheables</a></li>
+                                        <li id="wp-admin-bar-litespeed-single-noncache"><a class="ab-item" href="https://vive.redesla.la/wp-admin/admin.php?LSCWP_CTRL=conf&amp;LSCWP_NONCE=b9ed3c7e31&amp;litespeed_type=set&amp;set%5Bcache-exc%5D%5B%5D=%2Fsalon-2%2F%24&amp;redirect=%2Fsalon-2%2F">No cacheable</a></li>
+                                        <li id="wp-admin-bar-litespeed-single-private"><a class="ab-item" href="https://vive.redesla.la/wp-admin/admin.php?LSCWP_CTRL=conf&amp;LSCWP_NONCE=b9ed3c7e31&amp;litespeed_type=set&amp;set%5Bcache-priv_uri%5D%5B%5D=%2Fsalon-2%2F%24&amp;redirect=%2Fsalon-2%2F">Caché privada</a></li>
+                                        <li id="wp-admin-bar-litespeed-single-nonoptimize"><a class="ab-item" href="https://vive.redesla.la/wp-admin/admin.php?LSCWP_CTRL=conf&amp;LSCWP_NONCE=b9ed3c7e31&amp;litespeed_type=set&amp;set%5Boptm-exc%5D%5B%5D=%2Fsalon-2%2F%24&amp;redirect=%2Fsalon-2%2F">Sin optimización</a></li>
+                                        <li id="wp-admin-bar-litespeed-single-more"><a class="ab-item" href="https://vive.redesla.la/wp-admin/admin.php?page=litespeed-cache">Más ajustes</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li id="wp-admin-bar-litespeed-purge-all"><a class="ab-item" tabindex="0" href="https://vive.redesla.la/wp-admin/admin.php?LSCWP_CTRL=purge&amp;LSCWP_NONCE=9912e191c6&amp;litespeed_type=purge_all&amp;_litespeed_ori=1">Vaciar todo</a></li>
+                            <li id="wp-admin-bar-litespeed-purge-all-lscache"><a class="ab-item" tabindex="0" href="https://vive.redesla.la/wp-admin/admin.php?LSCWP_CTRL=purge&amp;LSCWP_NONCE=9912e191c6&amp;litespeed_type=purge_all_lscache&amp;_litespeed_ori=1">Vaciar todo - LSCache</a></li>
+                            <li id="wp-admin-bar-litespeed-purge-cssjs"><a class="ab-item" tabindex="0" href="https://vive.redesla.la/wp-admin/admin.php?LSCWP_CTRL=purge&amp;LSCWP_NONCE=9912e191c6&amp;litespeed_type=purge_all_cssjs&amp;_litespeed_ori=1">Vaciar todo - Caché CSS/JS</a></li>
+                            <li id="wp-admin-bar-litespeed-purge-opcache"><a class="ab-item" tabindex="0" href="https://vive.redesla.la/wp-admin/admin.php?LSCWP_CTRL=purge&amp;LSCWP_NONCE=9912e191c6&amp;litespeed_type=purge_all_opcache&amp;_litespeed_ori=1">Vaciar todo - Caché opcode</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li id="wp-admin-bar-wpforms-menu" class="menupop"><a class="ab-item" aria-haspopup="true" href="https://vive.redesla.la/wp-admin/admin.php?page=wpforms-overview">WPForms <div class="wp-core-ui wp-ui-notification wpforms-menu-notification-counter">5</div></a>
+                    <div class="ab-sub-wrapper">
+                        <ul id="wp-admin-bar-wpforms-menu-default" class="ab-submenu">
+                            <li id="wp-admin-bar-wpforms-notifications"><a class="ab-item" href="https://vive.redesla.la/wp-admin/admin.php?page=wpforms-overview">Avisos <div class="wp-core-ui wp-ui-notification wpforms-menu-notification-indicator"></div></a></li>
+                            <li id="wp-admin-bar-wpforms-forms"><a class="ab-item" href="https://vive.redesla.la/wp-admin/admin.php?page=wpforms-overview">Todos los formularios</a></li>
+                            <li id="wp-admin-bar-wpforms-add-new"><a class="ab-item" href="https://vive.redesla.la/wp-admin/admin.php?page=wpforms-builder">Añadir nuevo</a></li>
+                            <li id="wp-admin-bar-wpforms-community"><a class="ab-item" href="https://www.facebook.com/groups/wpformsvip/" target="_blank" rel="noopener noreferrer">Comunidad</a></li>
+                            <li id="wp-admin-bar-wpforms-help-docs"><a class="ab-item" href="https://wpforms.com/docs/?utm_campaign=liteplugin&amp;utm_medium=admin-bar&amp;utm_source=WordPress&amp;utm_content=Documentation" target="_blank" rel="noopener noreferrer">Help Docs</a></li>
+                            <li id="wp-admin-bar-wpforms-upgrade"><a class="ab-item" href="https://wpforms.com/lite-upgrade/?utm_campaign=liteplugin&amp;utm_medium=admin-bar&amp;utm_source=WordPress&amp;utm_content=Upgrade+to+Pro" target="_blank" rel="noopener noreferrer">Actualizar a Pro</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <ul id="wp-admin-bar-top-secondary" class="ab-top-secondary ab-top-menu">
+                <li id="wp-admin-bar-search" class="admin-bar-search">
+                    <div class="ab-item ab-empty-item" tabindex="-1">
+                        <form action="https://vive.redesla.la/" method="get" id="adminbarsearch"><input class="adminbar-input" name="s" id="adminbar-search" type="text" value="" maxlength="150"><label for="adminbar-search" class="screen-reader-text">Buscar</label><input type="submit" class="adminbar-button" value="Buscar"></form>
+                    </div>
+                </li>
+                <li id="wp-admin-bar-my-account" class="menupop with-avatar"><a class="ab-item" aria-haspopup="true" href="https://vive.redesla.la/wp-admin/profile.php">Hola, <span class="display-name">viveRedeslaAdmin</span><img alt="" src="https://secure.gravatar.com/avatar/1f22e4a6d890f60d9c2655d574d55419?s=26&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1f22e4a6d890f60d9c2655d574d55419?s=52&amp;d=mm&amp;r=g 2x" class="avatar avatar-26 photo" height="26" width="26" loading="lazy" decoding="async"></a>
+                    <div class="ab-sub-wrapper">
+                        <ul id="wp-admin-bar-user-actions" class="ab-submenu">
+                            <li id="wp-admin-bar-user-info"><a class="ab-item" tabindex="-1" href="https://vive.redesla.la/wp-admin/profile.php"><img alt="" src="https://secure.gravatar.com/avatar/1f22e4a6d890f60d9c2655d574d55419?s=64&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/1f22e4a6d890f60d9c2655d574d55419?s=128&amp;d=mm&amp;r=g 2x" class="avatar avatar-64 photo" height="64" width="64" loading="lazy" decoding="async"><span class="display-name">viveRedeslaAdmin</span></a></li>
+                            <li id="wp-admin-bar-edit-profile"><a class="ab-item" href="https://vive.redesla.la/wp-admin/profile.php">Editar perfil</a></li>
+                            <li id="wp-admin-bar-logout"><a class="ab-item" href="https://vive.redesla.la/wp-login.php?action=logout&amp;_wpnonce=5914ede30b">Cerrar sesión</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <a class="screen-reader-shortcut" href="https://vive.redesla.la/wp-login.php?action=logout&amp;_wpnonce=5914ede30b">Cerrar sesión</a>
+    </div>
+
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;">
         <defs>
             <filter id="wp-duotone-dark-grayscale">
@@ -1128,7 +1266,7 @@
                         <div class="elementor-element elementor-element-0a7f377 elementor-align-center elementor-absolute elementor-widget elementor-widget-button" data-id="0a7f377" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
                             <div class="elementor-widget-container">
                                 <div class="elementor-button-wrapper">
-                                    <a href="<?= $programa ?>" target="_blank" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+                                    <a href="<?= $programa ?>" class="elementor-button-link elementor-button elementor-size-sm" role="button">
                                         <span class="elementor-button-content-wrapper">
                                             <span class="elementor-button-text">PROGRAMA DE PONENCIAS</span>
                                         </span>
@@ -1143,7 +1281,7 @@
                         <div class="elementor-element elementor-element-7371f06 elementor-absolute elementor-widget elementor-widget-button" data-id="7371f06" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
                             <div class="elementor-widget-container">
                                 <div class="elementor-button-wrapper">
-                                    <a href="<?= $url ?>" target="_blank" class="elementor-button-link elementor-button elementor-size-xl" role="button">
+                                    <a href="<?= $url ?>" class="elementor-button-link elementor-button elementor-size-xl" role="button">
                                         <span class="elementor-button-content-wrapper">
                                             <span class="elementor-button-text">Haz clic aquí</span>
                                         </span>
@@ -1154,6 +1292,48 @@
                     </div>
                 </div>
                 <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-f647439" data-id="f647439" data-element_type="column">
+                    <div class="elementor-widget-wrap">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="elementor-section elementor-top-section elementor-element elementor-element-417fa06 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="417fa06" data-element_type="section">
+            <div class="elementor-container elementor-column-gap-default">
+                <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-1cdb9eb" data-id="1cdb9eb" data-element_type="column">
+                    <div class="elementor-widget-wrap elementor-element-populated">
+                        <div class="elementor-element elementor-element-83cdb1b elementor-align-center elementor-absolute elementor-widget elementor-widget-button" data-id="83cdb1b" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
+                            <div class="elementor-widget-container">
+                                <div class="elementor-button-wrapper">
+                                    <a href="<?= $url ?>" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+                                        <span class="elementor-button-content-wrapper">
+                                            <span class="elementor-button-text">ID de reunión: 894 2373 8020<br> Clave: RELEG23</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-f8d7bec" data-id="f8d7bec" data-element_type="column">
+                    <div class="elementor-widget-wrap">
+                    </div>
+                </div>
+                <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-147f0ad" data-id="147f0ad" data-element_type="column">
+                    <div class="elementor-widget-wrap elementor-element-populated">
+                        <div class="elementor-element elementor-element-5acc156 elementor-absolute elementor-widget elementor-widget-button" data-id="5acc156" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
+                            <div class="elementor-widget-container">
+                                <div class="elementor-button-wrapper">
+                                    <a href="#" class="elementor-button-link elementor-button elementor-size-xl" role="button">
+                                        <span class="elementor-button-content-wrapper">
+                                            <span class="elementor-button-text">Haz clic aquí</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-5a592a2" data-id="5a592a2" data-element_type="column">
                     <div class="elementor-widget-wrap">
                     </div>
                 </div>
@@ -1230,12 +1410,463 @@
             sibling.parentElement.insertBefore(skipLink, sibling);
         }());
     </script>
+    <script type="text/template" id="tmpl-elementor-templates-modal__header">
+        <div class="elementor-templates-modal__header__logo-area"></div>
+	<div class="elementor-templates-modal__header__menu-area"></div>
+	<div class="elementor-templates-modal__header__items-area">
+		<# if ( closeType ) { #>
+			<div class="elementor-templates-modal__header__close elementor-templates-modal__header__close--{{{ closeType }}} elementor-templates-modal__header__item">
+				<# if ( 'skip' === closeType ) { #>
+				<span>Saltar</span>
+				<# } #>
+				<i class="eicon-close" aria-hidden="true" title="Cerrar"></i>
+				<span class="elementor-screen-only">Cerrar</span>
+			</div>
+		<# } #>
+		<div id="elementor-template-library-header-tools"></div>
+	</div>
+</script>
+
+    <script type="text/template" id="tmpl-elementor-templates-modal__header__logo">
+        <span class="elementor-templates-modal__header__logo__icon-wrapper e-logo-wrapper">
+		<i class="eicon-elementor"></i>
+	</span>
+	<span class="elementor-templates-modal__header__logo__title">{{{ title }}}</span>
+</script>
+    <script type="text/template" id="tmpl-elementor-finder">
+        <div id="elementor-finder__search">
+		<i class="eicon-search"></i>
+		<input id="elementor-finder__search__input" placeholder="Teclea para encontrar lo que sea en Elementor" autocomplete="off">
+	</div>
+	<div id="elementor-finder__content"></div>
+</script>
+
+    <script type="text/template" id="tmpl-elementor-finder-results-container">
+        <div id="elementor-finder__no-results">Ningún resultado</div>
+	<div id="elementor-finder__results"></div>
+</script>
+
+    <script type="text/template" id="tmpl-elementor-finder__results__category">
+        <div class="elementor-finder__results__category__title">{{{ title }}}</div>
+	<div class="elementor-finder__results__category__items"></div>
+</script>
+
+    <script type="text/template" id="tmpl-elementor-finder__results__item">
+        <a href="{{ url }}" class="elementor-finder__results__item__link">
+		<div class="elementor-finder__results__item__icon">
+			<i class="eicon-{{{ icon }}}"></i>
+		</div>
+		<div class="elementor-finder__results__item__title">{{{ title }}}</div>
+		<# if ( description ) { #>
+			<div class="elementor-finder__results__item__description">- {{{ description }}}</div>
+		<# } #>
+
+		<# if ( lock ) { #>
+		<div class="elementor-finder__results__item__badge"><i class="{{{ lock.badge.icon }}}"></i>{{ lock.badge.text }}</div>
+		<# } #>
+	</a>
+	<# if ( actions.length ) { #>
+		<div class="elementor-finder__results__item__actions">
+		<# jQuery.each( actions, function() { #>
+			<a class="elementor-finder__results__item__action elementor-finder__results__item__action--{{ this.name }}" href="{{ this.url }}" target="_blank">
+				<i class="eicon-{{{ this.icon }}}"></i>
+			</a>
+		<# } ); #>
+		</div>
+	<# } #>
+</script>
+    <script src="https://vive.redesla.la/wp-includes/js/jquery/ui/core.min.js?ver=1.13.2" id="jquery-ui-core-js"></script>
+    <script src="https://vive.redesla.la/wp-includes/js/jquery/ui/mouse.min.js?ver=1.13.2" id="jquery-ui-mouse-js"></script>
+    <script src="https://vive.redesla.la/wp-includes/js/jquery/ui/draggable.min.js?ver=1.13.2" id="jquery-ui-draggable-js"></script>
+    <script src="https://vive.redesla.la/wp-includes/js/underscore.min.js?ver=1.13.4" id="underscore-js"></script>
+    <script src="https://vive.redesla.la/wp-includes/js/backbone.min.js?ver=1.4.1" id="backbone-js"></script>
+    <script src="https://vive.redesla.la/wp-content/plugins/elementor/assets/lib/backbone/backbone.marionette.min.js?ver=2.4.5.e1" id="backbone-marionette-js"></script>
+    <script src="https://vive.redesla.la/wp-content/plugins/elementor/assets/lib/backbone/backbone.radio.min.js?ver=1.0.4" id="backbone-radio-js"></script>
+    <script src="https://vive.redesla.la/wp-content/plugins/elementor/assets/js/common-modules.min.js?ver=3.10.0" id="elementor-common-modules-js"></script>
+    <script id="elementor-web-cli-js-before">
+        var elementorWebCliConfig = {
+            "isDebug": false,
+            "urls": {
+                "rest": "https:\/\/vive.redesla.la\/wp-json\/",
+                "assets": "https:\/\/vive.redesla.la\/wp-content\/plugins\/elementor\/assets\/"
+            },
+            "nonce": "14ff333927",
+            "version": "3.10.0"
+        };
+        var elementorWebCliConfig = {
+            "isDebug": false,
+            "urls": {
+                "rest": "https:\/\/vive.redesla.la\/wp-json\/",
+                "assets": "https:\/\/vive.redesla.la\/wp-content\/plugins\/elementor\/assets\/"
+            },
+            "nonce": "14ff333927",
+            "version": "3.10.0"
+        };
+    </script>
+    <script src="https://vive.redesla.la/wp-content/plugins/elementor/assets/js/web-cli.min.js?ver=3.10.0" id="elementor-web-cli-js"></script>
+    <script src="https://vive.redesla.la/wp-content/plugins/elementor/assets/lib/dialog/dialog.min.js?ver=4.9.0" id="elementor-dialog-js"></script>
+    <script id="wp-api-request-js-extra">
+        var wpApiSettings = {
+            "root": "https:\/\/vive.redesla.la\/wp-json\/",
+            "nonce": "14ff333927",
+            "versionString": "wp\/v2\/"
+        };
+    </script>
+    <script src="https://vive.redesla.la/wp-includes/js/api-request.min.js?ver=6.1.3" id="wp-api-request-js"></script>
+    <script id="elementor-dev-tools-js-before">
+        var elementorDevToolsConfig = {
+            "isDebug": false,
+            "urls": {
+                "assets": "https:\/\/vive.redesla.la\/wp-content\/plugins\/elementor\/assets\/"
+            },
+            "deprecation": {
+                "soft_notices": [],
+                "soft_version_count": 4,
+                "hard_version_count": 8,
+                "current_version": "3.10.0"
+            }
+        };
+        var elementorDevToolsConfig = {
+            "isDebug": false,
+            "urls": {
+                "assets": "https:\/\/vive.redesla.la\/wp-content\/plugins\/elementor\/assets\/"
+            },
+            "deprecation": {
+                "soft_notices": [],
+                "soft_version_count": 4,
+                "hard_version_count": 8,
+                "current_version": "3.10.0"
+            }
+        };
+        var elementorDevToolsConfig = {
+            "isDebug": false,
+            "urls": {
+                "assets": "https:\/\/vive.redesla.la\/wp-content\/plugins\/elementor\/assets\/"
+            },
+            "deprecation": {
+                "soft_notices": [],
+                "soft_version_count": 4,
+                "hard_version_count": 8,
+                "current_version": "3.10.0"
+            }
+        };
+    </script>
+    <script src="https://vive.redesla.la/wp-content/plugins/elementor/assets/js/dev-tools.min.js?ver=3.10.0" id="elementor-dev-tools-js"></script>
+    <script src="https://vive.redesla.la/wp-includes/js/dist/vendor/regenerator-runtime.min.js?ver=0.13.9" id="regenerator-runtime-js"></script>
+    <script src="https://vive.redesla.la/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=3.15.0" id="wp-polyfill-js"></script>
+    <script src="https://vive.redesla.la/wp-includes/js/dist/hooks.min.js?ver=4169d3cf8e8d95a3d6d5" id="wp-hooks-js"></script>
+    <script src="https://vive.redesla.la/wp-includes/js/dist/i18n.min.js?ver=9e794f35a71bb98672ae" id="wp-i18n-js"></script>
+    <script id="wp-i18n-js-after">
+        wp.i18n.setLocaleData({
+            'text direction\u0004ltr': ['ltr']
+        });
+    </script>
+    <script id="elementor-common-js-translations">
+        (function(domain, translations) {
+            var localeData = translations.locale_data[domain] || translations.locale_data.messages;
+            localeData[""].domain = domain;
+            wp.i18n.setLocaleData(localeData, domain);
+        })("elementor", {
+            "translation-revision-date": "2023-01-09 15:04:04+0000",
+            "generator": "GlotPress\/4.0.0-alpha.3",
+            "domain": "messages",
+            "locale_data": {
+                "messages": {
+                    "": {
+                        "domain": "messages",
+                        "plural-forms": "nplurals=2; plural=n != 1;",
+                        "lang": "es_MX"
+                    },
+                    "Import Without Enabling": ["Importar sin activar"],
+                    "Enable and Import": ["Activar e importar"],
+                    "If you do not enable uploading unfiltered files, any SVG or JSON (including lottie) files used in the uploaded template will not be imported.": ["Si no activas la subida de archivos no filtrados, no se importar\u00e1n los archivos SVG o JSON (incluyendo lottie) utilizados en la plantilla subida."],
+                    "The file exceeds the maximum upload size for this site.": ["El archivo excede el tama\u00f1o m\u00e1ximo de carga para este sitio."],
+                    "Uploading...": ["Subiendo..."],
+                    "Enable Unfiltered File Uploads": ["Habilitar cargas de archivos sin filtrar"],
+                    "Unable to connect": ["No ha sido posible conectar"],
+                    "Before you enable unfiltered files upload, note that such files include a security risk. Elementor does run a process to remove possible malicious code, but there is still risk involved when using such files.": ["Antes de que actives la subida de archivos sin filtrar, ten en cuenta que este tipo de archivos implican un riesgo de seguridad. Elementor ejecuta un proceso para eliminar el posible c\u00f3digo malicioso, pero todav\u00eda hay un riesgo inherente al usar estos archivos."],
+                    "Finder": ["Buscador"],
+                    "Enable": ["Activar"],
+                    "Cancel": ["Cancelar"]
+                }
+            },
+            "comment": {
+                "reference": "assets\/js\/common.js"
+            }
+        });
+    </script>
+    <script id="elementor-common-js-before">
+        var elementorCommonConfig = {
+            "version": "3.10.0",
+            "isRTL": false,
+            "isDebug": false,
+            "isElementorDebug": false,
+            "activeModules": ["ajax", "finder", "connect", "event-tracker"],
+            "experimentalFeatures": {
+                "e_dom_optimization": true,
+                "e_optimized_assets_loading": true,
+                "e_optimized_css_loading": true,
+                "a11y_improvements": true,
+                "additional_custom_breakpoints": true,
+                "e_hidden_wordpress_widgets": true,
+                "landing-pages": true,
+                "kit-elements-defaults": true
+            },
+            "urls": {
+                "assets": "https:\/\/vive.redesla.la\/wp-content\/plugins\/elementor\/assets\/",
+                "rest": "https:\/\/vive.redesla.la\/wp-json\/"
+            },
+            "filesUpload": {
+                "unfilteredFiles": false
+            },
+            "library_connect": {
+                "is_connected": false,
+                "subscription_plans": {
+                    "0": {
+                        "label": null,
+                        "promotion_url": null,
+                        "color": null
+                    },
+                    "1": {
+                        "label": "Pro",
+                        "promotion_url": "https:\/\/elementor.com\/pro\/?utm_source=template-library&utm_medium=wp-dash&utm_campaign=gopro",
+                        "color": "#92003B"
+                    },
+                    "20": {
+                        "label": "Expert",
+                        "promotion_url": "https:\/\/elementor.com\/pro\/?utm_source=template-library&utm_medium=wp-dash&utm_campaign=goexpert",
+                        "color": "#010051"
+                    }
+                },
+                "base_access_level": 0,
+                "current_access_level": 0
+            },
+            "ajax": {
+                "url": "https:\/\/vive.redesla.la\/wp-admin\/admin-ajax.php",
+                "nonce": "fe5c11981b"
+            },
+            "finder": {
+                "data": {
+                    "edit": {
+                        "title": "Editar",
+                        "dynamic": true,
+                        "name": "edit"
+                    },
+                    "general": {
+                        "title": "General",
+                        "dynamic": false,
+                        "items": {
+                            "saved-templates": {
+                                "title": "Plantillas Guardadas",
+                                "icon": "library-save",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/edit.php?post_type=elementor_library&tabs_group=library",
+                                "keywords": ["template", "section", "page", "library"]
+                            },
+                            "system-info": {
+                                "title": "Informaci\u00f3n del Sistema",
+                                "icon": "info-circle-o",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/admin.php?page=elementor-system-info",
+                                "keywords": ["system", "info", "environment", "elementor"]
+                            },
+                            "role-manager": {
+                                "title": "Gestor de perfiles",
+                                "icon": "person",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/admin.php?page=elementor-role-manager",
+                                "keywords": ["role", "manager", "user", "elementor"]
+                            },
+                            "knowledge-base": {
+                                "title": "Base de conocimiento",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/admin.php?page=go_knowledge_base_site",
+                                "keywords": ["help", "knowledge", "docs", "elementor"]
+                            },
+                            "theme-builder": {
+                                "title": "Theme Builder",
+                                "icon": "library-save",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/admin.php?page=elementor-app&ver=3.10.0#site-editor\/promotion",
+                                "keywords": ["template", "header", "footer", "single", "archive", "search", "404", "library"]
+                            },
+                            "kit-library": {
+                                "title": "Biblioteca de kits",
+                                "icon": "kit-parts",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/admin.php?page=elementor-app&ver=3.10.0#\/kit-library",
+                                "keywords": ["kit library", "kit", "library", "site parts", "parts", "assets", "templates"]
+                            }
+                        },
+                        "name": "general"
+                    },
+                    "create": {
+                        "title": "Crear",
+                        "dynamic": false,
+                        "items": {
+                            "page": {
+                                "title": "A\u00f1adir una nueva plantilla de p\u00e1gina",
+                                "icon": "plus-circle-o",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/edit.php?action=elementor_new_post&post_type=elementor_library&template_type=page&_wpnonce=ae65f1a259",
+                                "keywords": ["A\u00f1adir una nueva plantilla de p\u00e1gina", "post", "page", "template", "new", "create"]
+                            },
+                            "section": {
+                                "title": "A\u00f1adir nueva Secci\u00f3n",
+                                "icon": "plus-circle-o",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/edit.php?action=elementor_new_post&post_type=elementor_library&template_type=section&_wpnonce=ae65f1a259",
+                                "keywords": ["A\u00f1adir nueva Secci\u00f3n", "post", "page", "template", "new", "create"]
+                            },
+                            "wp-post": {
+                                "title": "A\u00f1adir nueva Entrada",
+                                "icon": "plus-circle-o",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/edit.php?action=elementor_new_post&post_type=post&template_type=wp-post&_wpnonce=ae65f1a259",
+                                "keywords": ["A\u00f1adir nueva Entrada", "post", "page", "template", "new", "create"]
+                            },
+                            "wp-page": {
+                                "title": "A\u00f1adir nueva P\u00e1gina",
+                                "icon": "plus-circle-o",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/edit.php?action=elementor_new_post&post_type=page&template_type=wp-page&_wpnonce=ae65f1a259",
+                                "keywords": ["A\u00f1adir nueva P\u00e1gina", "post", "page", "template", "new", "create"]
+                            },
+                            "landing-page": {
+                                "title": "A\u00f1adir nueva Landing page",
+                                "icon": "plus-circle-o",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/edit.php?action=elementor_new_post&post_type=e-landing-page&template_type=landing-page&_wpnonce=ae65f1a259#library",
+                                "keywords": ["A\u00f1adir nueva Landing page", "post", "page", "template", "new", "create"]
+                            }
+                        },
+                        "name": "create"
+                    },
+                    "site": {
+                        "title": "Sitio",
+                        "dynamic": false,
+                        "items": {
+                            "homepage": {
+                                "title": "P\u00e1gina de inicio",
+                                "url": "https:\/\/vive.redesla.la",
+                                "icon": "home-heart",
+                                "keywords": ["home", "page"]
+                            },
+                            "wordpress-dashboard": {
+                                "title": "Escritorio",
+                                "icon": "dashboard",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/",
+                                "keywords": ["dashboard", "wordpress"]
+                            },
+                            "wordpress-menus": {
+                                "title": "Men\u00fas",
+                                "icon": "wordpress",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/nav-menus.php",
+                                "keywords": ["menu", "wordpress"]
+                            },
+                            "wordpress-themes": {
+                                "title": "Temas",
+                                "icon": "wordpress",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/themes.php",
+                                "keywords": ["themes", "wordpress"]
+                            },
+                            "wordpress-customizer": {
+                                "title": "Personalizador",
+                                "icon": "wordpress",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/customize.php",
+                                "keywords": ["customizer", "wordpress"]
+                            },
+                            "wordpress-plugins": {
+                                "title": "Plugins",
+                                "icon": "wordpress",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/plugins.php",
+                                "keywords": ["plugins", "wordpress"]
+                            },
+                            "wordpress-users": {
+                                "title": "Usuarios",
+                                "icon": "wordpress",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/users.php",
+                                "keywords": ["users", "profile", "wordpress"]
+                            }
+                        },
+                        "name": "site"
+                    },
+                    "settings": {
+                        "title": "Configuraci\u00f3n",
+                        "dynamic": false,
+                        "items": {
+                            "general-settings": {
+                                "title": "Ajustes Generales",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/admin.php?page=elementor",
+                                "keywords": ["general", "settings", "elementor"]
+                            },
+                            "advanced": {
+                                "title": "Avanzado",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/admin.php?page=elementor#tab-advanced",
+                                "keywords": ["advanced", "settings", "elementor"]
+                            },
+                            "experiments": {
+                                "title": "Experimentos",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/admin.php?page=elementor#tab-experiments",
+                                "keywords": ["settings", "elementor", "experiments"]
+                            }
+                        },
+                        "name": "settings"
+                    },
+                    "tools": {
+                        "title": "Herramientas",
+                        "dynamic": false,
+                        "items": {
+                            "tools": {
+                                "title": "Herramientas",
+                                "icon": "tools",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/admin.php?page=elementor-tools",
+                                "keywords": ["tools", "regenerate css", "safe mode", "debug bar", "sync library", "elementor"]
+                            },
+                            "replace-url": {
+                                "title": "Reemplazar URL",
+                                "icon": "tools",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/admin.php?page=elementor-tools#tab-replace_url",
+                                "keywords": ["tools", "replace url", "domain", "elementor"]
+                            },
+                            "maintenance-mode": {
+                                "title": "Modo de mantenimiento",
+                                "icon": "tools",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/admin.php?page=elementor-tools#tab-maintenance_mode",
+                                "keywords": ["tools", "maintenance", "coming soon", "elementor"]
+                            },
+                            "import-export": {
+                                "title": "Importar \/ Exportar",
+                                "icon": "import-export",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/admin.php?page=elementor-tools#tab-import-export-kit",
+                                "keywords": ["tools", "import export", "import", "export", "kit"]
+                            },
+                            "version-control": {
+                                "title": "Control de versiones",
+                                "icon": "time-line",
+                                "url": "https:\/\/vive.redesla.la\/wp-admin\/admin.php?page=elementor-tools#tab-versions",
+                                "keywords": ["tools", "version", "control", "rollback", "beta", "elementor"]
+                            }
+                        },
+                        "name": "tools"
+                    }
+                }
+            },
+            "connect": [],
+            "event-tracker": {
+                "isUserDataShared": false
+            }
+        };
+    </script>
+    <script src="https://vive.redesla.la/wp-content/plugins/elementor/assets/js/common.min.js?ver=3.10.0" id="elementor-common-js"></script>
+    <script id="elementor-app-loader-js-before">
+        var elementorAppConfig = {
+            "menu_url": "https:\/\/vive.redesla.la\/wp-admin\/admin.php?page=elementor-app&ver=3.10.0#site-editor\/promotion",
+            "assets_url": "https:\/\/vive.redesla.la\/wp-content\/plugins\/elementor\/assets\/",
+            "return_url": "https:\/\/vive.redesla.la\/pasillo-salones\/",
+            "hasPro": false,
+            "admin_url": "https:\/\/vive.redesla.la\/wp-admin\/",
+            "login_url": "https:\/\/vive.redesla.la\/wp-login.php",
+            "base_url": "https:\/\/vive.redesla.la\/wp-admin\/admin.php?page=elementor-app&ver=3.10.0",
+            "site-editor": [],
+            "import-export": [],
+            "kit-library": [],
+            "onboarding": []
+        };
+    </script>
+    <script src="https://vive.redesla.la/wp-content/plugins/elementor/assets/js/app-loader.min.js?ver=3.10.0" id="elementor-app-loader-js"></script>
     <script src="https://vive.redesla.la/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.10.0" id="elementor-webpack-runtime-js"></script>
-    <script src="https://vive.redesla.la/wp-includes/js/jquery/jquery.min.js?ver=3.6.1" id="jquery-core-js"></script>
-    <script src="https://vive.redesla.la/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2" id="jquery-migrate-js"></script>
     <script src="https://vive.redesla.la/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.10.0" id="elementor-frontend-modules-js"></script>
     <script src="https://vive.redesla.la/wp-content/plugins/elementor/assets/lib/waypoints/waypoints.min.js?ver=4.0.2" id="elementor-waypoints-js"></script>
-    <script src="https://vive.redesla.la/wp-includes/js/jquery/ui/core.min.js?ver=1.13.2" id="jquery-ui-core-js"></script>
     <script id="elementor-frontend-js-before">
         var elementorFrontendConfig = {
             "environmentMode": {
@@ -1346,11 +1977,13 @@
                 "title": "Sal%C3%B3n%202%20%E2%80%93%20VIVE%20REDESLA",
                 "excerpt": "",
                 "featuredImage": false
+            },
+            "user": {
+                "roles": ["administrator"]
             }
         };
     </script>
     <script src="https://vive.redesla.la/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.10.0" id="elementor-frontend-js"></script><span id="elementor-device-mode" class="elementor-screen-only"></span>
-    <script src="https://vive.redesla.la/wp-includes/js/underscore.min.js?ver=1.13.4" id="underscore-js"></script>
     <script id="wp-util-js-extra">
         var _wpUtilSettings = {
             "ajax": {
@@ -1366,6 +1999,61 @@
         };
     </script>
     <script src="https://vive.redesla.la/wp-content/plugins/wpforms-lite/assets/js/integrations/elementor/frontend.min.js?ver=1.7.9.1" id="wpforms-elementor-js"></script>
+    <script id="elementor-admin-bar-js-before">
+        var elementorAdminBarConfig = {
+            "elementor_edit_page": {
+                "id": "elementor_edit_page",
+                "title": "Editar con Elementor",
+                "href": "https:\/\/vive.redesla.la\/wp-admin\/post.php?post=2611&action=elementor",
+                "children": {
+                    "2612": {
+                        "id": "elementor_site_settings",
+                        "title": "Ajustes del sitio",
+                        "sub_title": "Sitio",
+                        "href": "https:\/\/vive.redesla.la\/wp-admin\/post.php?post=2611&action=elementor#e:run:panel\/global\/open",
+                        "class": "elementor-site-settings",
+                        "parent_class": "elementor-second-section"
+                    },
+                    "2613": {
+                        "id": "elementor_app_site_editor",
+                        "title": "Theme Builder",
+                        "sub_title": "Sitio",
+                        "href": "https:\/\/vive.redesla.la\/wp-admin\/admin.php?page=elementor-app&ver=3.10.0#site-editor\/promotion",
+                        "class": "elementor-app-link",
+                        "parent_class": "elementor-second-section"
+                    }
+                }
+            }
+        };
+    </script>
+    <script src="https://vive.redesla.la/wp-content/plugins/elementor/assets/js/elementor-admin-bar.min.js?ver=3.10.0" id="elementor-admin-bar-js"></script>
+    <script src="https://vive.redesla.la/wp-includes/js/hoverintent-js.min.js?ver=2.2.1" id="hoverintent-js-js"></script>
+    <script id="admin-bar-js-before">
+        (function() {
+            function wpforms_admin_bar_menu_init() {
+                var template = document.getElementById('tmpl-wpforms-admin-menubar-data'),
+                    notifications = document.getElementById('wp-admin-bar-wpforms-notifications');
+
+                if (!template) {
+                    return;
+                }
+
+                if (!notifications) {
+                    var menu = document.getElementById('wp-admin-bar-wpforms-menu-default');
+
+                    if (!menu) {
+                        return;
+                    }
+
+                    menu.insertAdjacentHTML('afterBegin', template.innerHTML);
+                } else {
+                    notifications.insertAdjacentHTML('afterend', template.innerHTML);
+                }
+            };
+            document.addEventListener('DOMContentLoaded', wpforms_admin_bar_menu_init);
+        }());
+    </script>
+    <script src="https://vive.redesla.la/wp-includes/js/admin-bar.min.js?ver=6.1.3" id="admin-bar-js"></script>
 
 
 
@@ -1375,6 +2063,5 @@
     <div id="tmc_highlight_box_right" class="tmc_ignore" style="z-index: 2147483646; position: absolute; border: 3px solid rgb(19, 105, 206); display: none;"></div>
     <div id="tmc_highlight_box_bottom" class="tmc_ignore" style="z-index: 2147483646; position: absolute; border: 3px solid rgb(19, 105, 206); display: none;"></div>
 </body>
-<script src="chrome-extension://imhhfjfjfhjjjgaedcanngoffjmcblgi/js/canvasFpDefender/index.js"></script>
 
 </html>
