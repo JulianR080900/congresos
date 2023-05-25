@@ -1105,6 +1105,7 @@
             </filter>
         </defs>
     </svg>
+    <div style="text-align: right;">Si no ingresa, de clic <a href="../recepcion">aquí</a></div>
     <div data-elementor-type="wp-page" data-elementor-id="3870" class="elementor elementor-3870">
         <section class="elementor-section elementor-top-section elementor-element elementor-element-93dd7cb elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="93dd7cb" data-element_type="section">
             <div class="elementor-container elementor-column-gap-default">

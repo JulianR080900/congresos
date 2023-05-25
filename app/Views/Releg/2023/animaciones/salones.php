@@ -1105,6 +1105,9 @@
             </filter>
         </defs>
     </svg>
+
+    <div style="text-align: right;">Si no ingresa, de clic <a href="../pasillo-salones">aquí</a></div>
+
     <div data-elementor-type="wp-page" data-elementor-id="3891" class="elementor elementor-3891">
         <section class="elementor-section elementor-top-section elementor-element elementor-element-fdd54f0 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="fdd54f0" data-element_type="section">
             <div class="elementor-container elementor-column-gap-default">

@@ -1105,6 +1105,7 @@
             </filter>
         </defs>
     </svg>
+    <div style="text-align: right;">Si no ingresa, de clic <a href="../auditorio">aquí</a></div>
     <div data-elementor-type="wp-page" data-elementor-id="3896" class="elementor elementor-3896">
         <section class="elementor-section elementor-top-section elementor-element elementor-element-314000a elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="314000a" data-element_type="section">
             <div class="elementor-container elementor-column-gap-default">
@@ -1119,7 +1120,7 @@
                                 <div class="elementor-button-wrapper">
                                     <a href="../auditorio" class="elementor-button-link elementor-button elementor-size-sm" role="button">
                                         <span class="elementor-button-content-wrapper">
-                                            <span class="elementor-button-text">INGRESAR</span>
+                                            <span class="elementor-button-link">INGRESAR</span>
                                         </span>
                                     </a>
                                 </div>
