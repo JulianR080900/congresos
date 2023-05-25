@@ -1,4 +1,4 @@
-<html lang="es-MX" data-cbscriptallow="true">
+<html lang="es-MX">
 
 <head>
     <meta charset="UTF-8">
@@ -984,7 +984,7 @@
     <link rel="stylesheet" id="plyr-css" href="https://vive.redesla.la/wp-content/plugins/az-video-and-audio-player-addon-for-elementor/assets/css/plyr.css?ver=6.1.3" media="all">
     <link rel="stylesheet" id="vapfem-main-css" href="https://vive.redesla.la/wp-content/plugins/az-video-and-audio-player-addon-for-elementor/assets/css/main.css?ver=6.1.3" media="all">
     <link rel="stylesheet" id="elementor-global-css" href="https://vive.redesla.la/wp-content/uploads/elementor/css/global.css?ver=1673457678" media="all">
-    <link rel="stylesheet" id="elementor-post-2615-css" href="https://vive.redesla.la/wp-content/uploads/elementor/css/post-2615.css?ver=1684809597" media="all">
+    <link rel="stylesheet" id="elementor-post-2615-css" href="https://vive.redesla.la/wp-content/uploads/elementor/css/post-2615.css?ver=1685026779" media="all">
     <link rel="stylesheet" id="google-fonts-1-css" href="https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto+Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&amp;display=swap&amp;ver=6.1.3" media="all">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
     <link rel="https://api.w.org/" href="https://vive.redesla.la/wp-json/">
@@ -1113,7 +1113,7 @@
                         <div class="elementor-element elementor-element-4eaef6e elementor-align-center elementor-absolute elementor-widget elementor-widget-button" data-id="4eaef6e" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
                             <div class="elementor-widget-container">
                                 <div class="elementor-button-wrapper">
-                                    <a href="../pasillo-salones/" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+                                    <a href="../pasillo-salones" class="elementor-button-link elementor-button elementor-size-sm" role="button">
                                         <span class="elementor-button-content-wrapper">
                                             <span class="elementor-button-text">VOLVER</span>
                                         </span>
@@ -1128,7 +1128,7 @@
                         <div class="elementor-element elementor-element-9f6a2a3 elementor-align-center elementor-absolute elementor-widget elementor-widget-button" data-id="9f6a2a3" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
                             <div class="elementor-widget-container">
                                 <div class="elementor-button-wrapper">
-                                    <a href="<?= $programa ?>" target="_blank" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+                                    <a href="<?= $programa ?>" class="elementor-button-link elementor-button elementor-size-sm" role="button">
                                         <span class="elementor-button-content-wrapper">
                                             <span class="elementor-button-text">PROGRAMA DE PONENCIAS</span>
                                         </span>
@@ -1143,7 +1143,7 @@
                         <div class="elementor-element elementor-element-8a0b702 elementor-absolute elementor-widget elementor-widget-button" data-id="8a0b702" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
                             <div class="elementor-widget-container">
                                 <div class="elementor-button-wrapper">
-                                    <a href="<?= $url ?>" target="_blank" class="elementor-button-link elementor-button elementor-size-xl" role="button">
+                                    <a href="<?= $url ?>" class="elementor-button-link elementor-button elementor-size-xl" role="button">
                                         <span class="elementor-button-content-wrapper">
                                             <span class="elementor-button-text">Haz clic aquí</span>
                                         </span>
@@ -1154,6 +1154,48 @@
                     </div>
                 </div>
                 <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-bf77c86" data-id="bf77c86" data-element_type="column">
+                    <div class="elementor-widget-wrap">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="elementor-section elementor-top-section elementor-element elementor-element-f203fa9 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="f203fa9" data-element_type="section">
+            <div class="elementor-container elementor-column-gap-default">
+                <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-f79e5e0" data-id="f79e5e0" data-element_type="column">
+                    <div class="elementor-widget-wrap elementor-element-populated">
+                        <div class="elementor-element elementor-element-5799f6a elementor-align-center elementor-absolute elementor-widget elementor-widget-button" data-id="5799f6a" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
+                            <div class="elementor-widget-container">
+                                <div class="elementor-button-wrapper">
+                                    <a href="<?=  $url?>" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+                                        <span class="elementor-button-content-wrapper">
+                                            <span class="elementor-button-text">ID de reunión: 880 0134 2036<br> Clave: RELEG23</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-7d4a95b" data-id="7d4a95b" data-element_type="column">
+                    <div class="elementor-widget-wrap">
+                    </div>
+                </div>
+                <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-aba8430" data-id="aba8430" data-element_type="column">
+                    <div class="elementor-widget-wrap elementor-element-populated">
+                        <div class="elementor-element elementor-element-5858d51 elementor-absolute elementor-widget elementor-widget-button" data-id="5858d51" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
+                            <div class="elementor-widget-container">
+                                <div class="elementor-button-wrapper">
+                                    <a href="<?= $url ?>" class="elementor-button-link elementor-button elementor-size-xl" role="button">
+                                        <span class="elementor-button-content-wrapper">
+                                            <span class="elementor-button-text">Haz clic aquí</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-aca854b" data-id="aca854b" data-element_type="column">
                     <div class="elementor-widget-wrap">
                     </div>
                 </div>
@@ -1369,12 +1411,6 @@
 
 
 
-    <div id="tmc-app" style="position: relative;"></div>
-    <div id="tmc_highlight_box_top" class="tmc_ignore" style="z-index: 2147483646; position: absolute; border: 3px solid rgb(19, 105, 206); display: none;"></div>
-    <div id="tmc_highlight_box_left" class="tmc_ignore" style="z-index: 2147483646; position: absolute; border: 3px solid rgb(19, 105, 206); display: none;"></div>
-    <div id="tmc_highlight_box_right" class="tmc_ignore" style="z-index: 2147483646; position: absolute; border: 3px solid rgb(19, 105, 206); display: none;"></div>
-    <div id="tmc_highlight_box_bottom" class="tmc_ignore" style="z-index: 2147483646; position: absolute; border: 3px solid rgb(19, 105, 206); display: none;"></div>
 </body>
-<script src="chrome-extension://imhhfjfjfhjjjgaedcanngoffjmcblgi/js/canvasFpDefender/index.js"></script>
 
 </html>
