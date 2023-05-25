@@ -487,6 +487,10 @@ class PonenciaCalController extends BaseController
         $condiciones = ['clavePonencia' => $clave_ponencia['clave_ponencia']];
         $comentarios = $this->MainModel->getAll('comentarios',$condiciones);
 
+        if(empty($comentarios)){
+            return redirect()->back();
+        }
+
         foreach($comentarios as $key=>$c){
 
             $condiciones = ['usuario' => $c['usuario']];
