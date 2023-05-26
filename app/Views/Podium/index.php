@@ -168,6 +168,7 @@
               <th class="centered">ID</th>
               <th class="centered">Nombre</th>
               <th class="centered">Tipo de registro</th>
+              <th class="centered">Clave de universidad</th>
               <th class="centered">Calificación</th>
               <th class="centered">IQuatro</th>
               <th class="centered">Ver mas</th>
@@ -246,6 +247,9 @@
         },
         {
           data: 'nombre_congreso'
+        },
+        {
+          data: 'claveCuerpo'
         },
         {
           data: null,
