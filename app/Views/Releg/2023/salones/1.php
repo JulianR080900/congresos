@@ -1323,7 +1323,7 @@
                         <div class="elementor-element elementor-element-a39b698 elementor-absolute elementor-widget elementor-widget-button" data-id="a39b698" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
                             <div class="elementor-widget-container">
                                 <div class="elementor-button-wrapper">
-                                    <a href="#" class="elementor-button-link elementor-button elementor-size-xl" role="button">
+                                    <a href="<?= $url ?>" class="elementor-button-link elementor-button elementor-size-xl" role="button">
                                         <span class="elementor-button-content-wrapper">
                                             <span class="elementor-button-text">Haz clic aquí</span>
                                         </span>
