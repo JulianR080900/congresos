@@ -67,7 +67,7 @@
               <input type="text" id="clave_gafete" class="form-control" name="clave_gafete" placeholder="Clave de su gafete" required>
             </div>
             <div class="form-group">
-              <label for="">Ponencia a evaluar <a type="button" data-toggle="popover" title="El moderador de su salón, se las proporciona cada que finaliza la presentación un ponente" data-content=""><i class="fa-solid fa-circle-info text-warning"></i></a> <span class="text-danger">*</span></label>
+              <label for="">Ponencia a evaluar <a type="button" data-toggle="popover" title="Serán proporcionados por el moderador de su salón al finalizar la presentación de cada ponente" data-content=""><i class="fa-solid fa-circle-info text-warning"></i></a> <span class="text-danger">*</span></label>
 
 
               <input type="text" id="codigo_ponencia" class="form-control" name="codigo_ponencia" placeholder="Código de la ponencia" required>
@@ -76,7 +76,7 @@
               <button type="submit" class="btn btn-block btn-dark" id="btnAccesos">Verificar</button>
             </div>
             <div class="form-group">
-              <p style="font-size: 10px;">¿No identifica dónde está su clave de gafete o el código de ponencia? <a target="_blank" href="https://drive.google.com/file/d/1a0fw6EXscawm4nt_U5ZcJ1qEQ4QCW5zG/view">Dé clic aquí para ver el manual.</a></p>
+              <p style="font-size: 10px;">¿No identifica dónde está su clave de gafete o el código de ponencia? <a target="_blank" href="https://drive.google.com/file/d/1CdhpLOsiqQ8BmKtbTzVjfdkzYU9DkT-q/view">Dé clic aquí para ver el manual.</a></p>
             </div>
           </form>
         </div>

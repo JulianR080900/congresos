@@ -95,9 +95,9 @@
             </div>
 
             <div class="columna-texto-centrado mt-5">
-              <h6>Nombre del participante</h6>
+              <h4>Nombre del participante</h4>
               <p><?php echo session("nombre") ?></p>
-              <h6>Clave de su gafete</h6>
+              <h4>Clave de su gafete</h4>
               <p><?php echo session("clave_gafete") ?></p>
             </div>
         </div>
@@ -136,12 +136,19 @@
           <div class="form-group mt-5">
             <b>Muy importante:</b>
             <p>
-              Para poder acceder al diploma de asistencia al congreso, es indispensable que participe en las ponencias de sus colegas y las evalúe. Debe tener en cuenta que podrá recibirlo evaluando por lo menos una ponencia y el diploma incluirá su porcentaje de participación. El diploma de ponente sólo podrá recibirlo si expuso el tema con el que participa.
+              Para poder acceder a la Constancia de Asistencia del Congreso, es indispensable que participe en las ponencias de sus colegas y las evalúe. Debe tener en cuenta que podrá recibirlo evaluando por lo menos una ponencia y el diploma incluirá su porcentaje de participación; se requieren <b><?= session('maxRevisiones') ?></b> para obtener un 100% de participación. La Constancia de Ponencia sólo podrá recibirla al haber presentado su ponencia en el día, lugar y modalidad asignada.
             </p>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="check">
               <label class="form-check-label" for="check">
                     Acepto condiciones para solicitar constancia de participación.
+              </label>
+            </div>
+            <div class="form-check">
+              
+              <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" id="check2">
+                  Autorizo la captura y uso de mi imagen para la difusión y promoción de materiales que puedan ser utilizados exclusivamente por RedesLA.
               </label>
             </div>
           </div>

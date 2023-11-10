@@ -67,14 +67,22 @@ class MainController extends BaseController
             $this->current_red = 'Relayn';
         }else if($this->current_date == '20231209' || $this->current_date == '20231209'){
             $this->current_red = 'Relen_Relep';
+        }else if($this->current_date >= '20231110' && $this->current_date <= '20231117'){ //$this->current_date >= '20231115' && $this->current_date <= '20231117'
+            $this->current_red = 'Relayn';
+            $this->current_sede = 'UNLA';
+            $this->maxRevisiones = 6;
+            $this->programa_ponencias = '';
         }else{
-            http_response_code(404);
-            exit;
+            $this->current_red = null;
         }
     }
 
     public function index(){
 
+        if($this->current_red === null){
+            return view('errors/404');
+            exit;
+        }
         if (session('clave_gafete') !== null) {
             return redirect()->to(base_url('/datos_generales'));
         } else {
@@ -202,6 +210,7 @@ class MainController extends BaseController
         //Poner el texto de la imagen dentro del arreglo de datos
         $newArray = array("qr_code" => $image);
         $data = array_merge($data, $newArray);
+        $data['maxRevisiones'] = $this->maxRevisiones;
 
         http_response_code(200);
         $session = session();

@@ -20,10 +20,9 @@ function existeGafete(){
                 window.location.assign(resp); 
             },
             error: function(err) {
-                console.log(err);
                 Swal.fire({
                     icon: 'error',
-                    title: 'Ooops... algo ocurrio',
+                    title: 'Lo sentimos',
                     text: err.responseText
                 })
             }
