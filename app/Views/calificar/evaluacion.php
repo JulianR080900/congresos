@@ -179,6 +179,7 @@
                                 INSTRUCCIONES: Escriba en el siguiente cuadro de texto las sugerencias de mejora de la ponencia que está siendo evaluada (mínimo 250 caracteres).
                             </u></b>
                     </p>
+                    <p class="text-danger">* Esta retroalimentación será visible para los autores de la ponencia, por lo que el comentario deberá realizar un aporte académico. Por favor expréselo de manera respetuosa.</p>
                 </div>
                 <hr>
                 <div class="row">
