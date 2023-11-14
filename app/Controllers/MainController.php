@@ -67,11 +67,11 @@ class MainController extends BaseController
             $this->current_red = 'Relayn';
         }else if($this->current_date == '20231209' || $this->current_date == '20231209'){
             $this->current_red = 'Relen_Relep';
-        }else if($this->current_date >= '20231115' && $this->current_date <= '20231117'){ //$this->current_date >= '20231115' && $this->current_date <= '20231117'
+        }else if($this->current_date >= '20231114' && $this->current_date <= '20231117'){ //$this->current_date >= '20231115' && $this->current_date <= '20231117'
             $this->current_red = 'Relayn';
             $this->current_sede = 'UNLA';
             $this->maxRevisiones = 6;
-            $this->programa_ponencias = '';
+            $this->programa_ponencias = 'https://redesla.la/redesla/horario/congreso/Relayn/2023';
         }else{
             $this->current_red = null;
         }

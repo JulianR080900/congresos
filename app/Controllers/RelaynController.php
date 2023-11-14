@@ -16,6 +16,86 @@ class RelaynController extends BaseController
         date_default_timezone_set('America/Monterrey');
         $date = date('Y-m-d H:i:s');
     }
+
+    public function inicio(){
+        if(session('clave_gafete') == "" && session('red') !== "Relayn"){
+            return redirect()->to(base_url("general"));
+        }else{
+            return view('Relayn/'.session('anio')."/entrada");
+        }
+    }
+
+    public function recepcion(){
+        if(session('clave_gafete') == "" && session('red') !== "Relayn"){
+            return redirect()->to(base_url("general"));
+        }else{
+            return view('Relayn/'.session('anio')."/recepcion");
+        }
+    }
+
+    public function zona_iquatro(){
+        if(session('clave_gafete') == "" && session('red') !== "Relayn"){
+            return redirect()->to(base_url("general"));
+        }else{
+            return view('Relayn/'.session('anio')."/zona_iquatro");
+        }
+    }
+
+    public function mezzanine(){
+        if(session('clave_gafete') == "" && session('red') !== "Relayn"){
+            return redirect()->to(base_url("general"));
+        }else{
+            return view('Relayn/'.session('anio')."/mezzanine");
+        }
+    }
+
+    public function lago(){
+        if(session('clave_gafete') == "" && session('red') !== "Relayn"){
+            return redirect()->to(base_url("general"));
+        }else{
+            return view('Relayn/'.session('anio')."/lago");
+        }
+    }
+
+    public function cabina_fotografica(){
+        if(session('clave_gafete') == "" && session('red') !== "Relayn"){
+            return redirect()->to(base_url("general"));
+        }else{
+            return view('Relayn/'.session('anio')."/cabina_fotografica");
+        }
+    }
+
+    public function elevador(){
+        if(session('clave_gafete') == "" && session('red') !== "Relayn"){
+            return redirect()->to(base_url("general"));
+        }else{
+            return view('Relayn/'.session('anio')."/elevador");
+        }
+    }
+
+    public function animacion($piso){
+        if(session('clave_gafete') == "" && session('red') !== "Relayn"){
+            return redirect()->to(base_url("general"));
+        }else{
+            return view('Relayn/'.session('anio')."/animaciones/".$piso);
+        }
+    }
+
+    public function salones(){
+        if(session('clave_gafete') == "" && session('red') !== "Relayn"){
+            return redirect()->to(base_url("general"));
+        }else{
+            return view('Relayn/'.session('anio')."/salones");
+        }
+    }
+
+    public function auditorio(){
+        if(session('clave_gafete') == "" && session('red') !== "Relayn"){
+            return redirect()->to(base_url("general"));
+        }else{
+            return view('Relayn/'.session('anio')."/auditorio");
+        }
+    }
     
     public function recepcion_congreso(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
@@ -149,13 +229,13 @@ class RelaynController extends BaseController
         }
     }
     
-    public function cabina_fotografica(){
+    /* public function cabina_fotografica(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
             return redirect()->to(base_url("general"));
         }else{
             return view('Relayn/2022/cabina-fotografica-relayn');
         }
-    }
+    } */
     
     public function lago_redesla(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){

@@ -62,7 +62,23 @@ $routes->group('plataforma', static function($routes){
         });
         $routes->group('2023', static function($routes){
             $routes->get('inicio','RelaynController::inicio');
-            $routes->get('salon/(:num)','MainController::salon/$1');
+            $routes->get('recepcion','RelaynController::recepcion');
+            $routes->get('zona-iquatro','RelaynController::zona_iquatro');
+            $routes->get('mezzanine','RelaynController::mezzanine');
+            $routes->get('lago','RelaynController::lago');
+            $routes->get('cabina-fotografica','RelaynController::cabina_fotografica');
+            $routes->get('elevador','RelaynController::elevador');
+            $routes->get('animacion/(:any)','RelaynController::animacion/$1');
+            $routes->get('auditorio','RelaynController::auditorio');
+
+            $routes->group('salones', static function($routes){
+                $routes->get('salon/(:num)','MainController::salon/$1');
+                $routes->get('/','RelaynController::salones');
+            });
+            //$routes->get('salones','RelaynController::salones');
+
+            
+            //$routes->get('salon/(:num)','MainController::salon/$1');
         });
     });
 
