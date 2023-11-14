@@ -67,7 +67,7 @@ class MainController extends BaseController
             $this->current_red = 'Relayn';
         }else if($this->current_date == '20231209' || $this->current_date == '20231209'){
             $this->current_red = 'Relen_Relep';
-        }else if($this->current_date >= '20231115' && $this->current_date <= '20231117'){ //$this->current_date >= '20231115' && $this->current_date <= '20231117'
+        }else if($this->current_date >= '20231114' && $this->current_date <= '20231117'){ //$this->current_date >= '20231115' && $this->current_date <= '20231117'
             $this->current_red = 'Relayn';
             $this->current_sede = 'UNLA';
             $this->maxRevisiones = 6;
@@ -420,14 +420,13 @@ class MainController extends BaseController
         $zoom = $horario['zoom'];
 
         $explode_zoom = explode(',',$zoom);
-
-        if(!isset($explode_zoom[$n-1])){
+        if(!isset($explode_zoom[$n+4])){
             http_response_code(403);
             exit;
         }
 
         $data = [
-            'url' => $explode_zoom[$n-1],
+            'url' => $explode_zoom[$n+4],
             'programa' => $this->programa_ponencias
         ];
 
