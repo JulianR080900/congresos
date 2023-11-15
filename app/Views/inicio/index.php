@@ -66,6 +66,22 @@
     <!-- IMPORTANTE -->
     <script src="//code.tidio.co/leucsw6pce16vxspleocxkahvrhmtneq.js" async></script>
     <script src="public/js/landing/index.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Función para obtener el valor de la clave desde la URL
+            function obtenerClaveDesdeURL() {
+                var urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get('clave');
+            }
+
+            // Obtener la clave desde la URL
+            var claveDesdeURL = obtenerClaveDesdeURL();
+
+            // Establecer la clave en el input utilizando jQuery
+            $('#clave').val(claveDesdeURL);
+        });
+    </script>
     <!-- IMPORTANTE -->
 
 </body>
