@@ -26,11 +26,9 @@ class PonenciaCalController extends MainController
             $this->current_red = 'Releg';
             $this->current_sede = 'UAQ';
             $this->maxRevisiones = 5;
-        }else if($this->current_date == '20231115' || $this->current_date == '20231117'){
-            $this->current_red = 'Relayn';
         }else if($this->current_date == '20231209' || $this->current_date == '20231209'){
             $this->current_red = 'Relen_Relep';
-        }else if($this->current_date >= '20231116' && $this->current_date <= '20231117'){ //
+        }else if($this->current_date >= '20231115' && $this->current_date <= '20231117'){ //
             $this->current_red = 'Relayn';
             $this->current_sede = 'UNLA';
             $this->maxRevisiones = 6;

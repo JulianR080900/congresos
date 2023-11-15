@@ -89,7 +89,8 @@ class MainController extends BaseController
             $data = [
                 'red' => $this->current_red
             ];
-            return view('inicio/index',$data);
+            return view('inicio/index',$data)
+            .view('footer');
         }
     }
 
@@ -294,7 +295,8 @@ class MainController extends BaseController
     public function datos_generales()
     {
         if (session('clave_gafete') !== null) {
-            return view('inicio/info');
+            return view('inicio/info')
+            .view('footer');
         } else {
             return redirect()->to(base_url());
         }
@@ -439,6 +441,7 @@ class MainController extends BaseController
         }
 
         return view($red.'/'.$anio.'/salones/'.$n,$data)
+        .view('footer')
         .view($red.'/'.$anio.'/tidio');
         exit;
     }
