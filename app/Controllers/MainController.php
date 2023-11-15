@@ -63,8 +63,6 @@ class MainController extends BaseController
             $this->current_sede = 'UAQ';
             $this->maxRevisiones = 5;
             $this->programa_ponencias = 'https://redesla.la/redesla/resources/pdf/congresos/1er.%20Congreso%20Latinoamericano%20de%20Investigaci%C3%B3n%20en%20Estudios%20de%20G%C3%A9nero.pdf';
-        }else if($this->current_date == '20231115' || $this->current_date == '20231117'){
-            $this->current_red = 'Relayn';
         }else if($this->current_date == '20231209' || $this->current_date == '20231209'){
             $this->current_red = 'Relen_Relep';
         }else if($this->current_date >= '20231114' && $this->current_date <= '20231117'){ //$this->current_date >= '20231115' && $this->current_date <= '20231117'
