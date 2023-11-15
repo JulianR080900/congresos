@@ -19,7 +19,7 @@ class RelaynController extends BaseController
 
     public function inicio(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/'.session('anio')."/entrada")
             .view('footer');
@@ -28,7 +28,7 @@ class RelaynController extends BaseController
 
     public function recepcion(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/'.session('anio')."/recepcion")
             .view('footer');
@@ -37,7 +37,7 @@ class RelaynController extends BaseController
 
     public function zona_iquatro(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/'.session('anio')."/zona_iquatro")
             .view('footer');
@@ -46,7 +46,7 @@ class RelaynController extends BaseController
 
     public function mezzanine(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/'.session('anio')."/mezzanine")
             .view('footer');
@@ -55,7 +55,7 @@ class RelaynController extends BaseController
 
     public function lago(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/'.session('anio')."/lago")
             .view('footer');
@@ -64,7 +64,7 @@ class RelaynController extends BaseController
 
     public function cabina_fotografica(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/'.session('anio')."/cabina_fotografica")
             .view('footer');
@@ -73,7 +73,7 @@ class RelaynController extends BaseController
 
     public function elevador(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/'.session('anio')."/elevador")
             .view('footer');
@@ -82,7 +82,7 @@ class RelaynController extends BaseController
 
     public function animacion($piso){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/'.session('anio')."/animaciones/".$piso)
             .view('footer');
@@ -91,7 +91,7 @@ class RelaynController extends BaseController
 
     public function salones(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/'.session('anio')."/salones")
             .view('footer');
@@ -100,7 +100,7 @@ class RelaynController extends BaseController
 
     public function auditorio(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/'.session('anio')."/auditorio")
             .view('footer');
@@ -109,7 +109,7 @@ class RelaynController extends BaseController
     
     public function recepcion_congreso(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/'."2022"."/recepcion-congreso-relayn");
         }
@@ -117,7 +117,7 @@ class RelaynController extends BaseController
     
     public function zona_iquatro_editores(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/zona-iquatro-editores');
         }
@@ -125,7 +125,7 @@ class RelaynController extends BaseController
     
     public function auditorio_congreso(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/auditorio-congreso-relayn');
         }
@@ -135,7 +135,7 @@ class RelaynController extends BaseController
     public function salon($n){
 
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }
 
         #Anio #Red
@@ -168,7 +168,7 @@ class RelaynController extends BaseController
     
     public function salon_1_relayn(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/salon_1_relayn');
             $id=$request->uri->getSegment(3);
@@ -177,7 +177,7 @@ class RelaynController extends BaseController
     
     public function salon_2_relayn(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/salon_2_relayn');
         }
@@ -185,7 +185,7 @@ class RelaynController extends BaseController
     
     public function salon_3_relayn(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/salon_3_relayn');
         }
@@ -193,7 +193,7 @@ class RelaynController extends BaseController
     
     public function salon_4_relayn(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/salon_4_relayn');
         }
@@ -201,7 +201,7 @@ class RelaynController extends BaseController
     
     public function salon_5_relayn(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/salon_5_relayn');
         }
@@ -209,7 +209,7 @@ class RelaynController extends BaseController
     
     public function salon_6_relayn(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/salon_6_relayn');
         }
@@ -217,7 +217,7 @@ class RelaynController extends BaseController
     
     public function salon_7_relayn(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/salon_7_relayn');
         }
@@ -225,7 +225,7 @@ class RelaynController extends BaseController
     
     public function salon_8_relayn(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/salon_8_relayn');
         }
@@ -233,7 +233,7 @@ class RelaynController extends BaseController
     
     public function entrada_congreso(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/entrada-congreso-relayn');
         }
@@ -241,7 +241,7 @@ class RelaynController extends BaseController
     
     /* public function cabina_fotografica(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/cabina-fotografica-relayn');
         }
@@ -249,7 +249,7 @@ class RelaynController extends BaseController
     
     public function lago_redesla(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/lago-redesla-2022-relayn');
         }
@@ -257,7 +257,7 @@ class RelaynController extends BaseController
     
     public function mezzanine_congreso(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/mezzanine-congreso-relayn');
         }
@@ -265,7 +265,7 @@ class RelaynController extends BaseController
     
     public function salones_relayn(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/salones-relayn');
         }
@@ -273,7 +273,7 @@ class RelaynController extends BaseController
     
     public function animacion_a_salones(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/animacion-a-salones');
         }
@@ -281,7 +281,7 @@ class RelaynController extends BaseController
     
     public function animacion_a_lobby_2(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/animacion-a-lobby-2-relayn');
         }
@@ -289,7 +289,7 @@ class RelaynController extends BaseController
     
     public function elevador_congreso(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/elevador-congreso-relayn');
         }
@@ -297,7 +297,7 @@ class RelaynController extends BaseController
     
     public function animacion_a_lobby(){
         if(session('clave_gafete') == "" && session('red') !== "Relayn"){
-            return redirect()->to(base_url("general"));
+            return redirect()->to(base_url());
         }else{
             return view('Relayn/2022/animacion-a-lobby');
         }
