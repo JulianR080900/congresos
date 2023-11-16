@@ -1,4 +1,4 @@
-<style>
+<!-- <style>
   #footer {
     color: #fff;
     padding: 20px;
@@ -14,12 +14,12 @@
   }
 
   #cube-container {
-    perspective: 400px; /* Reduzco la perspectiva para hacer que el cubo se vea más pequeño */
+    perspective: 400px;
     perspective-origin: 50% 50%;
-    width: 150px; /* Ajusta el tamaño del contenedor del cubo según sea necesario */
-    height: 150px; /* Ajusta el tamaño del contenedor del cubo según sea necesario */
+    width: 150px; 
+    height: 150px; 
     position: relative;
-    margin-left: 20px; /* Ajusta el margen izquierdo según sea necesario */
+    margin-left: 20px; 
     margin-bottom: 20px;
   }
 
@@ -31,16 +31,16 @@
 
   .face {
     position: absolute;
-    width: 150px; /* Ajusta el tamaño de las caras del cubo según sea necesario */
-    height: 150px; /* Ajusta el tamaño de las caras del cubo según sea necesario */
+    width: 150px; 
+    height: 150px; 
     border: 1px solid #fff;
-    background-size: contain; /* Ajusta el tamaño de la imagen para que quepa en el contenido del cubo */
+    background-size: contain; 
     background-repeat: no-repeat;
     background-position: center;
     background-color: #000;
   }
 
-  .face1 { transform: rotateY(0deg) translateZ(75px); /* Ajusta la distancia de las caras al centro del cubo */ }
+  .face1 { transform: rotateY(0deg) translateZ(75px);}
   .face2 { transform: rotateY(90deg) translateZ(75px); }
   .face3 { transform: rotateY(180deg) translateZ(75px); }
   .face4 { transform: rotateY(-90deg) translateZ(75px); }
@@ -56,7 +56,6 @@
         <div class="face face4" style="background-image: url('<?= base_url('public/img/cubo/4.jpg') ?>');"></div>
       </div>
     </div>
-    <!-- Puedes agregar más contenido al footer si es necesario -->
   </div>
 </div>
 
@@ -71,3 +70,4 @@
 
   setInterval(rotateCube, 10);
 </script>
+ -->
