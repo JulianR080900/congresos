@@ -28,10 +28,7 @@
         margin-top: 2.5rem;
         padding: 1rem;
     }
-
-    #footer{
-      position: relative !important;
-    }
+    
 </style>
 <!--m-0 vh-100-->
 
