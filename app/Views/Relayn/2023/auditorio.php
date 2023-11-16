@@ -1224,7 +1224,7 @@
 						<div class="elementor-element elementor-element-79ecf70 elementor-absolute elementor-widget elementor-widget-button" data-id="79ecf70" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
 							<div class="elementor-widget-container">
 								<div class="elementor-button-wrapper">
-									<a class="elementor-button elementor-button-link elementor-size-md" href="#">
+									<a class="elementor-button elementor-button-link elementor-size-md" href="https://us02web.zoom.us/j/88619763170?pwd=eFNseFR1ZGUyWkNjVmlpVk8wT01zQT09">
 										<span class="elementor-button-content-wrapper">
 											<span class="elementor-button-text">Haz clic aquí</span>
 										</span>
@@ -1239,7 +1239,7 @@
 						<div class="elementor-element elementor-element-e162ad2 elementor-absolute elementor-widget elementor-widget-button" data-id="e162ad2" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
 							<div class="elementor-widget-container">
 								<div class="elementor-button-wrapper">
-									<a class="elementor-button elementor-button-link elementor-size-lg" href="#">
+									<a class="elementor-button elementor-button-link elementor-size-lg" href="https://us02web.zoom.us/j/88619763170?pwd=eFNseFR1ZGUyWkNjVmlpVk8wT01zQT09">
 										<span class="elementor-button-content-wrapper">
 											<span class="elementor-button-text">Haz clic aquí</span>
 										</span>
