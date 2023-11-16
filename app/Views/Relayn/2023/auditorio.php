@@ -1219,6 +1219,24 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="elementor-column elementor-col-20 elementor-top-column elementor-element elementor-element-af2095c" data-id="af2095c" data-element_type="column">
+					<div class="elementor-widget-wrap elementor-element-populated">
+						<div class="elementor-element elementor-element-d5ac248 elementor-absolute elementor-widget elementor-widget-button" data-id="d5ac248" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
+							<div class="elementor-widget-container">
+								<div class="elementor-button-wrapper">
+									<a class="elementor-button elementor-button-link elementor-size-sm" href="https://us02web.zoom.us/j/88619763170?pwd=eFNseFR1ZGUyWkNjVmlpVk8wT01zQT09">
+										<span class="elementor-button-content-wrapper">
+											<span class="elementor-button-text">ID de reunión: 886 1976 3170 <br> Clave de acceso: RELAYN2023</span>
+										</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
 				<div class="elementor-column elementor-col-20 elementor-top-column elementor-element elementor-element-ac5b5c6" data-id="ac5b5c6" data-element_type="column">
 					<div class="elementor-widget-wrap elementor-element-populated">
 						<div class="elementor-element elementor-element-79ecf70 elementor-absolute elementor-widget elementor-widget-button" data-id="79ecf70" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
