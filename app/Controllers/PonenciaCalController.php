@@ -72,7 +72,14 @@ class PonenciaCalController extends MainController
 
         if(empty($info_gafete) || empty($info_ponencia)){
             http_response_code(404);
-            $mensaje = 'Información no encontrada. Favor de revisar los datos ingresados';
+            $mensaje = 'Gafete inválido. Favor de revisar el dato ingresado.';
+            echo $mensaje;
+            exit;
+        }
+
+        if(empty($info_ponencia)){
+            http_response_code(404);
+            $mensaje = 'Clave de ponencia inválida. Favor de revisar el dato ingresado.';
             echo $mensaje;
             exit;
         }
