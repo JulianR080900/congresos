@@ -28,7 +28,10 @@
         margin-top: 2.5rem;
         padding: 1rem;
     }
-    
+    #footer{
+      position: absolute !important;
+      padding: 0px !important;
+    }
 </style>
 <!--m-0 vh-100-->
 
