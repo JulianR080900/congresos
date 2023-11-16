@@ -11,7 +11,7 @@
 
 <body class='m-0 vh-100 row justify-content-center align-items-center'>
   <style>
-    :root{
+    :root {
       --Releem: #655088;
       --Relep: #00ae3e;
       --Relen: #c61a1f;
@@ -19,9 +19,10 @@
       --Relmo: #e85297;
     }
 
-    body{
-      background-image: url(<?= base_url('public/backgrounds/'.session('red').'.png') ?>);
+    body {
+      background-image: url(<?= base_url('public/backgrounds/' . session('red') . '.png') ?>);
     }
+
     .responsive-iframe {
       position: absolute;
       top: 0;
@@ -40,70 +41,79 @@
       /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
     }
 
-    #imprimirpdf{
+    #imprimirpdf {
       background-color: #ff0000;
     }
 
     .retrato-circular {
       background-color: var(--<?= session('red') ?>);
-    } 
+    }
 
-    #gafete,#gafete2{
+    #gafete,
+    #gafete2 {
       background-color: var(--<?= session('red') ?>);
-    }  
-    
+    }
+
     /*============== RESPONSIVO ================*/
-      @media screen and (max-width: 640PX) {
-        
-        a.btn.btn-danger.text-right {
-            width: 40%;
-        }
+    @media screen and (max-width: 640PX) {
+
+      a.btn.btn-danger.text-right {
+        width: 40%;
+      }
     }
-    
-    @media screen and (min-width: 640PX) and (max-width: 1080px){
-    
-        a.btn.btn-danger.text-right {
-            width: 40%;
-        }
-    
+
+    @media screen and (min-width: 640PX) and (max-width: 1080px) {
+
+      a.btn.btn-danger.text-right {
+        width: auto;
+      }
+
     }
-    
+
     @media screen and (min-width: 1080px) {
-        a.btn.btn-danger.text-right {
-            width: 30%;
-        }
+      a.btn.btn-danger.text-right {
+        width: auto;
+      }
     }
-    
+
+    .flex-right{
+      display: flex;
+      align-items: right;
+      justify-content: right;
+    }
+
+    #footer{
+      position: relative !important;
+    }
   </style>
 
-<div class="outter">
+  <div class="outter">
     <section>
+      <div class="row flex-right">
+        <a href="<?= base_url('logout') ?>" class="btn btn-danger text-right"><i class="fas fa-sign-out-alt"></i> Salir</a>
+      </div>
       <div class="row">
         <center>
           <h3><?php echo session("congreso"); ?></h3>
         </center>
 
-        <div 
-          class="columa-imagen mt-5 
-          col-md-<?php if(session("oyente"))  echo "12"; else echo "6"; ?>"
-        >
-            <div class="retrato-circular">
-              <img 
-                src="<?php echo session('foto_usuario') ?>" 
-                alt="Foto de usuario..." 
-              >
-            </div>
+        <div class="columa-imagen mt-5 
+          col-md-<?php if (session("oyente"))  echo "12";
+                  else echo "6"; ?>">
+          <div class="retrato-circular">
+            <img src="<?php echo session('foto_usuario') ?>" alt="Foto de usuario...">
+          </div>
 
-            <div class="columna-texto-centrado mt-5">
-              <h4>Nombre del participante</h4>
-              <p><?php echo session("nombre") ?></p>
-              <h4>Clave de su gafete</h4>
-              <p><?php echo session("clave_gafete") ?></p>
-            </div>
+          <div class="columna-texto-centrado mt-5">
+            <h4>Nombre del participante</h4>
+            <p><?php echo session("nombre") ?></p>
+            <h4>Clave de su gafete</h4>
+            <p><?php echo session("clave_gafete") ?></p>
+          </div>
         </div>
 
         <!--Si es diferente de oyente se muestra la siguiente información-->
-        <?php if(!session("oyente")) {?>
+        <?php if (!session("oyente")) { ?>
           <div class="col-md-6 mt-5">
             <div class='row-info-container'>
               <h5>Universidad</h5>
@@ -118,11 +128,11 @@
               <p><?php echo session("tipo_asistencia") ?></p>
             </div>
 
-            <?php if(session("oyente") !== 1) {?>
+            <?php if (session("oyente") !== 1) { ?>
               <div class='row-info-container'>
-              <h5>ID de ponencia</h5>
-              <p><?php echo session("id_ponencia") ?></p>
-            </div>
+                <h5>ID de ponencia</h5>
+                <p><?php echo session("id_ponencia") ?></p>
+              </div>
             <?php } ?>
 
             <div class='row-info-container'>
@@ -141,14 +151,14 @@
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="check">
               <label class="form-check-label" for="check">
-                    Acepto condiciones para solicitar constancia de participación.
+                Acepto condiciones para solicitar constancia de participación.
               </label>
             </div>
             <div class="form-check">
-              
+
               <label class="form-check-label">
-                  <input class="form-check-input" type="checkbox" id="check2">
-                  Autorizo la captura y uso de mi imagen para la difusión y promoción de materiales que puedan ser utilizados exclusivamente por RedesLA.
+                <input class="form-check-input" type="checkbox" id="check2">
+                Autorizo la captura y uso de mi imagen para la difusión y promoción de materiales que puedan ser utilizados exclusivamente por RedesLA.
               </label>
             </div>
           </div>
@@ -166,15 +176,12 @@
               <button type="button" id="imprimirpdf" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-block text-white">Imprimir gafete <i class="fas fa-id-card"></i></button>
             </div>
 
-            <div class="row flex-center">
-              <a href="<?= base_url('logout') ?>" class="btn btn-danger text-right mt-5"><i class="fas fa-sign-out-alt"></i> Salir</a>
-            </div>
           </div>
         </div>
       </div>
     </section>
   </div>
-  
+
 
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
@@ -200,7 +207,7 @@
     let anio = '<?= session('anio') ?>'
   </script>
   <script src="public/js/landing/info.js"></script>
-  <script src="//code.tidio.co/leucsw6pce16vxspleocxkahvrhmtneq.js" async></script>
+  <script src="//code.tidio.co/leucsw6pce16vxspleocxkahvrhmtneq.js"  async></script>
 
   <!-- footer-->
   <?php echo view('templates/footer') ?>
