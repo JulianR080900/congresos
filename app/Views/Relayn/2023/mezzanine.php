@@ -440,6 +440,11 @@
 			margin-left: 0;
 		}
 
+		.elementor-2603 .elementor-element.elementor-element-8243929 .elementor-button{
+			background-color: #F58800 !important;
+			color: #ffffff !important;
+		}
+
 		.has-global-padding>.alignfull:where(:not(.has-global-padding))> :where([class*="wp-block-"]:not(.alignfull):not([class*="__"]), p, h1, h2, h3, h4, h5, h6, ul, ol) {
 			padding-right: var(--wp--style--root--padding-right);
 			padding-left: var(--wp--style--root--padding-left);
@@ -1227,9 +1232,9 @@
 						<div class="elementor-element elementor-element-8243929 elementor-absolute elementor-widget elementor-widget-button" data-id="8243929" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
 							<div class="elementor-widget-container">
 								<div class="elementor-button-wrapper">
-									<a class="elementor-button elementor-button-link elementor-size-lg" href="#">
+									<a class="elementor-button elementor-button-link elementor-size-lg" href="https://us02web.zoom.us/j/87212474652?pwd=a0JpNFRGUUtRenMzcEJZM2FRc0lEUT09">
 										<span class="elementor-button-content-wrapper">
-											<span class="elementor-button-text">HHHHHHHHH</span>
+											<span class="elementor-button-text">ID de reunión: 872 1247 4652 <br> Clave de acceso: RELAYN2023</span>
 										</span>
 									</a>
 								</div>
