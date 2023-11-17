@@ -169,6 +169,7 @@
               <th class="centered">Nombre</th>
               <th class="centered">Tipo de registro</th>
               <th class="centered">Clave de universidad</th>
+              <th class="centered">Tipo de presentación</th>
               <th class="centered">Calificación</th>
               <th class="centered">IQuatro</th>
               <th class="centered">Ver mas</th>
@@ -250,6 +251,12 @@
         },
         {
           data: 'claveCuerpo'
+        },
+        {
+          data: null,
+          render: function(row){
+            return row.tipo_registro.toUpperCase()
+          }
         },
         {
           data: null,

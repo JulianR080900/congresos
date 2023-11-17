@@ -391,7 +391,7 @@ class PonenciaCalController extends MainController
         $valor_buscado = $this->request->getGet('search')['value']; #VALOR DEL INPUT DE BUSCAR
 
         $columnas = [
-            'id', 'nombre', 'submission_id', 'publication_id','clave_ponencia', 'nombre_congreso','claveCuerpo'
+            'id', 'nombre', 'submission_id', 'publication_id','clave_ponencia', 'nombre_congreso','claveCuerpo', 'tipo_registro'
         ];
 
         //sin grado ni usuario
@@ -459,6 +459,7 @@ class PonenciaCalController extends MainController
                 'submission_id' => $a['submission_id'],
                 'nombre' => $a['nombre'],
                 'publication_id' => $a['publication_id'],
+                'tipo_registro' => $a['tipo_registro'],
                 'promedio_general' => $prom_general,
                 'prom_2' => $prom_2,
                 'prom_3' => $prom_3,
