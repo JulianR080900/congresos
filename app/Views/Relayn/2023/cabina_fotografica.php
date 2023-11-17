@@ -1205,7 +1205,7 @@
 						<div class="elementor-element elementor-element-2624276 elementor-absolute elementor-widget__width-initial elementor-widget elementor-widget-button" data-id="2624276" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
 							<div class="elementor-widget-container">
 								<div class="elementor-button-wrapper">
-									<a class="elementor-button elementor-button-link elementor-size-md" href="#">
+									<a class="elementor-button elementor-button-link elementor-size-md" href="https://us02web.zoom.us/j/89904351607?pwd=T3hYQmFmZXVFcXhnK3NKRjM5QmF2UT09">
 										<span class="elementor-button-content-wrapper">
 											<span class="elementor-button-text">¡Quiero mi foto!</span>
 										</span>
