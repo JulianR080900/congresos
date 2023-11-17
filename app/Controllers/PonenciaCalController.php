@@ -70,7 +70,7 @@ class PonenciaCalController extends MainController
         $condicion = ['clave_ponencia' => $ponencia];
         $info_ponencia = $this->MainModel->getAllOneRow('ponencias', $condicion); // CAMBIAR DE ponencias_prueba A ponencias
 
-        if(empty($info_gafete) || empty($info_ponencia)){
+        if(empty($info_gafete)){
             http_response_code(404);
             $mensaje = 'Gafete inválido. Favor de revisar el dato ingresado.';
             echo $mensaje;
