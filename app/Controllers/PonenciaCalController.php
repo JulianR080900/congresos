@@ -84,12 +84,12 @@ class PonenciaCalController extends MainController
             exit;
         }
 
-        if($info_gafete['submission_id'] == $info_ponencia['submission_id']){
+        /* if($info_gafete['submission_id'] == $info_ponencia['submission_id']){
             http_response_code(501);
             $mensaje = 'No puede calificar su ponencia';
             echo $mensaje;
             exit;
-        }
+        } */
 
         
         if($info_gafete['anio'] != date('Y')){
