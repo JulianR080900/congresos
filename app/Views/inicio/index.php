@@ -40,10 +40,12 @@
     <div class="outter">
         <section>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6" id="imgs">
                     <img class="w-100" src="<?= base_url('/public/img/vive.png') ?>">
+                    <img class="w-100" src="<?= base_url('public/img/calificar/' . $sede . '.png') ?>">
                 </div>
                 <div class="col-md-6 flex-center">
+                    <hr>
                     <h3>Bienvenidos a</h3>
                     <h3>VIVE REDESLA</h3>
                     <div class="form-group">

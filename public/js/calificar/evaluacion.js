@@ -30,9 +30,51 @@ window.onload = function () {
   });
 };
 
-$("#tipo_metodologia").on('change',function(){
-    $(this).css('border', '1px solid green')
-})
+$("#tipo_metodologia").on("change", function () {
+  $(this).css("border", "1px solid green");
+});
+
+$("#comentarios").on("input", function () {
+  validarTexto();
+  //contarPalabras();
+});
+
+function contarPalabras() {
+  var texto = $("#comentarios").val().trim();
+  var palabras = texto.split(/\s+/).filter(function (palabra) {
+    return palabra.length > 0;
+  });
+  $("#contador").text(palabras.length);
+}
+
+function validarTexto() {
+  var texto = $("#comentarios").val();
+
+  // Eliminar múltiples espacios consecutivos, excepto el primer espacio
+  texto = texto.replace(/\s{2,}/g, ' ');
+
+  // Eliminar tres caracteres iguales seguidos
+  texto = texto.replace(/(.)\1{2,}/g, function (match, p1) {
+    return p1;
+  });
+
+  // Actualizar el contenido del textarea
+  $("#comentarios").val(texto);
+
+  // Contar palabras
+  var palabras = texto.split(/\s+/).filter(function (palabra) {
+    return palabra.length > 0;
+  });
+
+  // Actualizar el contador de palabras
+  $("#contador").text(palabras.length);
+
+  if(palabras.length < 35){
+    $("#contador").css('color','red')
+  }else{
+    $("#contador").css('color','green')
+  }
+}
 
 $("#frmEvaluacion").on("submit", function (e) {
   e.preventDefault();
@@ -45,7 +87,7 @@ $("#frmEvaluacion").on("submit", function (e) {
     });
     $("#part_2").hide();
     $("#part_1").fadeIn();
-    $("#tipo_metodologia").css('border','1px solid red')
+    $("#tipo_metodologia").css("border", "1px solid red");
     return;
   }
 
@@ -74,53 +116,55 @@ $("#frmEvaluacion").on("submit", function (e) {
     return acc;
   }, {});
 
-  let comentarios = $("#comentarios")
-    .val()
-    .trim()
-    .replace(/\r?\n|\r/g, " ");
+  let comentarios = $("#comentarios").val();
 
+  // Contar palabras
+  var palabras = comentarios.split(/\s+/).filter(function (palabra) {
+    return palabra.length > 0;
+  });
 
-  if(comentarios.length < 250){
+  if (palabras.length < 35) {
     Swal.fire({
       icon: "warning",
-      title: "La extensión del comentario no debe ser menor a 250 carácteres.",
+      title: "La extensión del comentario no debe ser menor a 35 palabras.",
     });
     return;
   }
 
-  let clavePonencia = $("#clavePonencia").val()
-  let gafete = $("#gafete").val()
+  let clavePonencia = $("#clavePonencia").val();
+  let gafete = $("#gafete").val();
 
   $.ajax({
-    type: 'post',
-    dataType: 'json',
-    url: './insert',
+    type: "post",
+    dataType: "json",
+    url: "./insert",
     data: {
       comentarios,
       evaluaciones,
       ordenamiento,
       clavePonencia,
       gafete,
-      tipo_metodologia
+      tipo_metodologia,
     },
-    success: function(data){
+    success: function (data) {
       Swal.fire({
-        icon: 'success',
+        icon: "success",
         title: data.title,
-        html: data.mensaje
-      }).then(function(){
-        window.location.href = '../inicio'
-      })
+        html: data.mensaje,
+      }).then(function () {
+        window.location.href = "../inicio";
+      });
     },
-    error: function(jqXHR){
+    error: function (jqXHR) {
       Swal.fire({
-        icon: 'error',
-        title: 'Error '+jqXHR.status,
+        icon: "error",
+        title: "Error " + jqXHR.status,
         html: jqXHR.responseText,
-        footer: 'Le recomendamos tomar captura de pantalla para comprobar la información con el equipo REDESLA.'
-      })
-    }
-  })
+        footer:
+          "Le recomendamos tomar captura de pantalla para comprobar la información con el equipo REDESLA.",
+      });
+    },
+  });
 });
 
 $("#sig").on("click", function () {

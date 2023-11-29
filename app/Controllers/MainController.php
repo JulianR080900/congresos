@@ -70,6 +70,10 @@ class MainController extends BaseController
             $this->current_sede = 'UNLA';
             $this->maxRevisiones = 6;
             $this->programa_ponencias = 'https://redesla.la/redesla/horario/congreso/Relayn/2023';
+        }else if($this->current_date >= '20231107' && $this->current_date <= '20231209'){  //$this->current_date >= '20231127'
+            $this->current_red = 'Relen_Relep';
+            $this->current_sede = 'Salle';
+            $this->maxRevisiones = 5;
         }else{
             $this->current_red = null;
         }
@@ -85,7 +89,8 @@ class MainController extends BaseController
             return redirect()->to(base_url('/datos_generales'));
         } else {
             $data = [
-                'red' => $this->current_red
+                'red' => $this->current_red,
+                'sede' => $this->current_sede
             ];
             return view('inicio/index',$data)
             .view('footer');
@@ -96,12 +101,20 @@ class MainController extends BaseController
     {
         $gafete = $this->request->getPost('clave');
 
-        $condiciones = array(
-            "clave_gafete" => $gafete,
-            'red' => $this->current_red,
-            'anio' => date('Y')
-        );
-        $resultado = $this->MainModel->getAllOneRow('participantes_congresos', $condiciones);
+        if($this->current_red == 'Relen_Relep'){
+            $condiciones = array(
+                "clave_gafete" => $gafete,
+                'anio' => date('Y'),
+            );
+            $resultado = $this->MainModel->getAllOneRowRelenRelep('participantes_congresos', $condiciones);
+        }else{
+            $condiciones = array(
+                "clave_gafete" => $gafete,
+                'red' => $this->current_red,
+                'anio' => date('Y')
+            );
+            $resultado = $this->MainModel->getAllOneRow('participantes_congresos', $condiciones);
+        }
 
         if (empty($resultado)) {
             http_response_code(501);
@@ -210,6 +223,7 @@ class MainController extends BaseController
         $newArray = array("qr_code" => $image);
         $data = array_merge($data, $newArray);
         $data['maxRevisiones'] = $this->maxRevisiones;
+        $data['red_url'] = $this->current_red;
 
         http_response_code(200);
         $session = session();

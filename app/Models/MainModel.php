@@ -21,11 +21,22 @@ class MainModel extends Model{
     }
     
     public function getAllOneRow($tabla,$condiciones){
-        
         $qry=$this->db->table($tabla);
         $qry->select("*");
         $qry->where($condiciones);
         return $qry->get()->getRowArray();
+    }
+
+    public function getAllOneRowRelenRelep($tabla,$condiciones){
+        $qry = $this->db->table($tabla);
+        $qry->select('*');
+        $qry->where($condiciones);
+        $qry->groupStart();
+        $qry->where('red', 'Relep');
+        $qry->orWhere('red', 'Relen');
+        $qry->groupEnd();
+        return $qry->get()->getRowArray();
+
     }
     
     public function getAllOneRowLike($tabla,$condiciones){

@@ -33,6 +33,10 @@ class PonenciaCalController extends MainController
             $this->current_sede = 'UNLA';
             $this->maxRevisiones = 6;
             $this->programa_ponencias = 'https://redesla.la/redesla/horario/congreso/Relayn/2023';
+        }else if($this->current_date >= '20231127' && $this->current_date <= '20231209'){
+            $this->current_red = 'Relen_Relep';
+            $this->current_sede = 'Salle';
+            $this->maxRevisiones = 5;
         }else{
             http_response_code(404);
             exit;
@@ -51,7 +55,8 @@ class PonenciaCalController extends MainController
         
         $data = [
             'red' => $this->current_red,
-            'sede' => $this->current_sede
+            'sede' => $this->current_sede,
+            'anio' => date('Y')
         ];
 
         return view('calificar/index',$data)
@@ -115,12 +120,23 @@ class PonenciaCalController extends MainController
 
         #COMPROBAMOS SI LA CLAVE DE LA PONENCIA PERTENECE A LA RED
 
-        if($this->current_red != $info_ponencia['red']){
-            http_response_code(504);
-            $mensaje = 'Esta ponencia no pertenece a la red del congreso actual.';
-            echo $mensaje;
-            exit;
+        if($this->current_red == 'Relen_Relep'){
+            if($info_ponencia['red'] != 'Relep' && $info_ponencia['red'] != 'Relen'){
+                http_response_code(504);
+                $mensaje = 'Esta ponencia no pertenece a la red del congreso actual.';
+                echo $mensaje;
+                exit;
+            }
+        }else{
+            if($this->current_red != $info_ponencia['red']){
+                http_response_code(604);
+                $mensaje = 'Esta ponencia no pertenece a la red del congreso actual.';
+                echo $mensaje;
+                exit;
+            }
         }
+
+        
 
         #PASO TODAS LAS PRUEBAS, AHORA VAMOS A TRAERNOS TODOS LAS PONENCIAS QUE YA HAYA CALIFICADO
 
@@ -162,7 +178,7 @@ class PonenciaCalController extends MainController
             $ponencia_c = $this->MainModel->getColumnsOneRow($columnas,'ponencias',$condiciones);
 
             if(empty($ponencia_c)){
-                http_response_code(500);
+                http_response_code(700);
                 exit;
             }
 
@@ -178,7 +194,8 @@ class PonenciaCalController extends MainController
             'ponencia_actual' => $info_ponencia,
             'sede' => $this->current_sede,
             'red' => $this->current_red,
-            'clavePonencia' => $ponencia
+            'clavePonencia' => $ponencia,
+            'anio' => date('Y')
         ];
 
         return view('calificar/evaluacion',$data)
@@ -194,7 +211,7 @@ class PonenciaCalController extends MainController
         $gafete = $_POST['gafete'];
 
         $condiciones = ['clave_gafete' => $gafete];
-        $columnas = ['usuario', 'claveCuerpo','nombre'];
+        $columnas = ['usuario', 'claveCuerpo','nombre','red'];
         $infoGafete = $this->MainModel->getColumnsOneRow($columnas,'participantes_congresos',$condiciones);
 
         if(empty($infoGafete)){
@@ -246,7 +263,7 @@ class PonenciaCalController extends MainController
                     'calificacion3' => $_POST['evaluaciones'][2],
                     'calificacion4' => $_POST['evaluaciones'][3],
                     'ponencia' => $infoPonencia['clave_ponencia'],
-                    'red' => $this->current_red,
+                    'red' => $infoGafete['red'],
                     'claveCuerpo' => $infoGafete['claveCuerpo'],
                     'anio' => date('Y'),
                     'fecha' => date('Y-m-d H:i:s'),
@@ -304,13 +321,13 @@ class PonenciaCalController extends MainController
 
         #verificamos si tiene la constancia
 
-        $tabla = 'constancia_'.ucfirst($this->current_red);
+        $tabla = 'constancia_'.ucfirst($infoGafete['red']);
 
         $condiciones = [
             'usuario' => $infoGafete['usuario'],
             'tipo_constancia' => 'Asistencia',
             'redCueAca' => $infoGafete['claveCuerpo'],
-            'red' => ucfirst($this->current_red),
+            'red' => ucfirst($infoGafete['red']),
             'anio' => date('Y')
         ];
 
@@ -357,7 +374,7 @@ class PonenciaCalController extends MainController
                 'usuario' => $infoGafete['usuario'],
                 'tipo_constancia' => 'Asistencia',
                 'redCueAca' => $infoGafete['claveCuerpo'],
-                'red' => ucfirst($this->current_red),
+                'red' => ucfirst($infoGafete['red']),
                 'anio' => date('Y')
             ];
             

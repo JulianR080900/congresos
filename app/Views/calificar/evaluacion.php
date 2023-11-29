@@ -36,7 +36,19 @@
                 <?php
                 } else {
                 ?>
-
+                    <div style="flex-direction: column;" class="col-md-4">
+                        <img src="<?= base_url('public/img/logos_redes/Relep.png') ?>" alt="" class="w-75">
+                        <img src="<?= base_url('public/img/logos_redes/Relen.png') ?>" alt="" class="w-75">
+                    </div>
+                    <div class="col-md-4" style="flex-direction: column;">
+                        <img class="w-75" src="<?= base_url('public/img/calificar/' . $anio . '/congreso_relep.png') ?>" alt="Congreso Relep">
+                        <img class="w-75" src="<?= base_url('public/img/calificar/' . $anio . '/coloquio_relep.png') ?>" alt="Coloquio Relep">
+                        <img class="w-75" src="<?= base_url('public/img/calificar/' . $anio . '/congreso_relen.png') ?>" alt="Congreso Relen">
+                    </div>
+                    <div class="col-md-4">
+                        <img src="<?= base_url('public/img/calificar/' . $sede . '.png') ?>" alt="" class="w-75">
+                        <img src="<?= base_url('/public/img/vive.png') ?>" alt="" class="w-75">
+                    </div>
                 <?php
                 }
                 ?>
@@ -176,14 +188,15 @@
                 <div class="row">
                     <p>
                         <b><u>
-                                INSTRUCCIONES: Escriba en el siguiente cuadro de texto las sugerencias de mejora de la ponencia que está siendo evaluada (mínimo 250 caracteres).
+                                INSTRUCCIONES: Escriba en el siguiente cuadro de texto las sugerencias de mejora de la ponencia que está siendo evaluada (mínimo 35 palabras).
                             </u></b>
                     </p>
                     <p class="text-danger">* Esta retroalimentación será visible para los autores de la ponencia, por lo que el comentario deberá realizar un aporte académico. Por favor expréselo de manera respetuosa.</p>
                 </div>
                 <hr>
                 <div class="row">
-                    <textarea name="comentarios" id="comentarios" cols="30" rows="10" class="form-control" required minlength="250" placeholder='Escriba un comentario sobre la ponencia: "<?= $ponencia_actual['nombre'] ?>" '></textarea>
+                    <textarea name="comentarios" id="comentarios" cols="30" rows="10" class="form-control" required placeholder='Escriba un comentario sobre la ponencia: "<?= $ponencia_actual['nombre'] ?>" '></textarea>
+                    <p>Número de palabras: <span id="contador">0</span></p>
                 </div>
                 <input type="text" hidden id="clavePonencia" value="<?= $clavePonencia ?>">
                 <input type="text" hidden id="gafete" value="<?= $gafete ?>">

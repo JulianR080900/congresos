@@ -39,7 +39,19 @@
         <?php
         } else {
         ?>
-
+          <div style="flex-direction: column;" class="col-md-4">
+            <img src="<?= base_url('public/img/logos_redes/Relep.png') ?>" alt="" class="w-75">
+            <img src="<?= base_url('public/img/logos_redes/Relen.png') ?>" alt="" class="w-75">
+          </div>
+          <div class="col-md-4" style="flex-direction: column;">
+            <img class="w-75" src="<?= base_url('public/img/calificar/'.$anio.'/congreso_relep.png') ?>" alt="Congreso Relep">
+            <img class="w-75" src="<?= base_url('public/img/calificar/'.$anio.'/coloquio_relep.png') ?>" alt="Coloquio Relep">
+            <img class="w-75" src="<?= base_url('public/img/calificar/'.$anio.'/congreso_relen.png') ?>" alt="Congreso Relen">
+          </div>
+          <div class="col-md-4">
+            <img src="<?= base_url('public/img/calificar/'.$sede.'.png') ?>" alt="" class="w-75">
+            <img src="<?= base_url('/public/img/vive.png') ?>" alt="" class="w-75">
+          </div>
         <?php
         }
         ?>

@@ -203,7 +203,7 @@
     </div>
   </div>
   <script>
-    let red = '<?= session('red') ?>'
+    let red = '<?= session('red_url') ?>'
     let anio = '<?= session('anio') ?>'
   </script>
   <script src="public/js/landing/info.js"></script>
