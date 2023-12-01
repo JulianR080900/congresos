@@ -50,6 +50,8 @@ class MainController extends BaseController
     private $maxRevisiones = 5;
     public $db_serv;
     public $programa_ponencias;
+    public $programa_ponencias_relen;
+    public $programa_ponencias_relep;
 
     public function __construct(){
         // parent::__construct();
@@ -70,10 +72,12 @@ class MainController extends BaseController
             $this->current_sede = 'UNLA';
             $this->maxRevisiones = 6;
             $this->programa_ponencias = 'https://redesla.la/redesla/horario/congreso/Relayn/2023';
-        }else if($this->current_date >= '20231107' && $this->current_date <= '20231209'){  //$this->current_date >= '20231127'
+        }else if($this->current_date >= '20231201' && $this->current_date <= '20231209'){  //$this->current_date >= '20231127'
             $this->current_red = 'Relen_Relep';
             $this->current_sede = 'Salle';
-            $this->maxRevisiones = 5;
+            $this->maxRevisiones = 4;
+            $this->programa_ponencias_relen = 'https://redesla.la/redesla/horario/congreso/Relen/2023';
+            $this->programa_ponencias_relep = 'https://redesla.la/redesla/horario/congreso/Relep/2023';
         }else{
             $this->current_red = null;
         }
@@ -458,6 +462,67 @@ class MainController extends BaseController
         exit;
     }
 
+    public function salonRelepRelen($n){
+
+        if(session('clave_gafete') == "" &&  session('red') == ''){
+            return redirect()->to(base_url("inicio"));
+        }
+
+        // Carga la librería 'uri'
+        $uri = service('uri');
+
+        // Obtiene todos los segmentos de la URL en un array
+        $parametros = $uri->getSegments();
+
+        $url_red = explode('_',$parametros[3]);
+
+        $red_url = ucfirst($url_red[1]);
+
+        $red = $red_url;
+        $anio = session('anio');
+
+        #VAMOS A TRAERNOS INFO DEL HORARIO DE PONENCIAS
+
+        $condiciones = [
+            'red' => $red,
+            'anio' => $anio
+        ];
+
+        $columnas = ['zoom'];
+
+        $horario = $this->MainModel->getColumnsOneRow($columnas,'congresos',$condiciones);
+
+        if(empty($horario)){
+            http_response_code(404);
+            exit;
+        }
+
+        $zoom = $horario['zoom'];
+
+        $explode_zoom = explode(',',$zoom);
+        if(!isset($explode_zoom[$n-1])){
+            http_response_code(403);
+            exit;
+        }
+
+        $nombre_funcion = 'programa_ponencias_'.strtolower($red);
+        $data = [
+            'url' => $explode_zoom[$n-1],
+            'programa' => $this->$nombre_funcion
+        ];
+        $redlower = strtolower($red);
+
+        $file = APPPATH . "Views/Relep_relen/{$anio}/salones_{$redlower}/{$n}.php";
+
+        if (!file_exists($file)) {
+            #la ruta no existe mandamos un 404 y terminamos el codigo
+            http_response_code(405);
+            exit;
+        }
+
+        return view('Relep_relen/'.$anio.'/salones_'.strtolower($red).'/'.$n,$data)
+        .view('footer');
+    }
 
 
 

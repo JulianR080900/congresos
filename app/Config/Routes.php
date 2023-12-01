@@ -103,7 +103,7 @@ $routes->group('plataforma', static function($routes){
         });
     });
 
-    $routes->group('Relep-Relen', static function($routes){
+    $routes->group('Relen_Relep', static function($routes){
         $routes->get('recepcion-congreso','RelepController::recepcion_congreso_relep_relen');
         $routes->get('mezzanine-congreso','RelepController::mezzanine_congreso_relep_relen');
         $routes->get('zona-iquatro-editores','RelepController::zona_iquatro_editores');
@@ -125,6 +125,26 @@ $routes->group('plataforma', static function($routes){
 
         $routes->group('2023', static function($routes){
             $routes->get('inicio','Relep_RelenController::inicio');
+            $routes->get('recepcion','Relep_RelenController::recepcion');
+            $routes->get('zona-iquatro','Relep_RelenController::zona_iquatro');
+            $routes->get('mezzanine','Relep_RelenController::mezzanine');
+            $routes->get('lago','Relep_RelenController::lago');
+            $routes->get('cabina-fotografica','Relep_RelenController::cabina_fotografica');
+            $routes->get('auditorio','Relep_RelenController::auditorio');
+
+            $routes->get('elevador','Relep_RelenController::elevador');
+            $routes->get('animacion/(:any)','Relep_RelenController::animacion/$1');
+
+            $routes->group('salones_relep', static function($routes){
+                $routes->get('salon/(:num)','MainController::salonRelepRelen/$1');
+                $routes->get('/','Relep_RelenController::salones_relep');
+            });
+
+            $routes->group('salones_relen', static function($routes){
+                $routes->get('salon/(:num)','MainController::salonRelepRelen/$1');
+                $routes->get('/','Relep_RelenController::salones_relen');
+            });
+
             $routes->get('salon/(:num)','MainController::salon/$1');
         });
 

@@ -26,17 +26,14 @@ class PonenciaCalController extends MainController
             $this->current_red = 'Releg';
             $this->current_sede = 'UAQ';
             $this->maxRevisiones = 5;
-        }else if($this->current_date == '20231209' || $this->current_date == '20231209'){
-            $this->current_red = 'Relen_Relep';
         }else if($this->current_date >= '20231115' && $this->current_date <= '20231124'){ //
             $this->current_red = 'Relayn';
             $this->current_sede = 'UNLA';
             $this->maxRevisiones = 6;
-            $this->programa_ponencias = 'https://redesla.la/redesla/horario/congreso/Relayn/2023';
-        }else if($this->current_date >= '20231127' && $this->current_date <= '20231209'){
+        }else if($this->current_date >= '20231201' && $this->current_date <= '20231209'){
             $this->current_red = 'Relen_Relep';
             $this->current_sede = 'Salle';
-            $this->maxRevisiones = 5;
+            $this->maxRevisiones = 4;
         }else{
             http_response_code(404);
             exit;
