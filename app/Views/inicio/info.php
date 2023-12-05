@@ -146,7 +146,7 @@
           <div class="form-group mt-5">
             <b>Muy importante:</b>
             <p>
-              Para poder acceder a la Constancia de Asistencia del Congreso, es indispensable que participe en las ponencias de sus colegas y las evalúe. Debe tener en cuenta que podrá recibirlo evaluando por lo menos una ponencia y el diploma incluirá su porcentaje de participación; se requieren <b>5</b> para obtener un 100% de participación. La Constancia de Ponencia sólo podrá recibirla al haber presentado su ponencia en el día, lugar y modalidad asignada.
+              Para poder acceder a la Constancia de Asistencia del Congreso, es indispensable que participe en las ponencias de sus colegas y las evalúe. Debe tener en cuenta que podrá recibirlo evaluando por lo menos una ponencia y el diploma incluirá su porcentaje de participación; se requieren <b>6</b> para obtener un 100% de participación. La Constancia de Ponencia sólo podrá recibirla al haber presentado su ponencia en el día, lugar y modalidad asignada.
             </p>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="check">
@@ -169,7 +169,7 @@
 
           <div class="botones mt-5">
             <div class="row">
-              <a href="#" id="gafete" class="btn btn-info btn-block text-white">Ir a VIVE REDESLA <i class="fas fa-arrow-alt-circle-right"></i></a>
+              <a href="#" id="gafete" class="btn btn-block text-white">Ir a VIVE REDESLA <i class="fas fa-arrow-alt-circle-right"></i></a>
             </div>
             <br>
             <div class="row">

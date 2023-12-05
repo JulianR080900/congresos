@@ -33,7 +33,7 @@ class PonenciaCalController extends MainController
         }else if($this->current_date >= '20231201' && $this->current_date <= '20231209'){
             $this->current_red = 'Relen_Relep';
             $this->current_sede = 'Salle';
-            $this->maxRevisiones = 4;
+            $this->maxRevisiones = 5;
         }else{
             http_response_code(404);
             exit;

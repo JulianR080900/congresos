@@ -75,7 +75,7 @@ class MainController extends BaseController
         }else if($this->current_date >= '20231201' && $this->current_date <= '20231209'){  //$this->current_date >= '20231127'
             $this->current_red = 'Relen_Relep';
             $this->current_sede = 'Salle';
-            $this->maxRevisiones = 4;
+            $this->maxRevisiones = 5;
             $this->programa_ponencias_relen = 'https://redesla.la/redesla/horario/congreso/Relen/2023';
             $this->programa_ponencias_relep = 'https://redesla.la/redesla/horario/congreso/Relep/2023';
         }else{
