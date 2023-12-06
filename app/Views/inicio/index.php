@@ -70,8 +70,8 @@
 
 
     <!-- IMPORTANTE -->
-    <script src="//code.tidio.co/leucsw6pce16vxspleocxkahvrhmtneq.js" async></script>
-    <script src="public/js/landing/index.js"></script>
+    <script src="//code.tidio.co/onrjspbsz27sgsvveudcoezpoqs4eqxs.js" async></script>
+        <script src="public/js/landing/index.js"></script>
 
     <script>
         $(document).ready(function() {

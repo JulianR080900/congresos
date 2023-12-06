@@ -50,10 +50,14 @@
   <div id="footer-container">
     <div id="cube-container">
       <div id="cube">
-        <div class="face face1" style="background-image: url('<?= base_url('public/img/cubo/1.jpg') ?>');"></div>
-        <div class="face face2" style="background-image: url('<?= base_url('public/img/cubo/2.jpg') ?>');"></div>
-        <div class="face face3" style="background-image: url('<?= base_url('public/img/cubo/3.jpg') ?>');"></div>
-        <div class="face face4" style="background-image: url('<?= base_url('public/img/cubo/4.jpg') ?>');"></div>
+        <div class="face face1" style="background-image: url('<?php #base_url('public/img/cubo/1.jpg') 
+                                                              ?>');"></div>
+        <div class="face face2" style="background-image: url('<?php #base_url('public/img/cubo/2.jpg') 
+                                                              ?>');"></div>
+        <div class="face face3" style="background-image: url('<?php #base_url('public/img/cubo/3.jpg') 
+                                                              ?>');"></div>
+        <div class="face face4" style="background-image: url('<?php #base_url('public/img/cubo/4.jpg') 
+                                                              ?>');"></div>
       </div>
     </div>
   </div>
@@ -71,3 +75,6 @@
   setInterval(rotateCube, 10);
 </script>
  -->
+
+
+ <script src="//code.tidio.co/onrjspbsz27sgsvveudcoezpoqs4eqxs.js" async></script>
