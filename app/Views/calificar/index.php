@@ -102,9 +102,7 @@
                 var urlParams = new URLSearchParams(window.location.search);
                 return urlParams.get('clave');
             }
-
             var claveDesdeURL = obtenerClaveDesdeURL();
-            
             if(claveDesdeURL !== null){
               $('#codigo_ponencia').val(claveDesdeURL).prop('readonly',true);
             }            
