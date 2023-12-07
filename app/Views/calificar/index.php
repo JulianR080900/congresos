@@ -98,17 +98,16 @@
   <script src="<?= base_url('public/js/calificar/index.js') ?>"></script>
   <script>
         $(document).ready(function() {
-            // Función para obtener el valor de la clave desde la URL
             function obtenerClaveDesdeURL() {
                 var urlParams = new URLSearchParams(window.location.search);
                 return urlParams.get('clave');
             }
 
-            // Obtener la clave desde la URL
             var claveDesdeURL = obtenerClaveDesdeURL();
-
-            // Establecer la clave en el input utilizando jQuery
-            $('#codigo_ponencia').val(claveDesdeURL);
+            
+            if(claveDesdeURL !== null){
+              $('#codigo_ponencia').val(claveDesdeURL).prop('readonly',true);
+            }            
         });
     </script>
 </body>
