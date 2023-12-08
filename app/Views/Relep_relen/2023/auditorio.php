@@ -153,7 +153,7 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 				<div class="elementor-element elementor-element-7437063 elementor-absolute elementor-widget elementor-widget-button" data-id="7437063" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
 				<div class="elementor-widget-container">
 					<div class="elementor-button-wrapper">
-			<a class="elementor-button elementor-button-link elementor-size-sm" href="#">
+			<a class="elementor-button elementor-button-link elementor-size-sm" href="https://us02web.zoom.us/j/89876806073?pwd=UU1Pc2twNGV5a3F0Vkk1NFFSellhQT09">
 						<span class="elementor-button-content-wrapper">
 						<span class="elementor-button-text">Ingresar</span>
 		</span>
@@ -168,7 +168,7 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 								<div class="elementor-element elementor-element-79ecf70 elementor-absolute elementor-widget elementor-widget-button" data-id="79ecf70" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
 				<div class="elementor-widget-container">
 					<div class="elementor-button-wrapper">
-			<a class="elementor-button elementor-button-link elementor-size-md" href="#">
+			<a class="elementor-button elementor-button-link elementor-size-md" href="https://us02web.zoom.us/j/89876806073?pwd=UU1Pc2twNGV5a3F0Vkk1NFFSellhQT09">
 						<span class="elementor-button-content-wrapper">
 						<span class="elementor-button-text">Haz clic aquí</span>
 		</span>
@@ -183,7 +183,7 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 								<div class="elementor-element elementor-element-e162ad2 elementor-absolute elementor-widget elementor-widget-button" data-id="e162ad2" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
 				<div class="elementor-widget-container">
 					<div class="elementor-button-wrapper">
-			<a class="elementor-button elementor-button-link elementor-size-lg" href="#">
+			<a class="elementor-button elementor-button-link elementor-size-lg" href="https://us02web.zoom.us/j/89876806073?pwd=UU1Pc2twNGV5a3F0Vkk1NFFSellhQT09">
 						<span class="elementor-button-content-wrapper">
 						<span class="elementor-button-text">Haz clic aquí</span>
 		</span>
