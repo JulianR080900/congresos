@@ -155,7 +155,7 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 					<div class="elementor-button-wrapper">
 			<a class="elementor-button elementor-button-link elementor-size-sm" href="https://us02web.zoom.us/j/89876806073?pwd=UU1Pc2twNGV5a3F0Vkk1NFFSellhQT09">
 						<span class="elementor-button-content-wrapper">
-						<span class="elementor-button-text">Ingresar</span>
+						<span class="elementor-button-text">Ingresar ID: 898 7680 6073 Clave: REDESLA23</span>
 		</span>
 					</a>
 		</div>
