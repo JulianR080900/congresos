@@ -1173,7 +1173,7 @@
 						<div class="elementor-element elementor-element-ce3bb39 elementor-absolute elementor-widget__width-initial elementor-widget elementor-widget-button" data-id="ce3bb39" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="button.default">
 							<div class="elementor-widget-container">
 								<div class="elementor-button-wrapper">
-									<a class="elementor-button elementor-button-link elementor-size-sm" href="#">
+									<a class="elementor-button elementor-button-link elementor-size-sm" href="https://us02web.zoom.us/j/87212474652?pwd=a0JpNFRGUUtRenMzcEJZM2FRc0lEUT09">
 										<span class="elementor-button-content-wrapper">
 											<span class="elementor-button-text">Ingresar</span>
 										</span>
